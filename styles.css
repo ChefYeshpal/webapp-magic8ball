@@ -56,3 +56,7 @@ button#submit {
 #eight-ball.shake {
     animation: shake 0.6s ease;
 }
+
+input#question.shake {
+    animation: shake 0.3s ease;
+}
