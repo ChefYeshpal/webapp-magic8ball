@@ -24,25 +24,81 @@ button#submit {
 	cursor: pointer;
 }
 
+/* Visible interactive 8-ball (the one you click to ask) */
+#eight-ball {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background: #000; /* outer black ball */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 36px;
+	color: #000; /* dark 8 on light inner circle */
+	cursor: pointer;
+	box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+	position: relative;
+}
+
+/* small white inner circle (the window showing the 8) */
+#eight-ball::before {
+	content: '';
+	position: absolute;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: inset 0 -4px 8px rgba(0,0,0,0.12);
+}
+
+/* make the textual '8' sit above the pseudo element */
+#eight-ball { z-index: 1; }
+#eight-ball::before { z-index: 0; }
+#eight-ball .ball-num { position: relative; z-index: 2; color: #000; font-weight: 700; }
+
+#eight-ball:focus {
+	outline: 2px solid #fff;
+	outline-offset: 6px;
+}
+
+/* revealed 8-ball (pure CSS) */
 #eight-ball-img {
 	position: fixed;
 	left: 50%;
 	top: 50%;
-	/* keep it centered; use integer-scaled size to avoid blurring */
 	transform: translate(-50%, -50%);
-	width: 128px; /* 2x native 64px to keep crisp */
+	width: 128px;
 	height: 128px;
 	opacity: 0;
 	transition: transform 600ms ease, opacity 400ms ease, left 700ms ease, top 700ms ease;
 	z-index: 50;
-	border-radius: 8px;
-	box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-	/* keep the raster image crisp when scaled */
-	image-rendering: -webkit-optimize-contrast;
-	image-rendering: crisp-edges;
-	image-rendering: pixelated;
-	will-change: left, top, transform, opacity;
+	border-radius: 50%;
+	background: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: default;
 }
+
+/* inner white window */
+#eight-ball-img::before {
+	content: '';
+	position: absolute;
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	background: #fff;
+}
+
+/* the '8' */
+#eight-ball-img::after {
+	content: '8';
+	position: relative;
+	z-index: 1;
+	font-size: 40px;
+	color: #000;
+}
+
 #answer {
 	min-height: 10vh;
 	display: flex;
@@ -102,13 +158,23 @@ input#question.shake {
 
 /* move to corner */
 #eight-ball-img.move-to-corner {
-	/* move to top-left with padding to avoid clipping; keep integer upscale */
 	left: 20px;
 	right: auto;
 	top: 20px;
 	transform: translate(0, 0);
-	width: 128px; /* keep 2x size to be larger but sharp */
+	width: 128px;
 	height: 128px;
+}
+
+/* Hover: flip horizontally and show pointer */
+#eight-ball-img:hover {
+	cursor: pointer;
+	transform: translate(-50%, -50%) rotateY(180deg);
+}
+
+/* When already in corner, preserve corner transform but flip horizontally */
+#eight-ball-img.move-to-corner:hover {
+	transform: translate(0, 0) rotateY(180deg);
 }
 
 /* Dialog that appears after the image moves */
