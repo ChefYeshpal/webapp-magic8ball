@@ -50,6 +50,9 @@ function giveAnswer() {
 }
 
 submitBtn.addEventListener('click', giveAnswer);
+// clicking the visible eight-ball should also submit the question
+const visibleBall = document.getElementById('eight-ball');
+if (visibleBall) visibleBall.addEventListener('click', giveAnswer);
 
 // Also allow pressing Enter in the input to submit
 questionInput.addEventListener('keydown', function (e) {
