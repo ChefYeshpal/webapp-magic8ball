@@ -10,8 +10,15 @@ function giveAnswer() {
         return;
     }
 
-    const randomIndex = Math.floor(Math.random() * magicAnswers.length);
-    answerE1.textContent = magicAnswers[randomIndex];
+    answerE1.textContent = ''; // To clear previous answer
+    const eightBall = document.getElementById('eight-ball');
+    eightBall.classList.add('shake');
+
+    setTimeout(() => {
+        eightBall.classList.remove('shake');
+        const randomIndex = Math.floor(Math.random() * magicAnswers.length);
+        answerE1.textContent = magicAnswers[randomIndex];
+    }, 600);
 }
 
 submitBtn.addEventListener('click', giveAnswer);
