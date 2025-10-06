@@ -28,15 +28,20 @@ button#submit {
 	position: fixed;
 	left: 50%;
 	top: 50%;
-	transform: translate(-50%, -50%) scale(0.6);
-	width: 220px;
-	max-width: 80vw;
-	height: auto;
+	/* keep it centered; use integer-scaled size to avoid blurring */
+	transform: translate(-50%, -50%);
+	width: 128px; /* 2x native 64px to keep crisp */
+	height: 128px;
 	opacity: 0;
-	transition: transform 600ms ease, opacity 400ms ease, right 700ms ease, top 700ms ease;
+	transition: transform 600ms ease, opacity 400ms ease, left 700ms ease, top 700ms ease;
 	z-index: 50;
 	border-radius: 8px;
 	box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+	/* keep the raster image crisp when scaled */
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+	will-change: left, top, transform, opacity;
 }
 #answer {
 	min-height: 10vh;
@@ -97,12 +102,13 @@ input#question.shake {
 
 /* move to corner */
 #eight-ball-img.move-to-corner {
-	/* use right with a small padding to avoid clipping */
-	left: auto;
-	right: 20px;
+	/* move to top-left with padding to avoid clipping; keep integer upscale */
+	left: 20px;
+	right: auto;
 	top: 20px;
-	transform: translate(0, 0) scale(0.45);
-	width: 140px; /* smaller in the corner */
+	transform: translate(0, 0);
+	width: 128px; /* keep 2x size to be larger but sharp */
+	height: 128px;
 }
 
 /* Dialog that appears after the image moves */
