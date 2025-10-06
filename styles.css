@@ -44,5 +44,15 @@ button#submit {
 	justify-content: center;
 	font-size: 18px;
 	padding: 12px;
-	border-top: 1px solid #eee;
+	border-top: 1px solid #a15050;
+}
+
+@keyframes shake {
+    0%, 100% { transform: rotate(0deg); }
+    20%, 60% { transform: rotate(-20deg); }
+    40%, 80% { transform: rotate(20deg);}
+}
+
+#eight-ball.shake {
+    animation: shake 0.6s ease;
 }
