@@ -60,3 +60,66 @@ button#submit {
 input#question.shake {
     animation: shake 0.3s ease;
 }
+
+/* Fullscreen black overlay used in the secret sequence */
+#black-overlay {
+	position: fixed;
+	inset: 0;
+	background: #000;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 300ms ease;
+	z-index: 40;
+}
+#black-overlay.visible {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+/* Hidden 8ball image used for the reveal. Starts centered, then moves to corner */
+#eight-ball-img {
+	position: fixed;
+	left: 10%;
+	top: 10%;
+	transform: translate(-50%, -50%) scale(0.6);
+	width: 220px;
+	height: auto;
+	opacity: 0;
+	transition: transform 600ms ease, opacity 400ms ease, left 700ms ease, top 700ms ease;
+	z-index: 50;
+	border-radius: 8px;
+	box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+#eight-ball-img.visible {
+	opacity: 1;
+}
+
+/* move to corner */
+#eight-ball-img.move-to-corner {
+	left: calc(100% - 90px);
+	top: 20px;
+	transform: translate(0, 0) scale(0.45);
+}
+
+/* Dialog that appears after the image moves */
+#sentient-dialog {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background: #111;
+	color: #eaeaea;
+	padding: 18px;
+	border-radius: 8px;
+	box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+	z-index: 60;
+	width: min(560px, 90%);
+	max-width: 90%;
+	text-align: left;
+}
+
+.hidden { display: none; }
+
+#dialog-text { white-space: pre-wrap; min-height: 64px; }
+.dialog-buttons { margin-top: 12px; display: flex; gap: 8px; justify-content: center; }
+.dialog-buttons button { padding: 8px 12px; font-size: 15px; cursor: pointer; }
