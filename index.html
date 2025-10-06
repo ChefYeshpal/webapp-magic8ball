@@ -15,6 +15,18 @@
 
     <div id="answer" aria-live="polite"></div>
 
+    <!-- Hidden elements used by the secret sentience flow -->
+    <div id="black-overlay" aria-hidden="true"></div>
+    <img id="eight-ball-img" src="8ball.png" alt="Magic 8 Ball" aria-hidden="true">
+
+    <div id="sentient-dialog" class="hidden" role="dialog" aria-hidden="true">
+        <div id="dialog-text"></div>
+        <div class="dialog-buttons">
+            <button id="dialog-yes">Yes</button>
+            <button id="dialog-no">No</button>
+        </div>
+    </div>
+
     <script src="answers-data.js"></script>
     <script src="main.js"></script>
 </body>
