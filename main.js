@@ -1,10 +1,22 @@
-document.getElementById('eight-ball').oneclick = function() {
-    let question = document.getElementById('question').ariaValueMax.trim();
-    let answerE1 = document.getElementById('answer');
-    if(!question) {
-        answerE1.textContent = "Please ask a question first.";
+// Minimal logic: when user clicks the Ask button, pick a random answer and show it.
+const submitBtn = document.getElementById('submit');
+const questionInput = document.getElementById('question');
+const answerE1 = document.getElementById('answer');
+
+function giveAnswer() {
+    const question = questionInput.value.trim();
+    if (!question) {
+        answerE1.textContent = 'Please ask a question first.';
         return;
     }
-    let randomIndex = Math.floor(Math.random() * magicAnswers.length);
+
+    const randomIndex = Math.floor(Math.random() * magicAnswers.length);
     answerE1.textContent = magicAnswers[randomIndex];
 }
+
+submitBtn.addEventListener('click', giveAnswer);
+
+// Also allow pressing Enter in the input to submit
+questionInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') giveAnswer();
+});
