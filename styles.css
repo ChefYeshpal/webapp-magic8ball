@@ -36,7 +36,6 @@ button#submit {
 	font-size: 36px;
 	color: #000; /* dark 8 on light inner circle */
 	cursor: pointer;
-	box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 	position: relative;
 }
 
