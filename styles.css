@@ -217,3 +217,142 @@ input#question.shake {
 #dialog-text { white-space: pre-wrap; min-height: 64px; }
 .dialog-buttons { margin-top: 12px; display: flex; gap: 8px; justify-content: center; }
 .dialog-buttons button { padding: 8px 12px; font-size: 15px; cursor: pointer; }
+
+/* --- Potion brewing scene styles --- */
+#potion-scene {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    overflow: hidden;
+}
+
+/* Wall background (upper 3/4 of screen) - complementary to brown table */
+#potion-wall {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 75vh;
+    background: linear-gradient(180deg, #8B7D6B 0%, #A0927E  100%);
+    /* Warm stone/plaster wall color that complements brown */
+}
+
+/* Table surface (bottom 1/4 of screen) */
+#potion-table {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25vh;
+    background: linear-gradient(180deg, #8B4513 0%, #A0522D 50%, #654321 100%);
+    /* Rich brown wooden table */
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Dialogue box in the bottom 1/4 (Pokemon-style) */
+#potion-dialogue-box {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    height: calc(25vh - 16px);
+    background: linear-gradient(180deg, #FFFACD 0%, #F5E6A3 100%);
+    /* Pale yellow like old Pokemon games */
+    border: 3px solid #8B4513;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 
+        inset 0 2px 4px rgba(255,255,255,0.6),
+        0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#potion-dialogue-text {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: #2F1B14;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    margin-bottom: 8px;
+}
+
+.potion-dialogue-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.potion-dialogue-buttons button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    background: #8B4513;
+    color: #FFFACD;
+    border: 2px solid #654321;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+.potion-dialogue-buttons button:hover {
+    background: #A0522D;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.potion-dialogue-buttons button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* 8-ball in the potion scene (repositioned on the table) */
+#potion-ball {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #333, #000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 
+        0 8px 16px rgba(0,0,0,0.4),
+        inset 0 -4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+}
+
+#potion-ball:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Inner white window for the 8 */
+#potion-ball::before {
+    content: '';
+    position: absolute;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, #f0f0f0);
+    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+/* The '8' character */
+#potion-ball::after {
+    content: '8';
+    position: relative;
+    z-index: 1;
+    font-size: 42px;
+    font-weight: bold;
+    color: #000;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
