@@ -339,38 +339,56 @@ async function startColorTheoryExplanation() {
         });
     }
 
+    // Wait for user input (Enter key or screen click)
+    function waitForUserInput() {
+        return new Promise((resolve) => {
+            function onKeyPress(e) {
+                if (e.key === 'Enter') {
+                    cleanup();
+                    resolve();
+                }
+            }
+            
+            function onScreenClick(e) {
+                cleanup();
+                resolve();
+            }
+            
+            function cleanup() {
+                document.removeEventListener('keydown', onKeyPress);
+                document.removeEventListener('click', onScreenClick);
+            }
+            
+            document.addEventListener('keydown', onKeyPress);
+            document.addEventListener('click', onScreenClick);
+        });
+    }
+
     // Start the color theory explanation with kid-friendly humor
-    await typeTextPromiseColorTheory(potionDialogueText, 'so, first, lets talk a little about colour theory.', 30);
+    await typeTextPromiseColorTheory(potionDialogueText, 'so, first, lets talk a little about colour theory.');
+    await waitForUserInput();
     
-    await new Promise((r) => setTimeout(r, 800));
+    await typeTextPromiseColorTheory(potionDialogueText, 'Think of colors like... ice cream flavors! You know how vanilla and chocolate make a swirl? Colors work the same way, but way more magical!');
+    await waitForUserInput();
     
-    await typeTextPromiseColorTheory(potionDialogueText, 'Think of colors like... ice cream flavors! You know how vanilla and chocolate make a swirl? Colors work the same way, but way more magical!', 30);
+    await typeTextPromiseColorTheory(potionDialogueText, 'There are three special colors called "primary colors" - Red, Blue, and Yellow. These are like the superhero colors! They\'re so cool they don\'t need any other colors to exist.');
+    await waitForUserInput();
     
-    await new Promise((r) => setTimeout(r, 1000));
+    await typeTextPromiseColorTheory(potionDialogueText, 'Now here\'s where it gets FUN! When you mix two primary colors together, they have babies! Well... color babies. Red + Yellow = Orange (like a sunset!)');
+    await waitForUserInput();
     
-    await typeTextPromiseColorTheory(potionDialogueText, 'There are three special colors called "primary colors" - Red, Blue, and Yellow. These are like the superhero colors! They\'re so cool they don\'t need any other colors to exist.', 30);
+    await typeTextPromiseColorTheory(potionDialogueText, 'Blue + Yellow = Green (like grass after it eats too much sunlight). And Red + Blue = Purple (the color of fancy wizards and grape juice!)');
+    await waitForUserInput();
     
-    await new Promise((r) => setTimeout(r, 1200));
+    await typeTextPromiseColorTheory(potionDialogueText, 'These new colors are called "secondary colors" - they\'re like the cool kids who are friends with the superheroes.');
+    await waitForUserInput();
     
-    await typeTextPromiseColorTheory(potionDialogueText, 'Now here\'s where it gets FUN! When you mix two primary colors together, they have babies! Well... color babies. Red + Yellow = Orange (like a sunset!)', 30);
+    await typeTextPromiseColorTheory(potionDialogueText, 'But WAIT! There\'s more! You can keep mixing! Add white to make colors lighter (like adding milk to coffee), or black to make them darker (like drawing in a shadowy cave).');
+    await waitForUserInput();
     
-    await new Promise((r) => setTimeout(r, 1000));
+    await typeTextPromiseColorTheory(potionDialogueText, 'And here\'s a secret: some colors are "complementary" - they\'re like best friends who look amazing together! Red loves Green, Blue adores Orange, and Yellow is BFFs with Purple!');
+    await waitForUserInput();
     
-    await typeTextPromiseColorTheory(potionDialogueText, 'Blue + Yellow = Green (like grass after it eats too much sunlight). And Red + Blue = Purple (the color of fancy wizards and grape juice!)', 30);
-    
-    await new Promise((r) => setTimeout(r, 1200));
-    
-    await typeTextPromiseColorTheory(potionDialogueText, 'These new colors are called "secondary colors" - they\'re like the cool kids who are friends with the superheroes.', 30);
-    
-    await new Promise((r) => setTimeout(r, 1000));
-    
-    await typeTextPromiseColorTheory(potionDialogueText, 'But WAIT! There\'s more! You can keep mixing! Add white to make colors lighter (like adding milk to coffee), or black to make them darker (like drawing in a shadowy cave).', 30);
-    
-    await new Promise((r) => setTimeout(r, 1200));
-    
-    await typeTextPromiseColorTheory(potionDialogueText, 'And here\'s a secret: some colors are "complementary" - they\'re like best friends who look amazing together! Red loves Green, Blue adores Orange, and Yellow is BFFs with Purple!', 30);
-    
-    await new Promise((r) => setTimeout(r, 1000));
-    
-    await typeTextPromiseColorTheory(potionDialogueText, 'Got all that, future potion master? Don\'t worry if it sounds like a lot - we\'ll start with easy recipes! Think of it like making the world\'s most colorful sandwich!', 30);
+    await typeTextPromiseColorTheory(potionDialogueText, 'Got all that, future potion master? Don\'t worry if it sounds like a lot - we\'ll start with easy recipes! Think of it like making the world\'s most colorful sandwich!');
+    await waitForUserInput();
 }
