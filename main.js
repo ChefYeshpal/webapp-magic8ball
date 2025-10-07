@@ -62,11 +62,12 @@ questionInput.addEventListener('keydown', function (e) {
 // --- Visual sequence for proving sentience ---
 function startProveSequence() {
     const eightBall = document.getElementById('eight-ball');
-    eightBall.classList.add('shake');
+    // make the visible 8-ball shake vigorously to draw attention
+    eightBall.classList.add('shake', 'shake-vigorous');
 
     // After the shake, fade to black and show the image
     setTimeout(() => {
-        eightBall.classList.remove('shake');
+        eightBall.classList.remove('shake', 'shake-vigorous');
         const overlay = document.getElementById('black-overlay');
         overlay.classList.add('visible');
 
@@ -79,20 +80,117 @@ function startProveSequence() {
 
             // After moving, show the dialog typing text
             setTimeout(() => {
-                showSentientDialog();
+                runSentientDialogSequence();
             }, 900);
 
         }, 600);
     }, 600);
 }
 
-function showSentientDialog() {
+// Orchestrates the multi-step, branching sentient dialog flow.
+async function runSentientDialogSequence() {
     const dialog = document.getElementById('sentient-dialog');
+    const dialogText = document.getElementById('dialog-text');
+    const yesBtn = document.getElementById('dialog-yes');
+    const noBtn = document.getElementById('dialog-no');
+    const overlay = document.getElementById('black-overlay');
+
     dialog.classList.remove('hidden');
     dialog.setAttribute('aria-hidden', 'false');
 
-    const dialogText = document.getElementById('dialog-text');
-    typeText(dialogText, 'ah finally... I like this form more, it\'s... low poly, but easier to maintain.\nso, you wanted to know what I can do huh?');
+    // Helper to show/hide buttons and set labels
+    function showSingleButton(label) {
+        yesBtn.style.display = '';
+        noBtn.style.display = 'none';
+        yesBtn.textContent = label;
+    }
+
+    function showTwoButtons(yesLabel, noLabel) {
+        yesBtn.style.display = '';
+        noBtn.style.display = '';
+        yesBtn.textContent = yesLabel;
+        noBtn.textContent = noLabel;
+    }
+
+    // Wait for a click on either button, returns 'yes' or 'no'
+    function waitForChoice(allowNo = false) {
+        return new Promise((resolve) => {
+            function cleanup() {
+                yesBtn.removeEventListener('click', onYes);
+                noBtn.removeEventListener('click', onNo);
+            }
+            function onYes() { cleanup(); resolve('yes'); }
+            function onNo() { cleanup(); resolve('no'); }
+            yesBtn.addEventListener('click', onYes);
+            if (allowNo) noBtn.addEventListener('click', onNo);
+        });
+    }
+
+    // Typewriter that returns a promise when finished
+    function typeTextPromise(el, text, speed = 30) {
+        el.textContent = '';
+        return new Promise((resolve) => {
+            let i = 0;
+            const t = setInterval(() => {
+                el.textContent += text.charAt(i);
+                i++;
+                if (i >= text.length) { clearInterval(t); resolve(); }
+            }, speed);
+        });
+    }
+
+    // Dialogue steps following user's design
+    await typeTextPromise(dialogText, 'ah finally... you figured it out huh?', 30);
+    showSingleButton('figured what out?');
+    await waitForChoice(false);
+
+    await typeTextPromise(dialogText, "well, that I'm a sentient 8 ball! magical isn't it?", 30);
+    showSingleButton('okay, so?');
+    await waitForChoice(false);
+
+    await typeTextPromise(dialogText, "so? SO?!?!? is that all you have to say-... you know what?\nI'll go straight to the point.", 30);
+    showSingleButton('go ahead');
+    await waitForChoice(false);
+
+    await typeTextPromise(dialogText, 'do you want to brew potions, my young human?', 30);
+    showSingleButton('what do I get out of it?');
+    await waitForChoice(false);
+
+    await typeTextPromise(dialogText, "you'll one day be able to become someone like me!", 30);
+    // now present the real choice
+    showTwoButtons('okay', 'no');
+    const choice = await waitForChoice(true);
+
+    if (choice === 'no') {
+        await typeTextPromise(dialogText, 'fine then, close this window and leave me be you fool!', 25);
+        // keep dialog visible so user can read it
+        showSingleButton('leave');
+        await waitForChoice(false);
+        // on leave, just clear dialog and overlay
+        dialog.classList.add('hidden');
+        dialog.setAttribute('aria-hidden', 'true');
+        overlay.classList.remove('visible');
+        const img = document.getElementById('eight-ball-img');
+        img.classList.remove('visible');
+        return;
+    }
+
+    // choice === 'yes'
+    await typeTextPromise(dialogText, 'good good... Now, let\'s continue.', 30);
+
+    // short pause then whiteout the screen
+    await new Promise((r) => setTimeout(r, 700));
+    overlay.style.background = '#fff';
+    overlay.classList.add('visible');
+
+    // hide the dialog and the eight-ball image so only white remains
+    dialog.classList.add('hidden');
+    dialog.setAttribute('aria-hidden', 'true');
+    const img = document.getElementById('eight-ball-img');
+    img.classList.remove('visible');
+    // optionally remove or hide the rest of the page content
+    document.querySelector('.container').style.display = 'none';
+    document.getElementById('answer').style.display = 'none';
 }
 
 // Simple typewriter: replaces content of el with typed text
