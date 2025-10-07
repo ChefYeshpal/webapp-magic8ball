@@ -9,3 +9,8 @@ What does it do? well, just type in your question, and it will give you a morall
 - 6 Oct 2025
     - Created repository and cloned it
     - Made the basic files required, index, styles, main, and answers-data
+    - Added random answer selector to questions asked, along with a answers-data sheet
+    - Added a phraseword.
+    - Added dialogue box, so that it shows up after I've typed in the specific phraseword
+
+-7 Oct 2025
