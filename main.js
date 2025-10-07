@@ -175,7 +175,7 @@ async function runSentientDialogSequence() {
         return;
     }
 
-    // choice === 'yes'
+    // if choice is 'yes'
     await typeTextPromise(dialogText, 'good good... Now, let\'s continue.', 30);
 
     // short pause then whiteout the screen
