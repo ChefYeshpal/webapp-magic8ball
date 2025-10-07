@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (no) no.addEventListener('click', () => {});
 });
 
-// --- Potion brewing scene ---
+// Potion brewing scene
 async function startPotionBrewingScene() {
     const overlay = document.getElementById('black-overlay');
     const potionScene = document.getElementById('potion-scene');
@@ -343,7 +343,7 @@ async function startColorTheoryExplanation() {
     function waitForUserInput() {
         return new Promise((resolve) => {
             function onKeyPress(e) {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' || e.key === 'Space') {
                     cleanup();
                     resolve();
                 }
