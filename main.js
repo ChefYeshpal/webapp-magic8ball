@@ -208,6 +208,29 @@ function typeText(el, text, speed = 30) {
     }, speed);
 }
 
+// Global wait-for-user-input helper used across potion/dialog flows
+function waitForUserInput() {
+    return new Promise((resolve) => {
+        function onKeyPress(e) {
+            // Accept Enter or Space
+            if (e.key === 'Enter' || e.key === ' ' || e.code === 'Space') {
+                cleanup();
+                resolve();
+            }
+        }
+        function onScreenClick() {
+            cleanup();
+            resolve();
+        }
+        function cleanup() {
+            document.removeEventListener('keydown', onKeyPress);
+            document.removeEventListener('click', onScreenClick);
+        }
+        document.addEventListener('keydown', onKeyPress);
+        document.addEventListener('click', onScreenClick);
+    });
+}
+
 // No-op for dialog buttons for now
 document.addEventListener('DOMContentLoaded', () => {
     const yes = document.getElementById('dialog-yes');
@@ -273,9 +296,11 @@ async function startPotionBrewingScene() {
         });
     }
 
-    // Start the potion brewing dialogue sequence
+    // Start the potion brewing dialogue sequence — user must advance after each line
     await typeTextPromisePotions(potionDialogueText, 'Good to know I can have an heir...\nanyways, do you know the basics of potion brewing? this is something that usually low level crooks do, but... it\'s got potential.', 30);
-    
+    // wait for the user to click or press Enter/Space
+    await waitForUserInput();
+
     showPotionTwoButtons('yes', 'no');
     const knowsBasics = await waitForPotionChoice(true);
 
@@ -287,26 +312,21 @@ async function startPotionBrewingScene() {
         await waitForUserInput();
     }
 
-    // Wait a moment before continuing with the explanation
-    await new Promise((r) => setTimeout(r, 800));
-    
     await typeTextPromisePotions(potionDialogueText, 'you\'ll have to make potions, by a very simple method of colour combination', 30);
     await waitForUserInput();
-    
-    await new Promise((r) => setTimeout(r, 600));
-    
+
     await typeTextPromisePotions(potionDialogueText, 'I\'ll give you the task of making a potion, including what colour your resulting potion should be of. The closer you are to the colour of the potion, the better it is.', 30);
     await waitForUserInput();
-    await new Promise((r) => setTimeout(r, 600));
-    
+
     await typeTextPromisePotions(potionDialogueText, 'You will be given a palette of colour, and you need to mix them in order to make that colour, just click on me if you need help.', 30);
     await waitForUserInput();
+
     // Hide buttons after explanation is complete
     potionYesBtn.style.display = 'none';
     potionNoBtn.style.display = 'none';
 
-    // Wait a moment, then move ball to corner and start color theory
-    await new Promise((r) => setTimeout(r, 1000));
+    // Small pause then move into color theory
+    await new Promise((r) => setTimeout(r, 300));
     startColorTheoryExplanation();
 }
 
@@ -342,30 +362,7 @@ async function startColorTheoryExplanation() {
         });
     }
 
-    // Wait for user input (Enter key or screen click)
-    function waitForUserInput() {
-        return new Promise((resolve) => {
-            function onKeyPress(e) {
-                if (e.key === 'Enter' || e.key === 'Space') {
-                    cleanup();
-                    resolve();
-                }
-            }
-            
-            function onScreenClick(e) {
-                cleanup();
-                resolve();
-            }
-            
-            function cleanup() {
-                document.removeEventListener('keydown', onKeyPress);
-                document.removeEventListener('click', onScreenClick);
-            }
-            
-            document.addEventListener('keydown', onKeyPress);
-            document.addEventListener('click', onScreenClick);
-        });
-    }
+    // Use global waitForUserInput helper to advance after each line
 
     // Start the color theory explanation with kid-friendly humor
     await typeTextPromiseColorTheory(potionDialogueText, 'so, first, lets talk a little about colour theory.');
