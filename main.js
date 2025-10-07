@@ -281,23 +281,26 @@ async function startPotionBrewingScene() {
 
     if (knowsBasics === 'no') {
         await typeTextPromisePotions(potionDialogueText, 'well then I\'ll tell you...', 30);
+        await waitForUserInput();
     } else {
         await typeTextPromisePotions(potionDialogueText, 'bah! you liar... I\'ll explain it to you anyways.', 30);
+        await waitForUserInput();
     }
 
     // Wait a moment before continuing with the explanation
     await new Promise((r) => setTimeout(r, 800));
     
     await typeTextPromisePotions(potionDialogueText, 'you\'ll have to make potions, by a very simple method of colour combination', 30);
+    await waitForUserInput();
     
     await new Promise((r) => setTimeout(r, 600));
     
     await typeTextPromisePotions(potionDialogueText, 'I\'ll give you the task of making a potion, including what colour your resulting potion should be of. The closer you are to the colour of the potion, the better it is.', 30);
-    
+    await waitForUserInput();
     await new Promise((r) => setTimeout(r, 600));
     
     await typeTextPromisePotions(potionDialogueText, 'You will be given a palette of colour, and you need to mix them in order to make that colour, just click on me if you need help.', 30);
-    
+    await waitForUserInput();
     // Hide buttons after explanation is complete
     potionYesBtn.style.display = 'none';
     potionNoBtn.style.display = 'none';
