@@ -109,13 +109,26 @@ button#submit {
 }
 
 @keyframes shake {
-    0%, 100% { transform: rotate(0deg); }
-    20%, 60% { transform: rotate(-20deg); }
-    40%, 80% { transform: rotate(20deg);}
+	0%, 100% { transform: rotate(0deg); }
+	10% { transform: rotate(-25deg); }
+	20% { transform: rotate(20deg); }
+	30% { transform: rotate(-18deg); }
+	40% { transform: rotate(16deg); }
+	50% { transform: rotate(-12deg); }
+	60% { transform: rotate(10deg); }
+	70% { transform: rotate(-6deg); }
+	80% { transform: rotate(4deg); }
+	90% { transform: rotate(-2deg); }
 }
 
 #eight-ball.shake {
-    animation: shake 0.6s ease;
+	animation: shake 0.9s cubic-bezier(.2,.9,.3,1.2);
+}
+
+/* extra class to make very vigorous shaking when proving sentience */
+#eight-ball.shake-vigorous {
+	animation-duration: 1200ms;
+	transform-origin: center center;
 }
 
 input#question.shake {
@@ -135,6 +148,12 @@ input#question.shake {
 #black-overlay.visible {
 	opacity: 1;
 	pointer-events: auto;
+}
+
+/* When the overlay switches to white for the final whiteout, animate background and opacity */
+#black-overlay.whiteout {
+	background: #fff;
+	transition: background 600ms ease, opacity 400ms ease;
 }
 
 /* Hidden 8ball image used for the reveal. Starts centered, then moves to corner */
