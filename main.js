@@ -191,6 +191,10 @@ async function runSentientDialogSequence() {
     // optionally remove or hide the rest of the page content
     document.querySelector('.container').style.display = 'none';
     document.getElementById('answer').style.display = 'none';
+
+    // After a pause, transition to the potion brewing scene
+    await new Promise((r) => setTimeout(r, 1000));
+    startPotionBrewingScene();
 }
 
 // Simple typewriter: replaces content of el with typed text
@@ -211,3 +215,162 @@ document.addEventListener('DOMContentLoaded', () => {
     if (yes) yes.addEventListener('click', () => {});
     if (no) no.addEventListener('click', () => {});
 });
+
+// --- Potion brewing scene ---
+async function startPotionBrewingScene() {
+    const overlay = document.getElementById('black-overlay');
+    const potionScene = document.getElementById('potion-scene');
+    const potionDialogueText = document.getElementById('potion-dialogue-text');
+    const potionYesBtn = document.getElementById('potion-yes');
+    const potionNoBtn = document.getElementById('potion-no');
+    const potionBall = document.getElementById('potion-ball');
+
+    // Fade out the white overlay and show the potion scene
+    overlay.style.opacity = '0';
+    await new Promise((r) => setTimeout(r, 500));
+    overlay.classList.remove('visible');
+    
+    // Show the potion brewing environment
+    potionScene.classList.remove('hidden');
+    potionScene.setAttribute('aria-hidden', 'false');
+
+    // Helper functions for button management
+    function showPotionSingleButton(label) {
+        potionYesBtn.style.display = '';
+        potionNoBtn.style.display = 'none';
+        potionYesBtn.textContent = label;
+    }
+
+    function showPotionTwoButtons(yesLabel, noLabel) {
+        potionYesBtn.style.display = '';
+        potionNoBtn.style.display = '';
+        potionYesBtn.textContent = yesLabel;
+        potionNoBtn.textContent = noLabel;
+    }
+
+    function waitForPotionChoice(allowNo = false) {
+        return new Promise((resolve) => {
+            function cleanup() {
+                potionYesBtn.removeEventListener('click', onYes);
+                potionNoBtn.removeEventListener('click', onNo);
+            }
+            function onYes() { cleanup(); resolve('yes'); }
+            function onNo() { cleanup(); resolve('no'); }
+            potionYesBtn.addEventListener('click', onYes);
+            if (allowNo) potionNoBtn.addEventListener('click', onNo);
+        });
+    }
+
+    function typeTextPromisePotions(el, text, speed = 30) {
+        el.textContent = '';
+        return new Promise((resolve) => {
+            let i = 0;
+            const t = setInterval(() => {
+                el.textContent += text.charAt(i);
+                i++;
+                if (i >= text.length) { clearInterval(t); resolve(); }
+            }, speed);
+        });
+    }
+
+    // Start the potion brewing dialogue sequence
+    await typeTextPromisePotions(potionDialogueText, 'Good to know I can have an heir...\nanyways, do you know the basics of potion brewing? this is something that usually low level crooks do, but... it\'s got potential.', 30);
+    
+    showPotionTwoButtons('yes', 'no');
+    const knowsBasics = await waitForPotionChoice(true);
+
+    if (knowsBasics === 'no') {
+        await typeTextPromisePotions(potionDialogueText, 'well then I\'ll tell you...', 30);
+    } else {
+        await typeTextPromisePotions(potionDialogueText, 'bah! you liar... I\'ll explain it to you anyways.', 30);
+    }
+
+    // Wait a moment before continuing with the explanation
+    await new Promise((r) => setTimeout(r, 800));
+    
+    await typeTextPromisePotions(potionDialogueText, 'you\'ll have to make potions, by a very simple method of colour combination', 30);
+    
+    await new Promise((r) => setTimeout(r, 600));
+    
+    await typeTextPromisePotions(potionDialogueText, 'I\'ll give you the task of making a potion, including what colour your resulting potion should be of. The closer you are to the colour of the potion, the better it is.', 30);
+    
+    await new Promise((r) => setTimeout(r, 600));
+    
+    await typeTextPromisePotions(potionDialogueText, 'You will be given a palette of colour, and you need to mix them in order to make that colour, just click on me if you need help.', 30);
+    
+    // Hide buttons after explanation is complete
+    potionYesBtn.style.display = 'none';
+    potionNoBtn.style.display = 'none';
+
+    // Wait a moment, then move ball to corner and start color theory
+    await new Promise((r) => setTimeout(r, 1000));
+    startColorTheoryExplanation();
+}
+
+// --- Color theory explanation sequence ---
+async function startColorTheoryExplanation() {
+    const potionBall = document.getElementById('potion-ball');
+    const potionDialogueBox = document.getElementById('potion-dialogue-box');
+    const potionDialogueText = document.getElementById('potion-dialogue-text');
+
+    // Move ball to top-left corner
+    potionBall.style.transition = 'all 0.8s ease';
+    potionBall.style.top = '60px';
+    potionBall.style.left = '60px';
+    potionBall.style.transform = 'translate(0, 0)';
+    
+    // Hide dialogue box temporarily
+    potionDialogueBox.style.opacity = '0';
+    
+    await new Promise((r) => setTimeout(r, 800));
+    
+    // Show dialogue box again and start color theory explanation
+    potionDialogueBox.style.opacity = '1';
+    
+    function typeTextPromiseColorTheory(el, text, speed = 30) {
+        el.textContent = '';
+        return new Promise((resolve) => {
+            let i = 0;
+            const t = setInterval(() => {
+                el.textContent += text.charAt(i);
+                i++;
+                if (i >= text.length) { clearInterval(t); resolve(); }
+            }, speed);
+        });
+    }
+
+    // Start the color theory explanation with kid-friendly humor
+    await typeTextPromiseColorTheory(potionDialogueText, 'so, first, lets talk a little about colour theory.', 30);
+    
+    await new Promise((r) => setTimeout(r, 800));
+    
+    await typeTextPromiseColorTheory(potionDialogueText, 'Think of colors like... ice cream flavors! You know how vanilla and chocolate make a swirl? Colors work the same way, but way more magical!', 30);
+    
+    await new Promise((r) => setTimeout(r, 1000));
+    
+    await typeTextPromiseColorTheory(potionDialogueText, 'There are three special colors called "primary colors" - Red, Blue, and Yellow. These are like the superhero colors! They\'re so cool they don\'t need any other colors to exist.', 30);
+    
+    await new Promise((r) => setTimeout(r, 1200));
+    
+    await typeTextPromiseColorTheory(potionDialogueText, 'Now here\'s where it gets FUN! When you mix two primary colors together, they have babies! Well... color babies. Red + Yellow = Orange (like a sunset!)', 30);
+    
+    await new Promise((r) => setTimeout(r, 1000));
+    
+    await typeTextPromiseColorTheory(potionDialogueText, 'Blue + Yellow = Green (like grass after it eats too much sunlight). And Red + Blue = Purple (the color of fancy wizards and grape juice!)', 30);
+    
+    await new Promise((r) => setTimeout(r, 1200));
+    
+    await typeTextPromiseColorTheory(potionDialogueText, 'These new colors are called "secondary colors" - they\'re like the cool kids who are friends with the superheroes.', 30);
+    
+    await new Promise((r) => setTimeout(r, 1000));
+    
+    await typeTextPromiseColorTheory(potionDialogueText, 'But WAIT! There\'s more! You can keep mixing! Add white to make colors lighter (like adding milk to coffee), or black to make them darker (like drawing in a shadowy cave).', 30);
+    
+    await new Promise((r) => setTimeout(r, 1200));
+    
+    await typeTextPromiseColorTheory(potionDialogueText, 'And here\'s a secret: some colors are "complementary" - they\'re like best friends who look amazing together! Red loves Green, Blue adores Orange, and Yellow is BFFs with Purple!', 30);
+    
+    await new Promise((r) => setTimeout(r, 1000));
+    
+    await typeTextPromiseColorTheory(potionDialogueText, 'Got all that, future potion master? Don\'t worry if it sounds like a lot - we\'ll start with easy recipes! Think of it like making the world\'s most colorful sandwich!', 30);
+}
