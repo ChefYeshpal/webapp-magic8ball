@@ -14,3 +14,12 @@ What does it do? well, just type in your question, and it will give you a morall
     - Added dialogue box, so that it shows up after I've typed in the specific phraseword
 
 -7 Oct 2025
+    - Added await lines
+        - Basically, the user will need to press enter, space, or click the screen for the dialogue to go forwards
+        - This is only for when they are in the potion making thing
+    - Added potion scenes
+        - 1/4th of bottom screen is the table
+        - 3/4th of the top screen is the wall
+        - 1/4th of the bottom screen is the dialogue box for the 8ball, maybe jazz it up a bit so that it looks like an actual dialogue box?
+    - Added dialogue explanations for colour theory
+        - Used ai for this, seriously you expect me to somehow make colourtheory for babies? come on....
