@@ -49,12 +49,30 @@
             
             <div id="mixing-area">
                 <div id="mixing-circle"></div>
-                <div id="red-source" class="color-source" data-color="red"></div>
-                <div id="blue-source" class="color-source" data-color="blue"></div>
-                <div id="yellow-source" class="color-source" data-color="yellow"></div>
+                
+                <div class="color-slider-container">
+                    <label for="red-slider">Red</label>
+                    <input type="range" id="red-slider" class="color-slider" min="0" max="100" value="0" data-color="red">
+                    <span class="slider-value">0%</span>
+                </div>
+                
+                <div class="color-slider-container">
+                    <label for="blue-slider">Blue</label>
+                    <input type="range" id="blue-slider" class="color-slider" min="0" max="100" value="0" data-color="blue">
+                    <span class="slider-value">0%</span>
+                </div>
+                
+                <div class="color-slider-container">
+                    <label for="yellow-slider">Yellow</label>
+                    <input type="range" id="yellow-slider" class="color-slider" min="0" max="100" value="0" data-color="yellow">
+                    <span class="slider-value">0%</span>
+                </div>
             </div>
             
-            <button id="submit-mixture">Submit Potion</button>
+            <div class="game-buttons">
+                <button id="reset-mixture">Reset</button>
+                <button id="submit-mixture">Submit Potion</button>
+            </div>
         </div>
     </div>
 

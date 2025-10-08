@@ -446,148 +446,122 @@ function generateTargetColor() {
 
 function setupColorMixingInteractions() {
     const mixingCircle = document.getElementById('mixing-circle');
-    const colorSources = document.querySelectorAll('.color-source');
+    const redSlider = document.getElementById('red-slider');
+    const blueSlider = document.getElementById('blue-slider');
+    const yellowSlider = document.getElementById('yellow-slider');
     const submitBtn = document.getElementById('submit-mixture');
+    const resetBtn = document.getElementById('reset-mixture');
     
-    // Reset mixture
-    currentMixture = { red: 0, blue: 0, yellow: 0 };
-    updateMixingCircleColor();
+    // Reset mixture and sliders
+    resetMixture();
     
-    // Set up drag and drop for each color source
-    colorSources.forEach(source => {
-        setupColorSourceDragging(source, mixingCircle);
+    // Set up slider event listeners
+    [redSlider, blueSlider, yellowSlider].forEach(slider => {
+        slider.addEventListener('input', handleSliderChange);
+        slider.addEventListener('change', handleSliderChange);
     });
     
-    // Submit button handler
+    // Button event listeners
     submitBtn.addEventListener('click', evaluateMixture);
-}
-
-function setupColorSourceDragging(source, mixingCircle) {
-    let isDragging = false;
-    let startPos = { x: 0, y: 0 };
+    resetBtn.addEventListener('click', resetMixture);
     
-    // Mouse events
-    source.addEventListener('mousedown', startDrag);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', endDrag);
-    
-    // Touch events for mobile/trackpad
-    source.addEventListener('touchstart', startDragTouch, { passive: false });
-    document.addEventListener('touchmove', dragTouch, { passive: false });
-    document.addEventListener('touchend', endDrag);
-    
-    function startDrag(e) {
-        isDragging = true;
-        startPos = { x: e.clientX, y: e.clientY };
-        source.style.zIndex = '100';
+    function handleSliderChange(e) {
+        const color = e.target.dataset.color;
+        const value = parseInt(e.target.value);
+        
+        // Update mixture ratios (convert percentage to 0-1 range)
+        currentMixture[color] = value / 100;
+        
+        // Update the percentage display
+        const valueSpan = e.target.parentNode.querySelector('.slider-value');
+        valueSpan.textContent = value + '%';
+        
+        // Update mixing circle color
+        updateMixingCircleColor();
     }
     
-    function startDragTouch(e) {
-        e.preventDefault();
-        const touch = e.touches[0];
-        isDragging = true;
-        startPos = { x: touch.clientX, y: touch.clientY };
-        source.style.zIndex = '100';
+    function resetMixture() {
+        // Reset mixture values
+        currentMixture = { red: 0, blue: 0, yellow: 0 };
+        
+        // Reset all sliders
+        redSlider.value = 0;
+        blueSlider.value = 0;
+        yellowSlider.value = 0;
+        
+        // Reset percentage displays
+        document.querySelectorAll('.slider-value').forEach(span => {
+            span.textContent = '0%';
+        });
+        
+        // Update mixing circle to white
+        updateMixingCircleColor();
     }
-    
-    function drag(e) {
-        if (!isDragging) return;
-        
-        const deltaX = e.clientX - startPos.x;
-        const deltaY = e.clientY - startPos.y;
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
-        // Check if we're dragging over the mixing circle
-        const mixingRect = mixingCircle.getBoundingClientRect();
-        const mixingCenterX = mixingRect.left + mixingRect.width / 2;
-        const mixingCenterY = mixingRect.top + mixingRect.height / 2;
-        
-        const distanceToCenter = Math.sqrt(
-            Math.pow(e.clientX - mixingCenterX, 2) + 
-            Math.pow(e.clientY - mixingCenterY, 2)
-        );
-        
-        if (distanceToCenter < 80 && distance > 20) {
-            addColorToMixture(source.dataset.color, Math.min(distance / 100, 0.15));
-        }
-    }
-    
-    function dragTouch(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        
-        const touch = e.touches[0];
-        const deltaX = touch.clientX - startPos.x;
-        const deltaY = touch.clientY - startPos.y;
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
-        const mixingRect = mixingCircle.getBoundingClientRect();
-        const mixingCenterX = mixingRect.left + mixingRect.width / 2;
-        const mixingCenterY = mixingRect.top + mixingRect.height / 2;
-        
-        const distanceToCenter = Math.sqrt(
-            Math.pow(touch.clientX - mixingCenterX, 2) + 
-            Math.pow(touch.clientY - mixingCenterY, 2)
-        );
-        
-        if (distanceToCenter < 80 && distance > 20) {
-            addColorToMixture(source.dataset.color, Math.min(distance / 100, 0.15));
-        }
-    }
-    
-    function endDrag() {
-        if (isDragging) {
-            isDragging = false;
-            source.style.zIndex = '';
-        }
-    }
-}
-
-function addColorToMixture(colorName, amount) {
-    // Limit maximum mixture amounts
-    const maxAmount = 1.0;
-    currentMixture[colorName] = Math.min(currentMixture[colorName] + amount, maxAmount);
-    updateMixingCircleColor();
 }
 
 function updateMixingCircleColor() {
     const mixingCircle = document.getElementById('mixing-circle');
     
-    // Convert mixture ratios to RGB values
-    const red = Math.min(255, currentMixture.red * 255);
-    const blue = Math.min(255, currentMixture.blue * 255);
-    const yellow = Math.min(255, currentMixture.yellow * 255);
+    // Get the mixture ratios (0-1 range)
+    const redRatio = currentMixture.red;
+    const blueRatio = currentMixture.blue;
+    const yellowRatio = currentMixture.yellow;
     
-    // Blend colors (simplified color mixing)
-    let finalR = red;
-    let finalG = yellow;
-    let finalB = blue;
+    // Start with white background
+    let finalR = 255;
+    let finalG = 255;
+    let finalB = 255;
     
-    // Handle color mixing logic
-    if (currentMixture.red > 0 && currentMixture.yellow > 0) {
-        // Red + Yellow = Orange
-        finalR = Math.min(255, red + yellow * 0.8);
-        finalG = Math.min(255, yellow * 0.6);
-        finalB = Math.max(0, finalB - (red + yellow) * 0.3);
-    }
-    
-    if (currentMixture.blue > 0 && currentMixture.yellow > 0) {
-        // Blue + Yellow = Green
-        finalG = Math.min(255, blue * 0.5 + yellow);
-        finalR = Math.max(0, finalR - blue * 0.5);
-        finalB = Math.max(0, blue - yellow * 0.3);
-    }
-    
-    if (currentMixture.red > 0 && currentMixture.blue > 0) {
-        // Red + Blue = Purple
-        finalR = Math.min(255, red);
-        finalB = Math.min(255, blue);
-        finalG = Math.max(0, finalG - (red + blue) * 0.4);
-    }
-    
-    // Ensure we don't go below white when no colors are mixed
-    if (currentMixture.red === 0 && currentMixture.blue === 0 && currentMixture.yellow === 0) {
-        finalR = finalG = finalB = 255;
+    // Apply color mixing based on ratios
+    if (redRatio > 0 || blueRatio > 0 || yellowRatio > 0) {
+        // Calculate base colors
+        const redContribution = redRatio * 255;
+        const blueContribution = blueRatio * 255;
+        const yellowContribution = yellowRatio * 255;
+        
+        // Start with black and add colors
+        finalR = 0;
+        finalG = 0;
+        finalB = 0;
+        
+        // Add red
+        finalR += redContribution;
+        
+        // Add blue
+        finalB += blueContribution;
+        
+        // Add yellow (yellow = red + green in RGB)
+        finalR += yellowContribution;
+        finalG += yellowContribution;
+        
+        // Handle color mixing combinations
+        if (redRatio > 0 && yellowRatio > 0) {
+            // Red + Yellow = Orange (enhance red, moderate green)
+            finalR = Math.min(255, finalR * 1.1);
+            finalG = Math.min(255, finalG * 0.6);
+        }
+        
+        if (blueRatio > 0 && yellowRatio > 0) {
+            // Blue + Yellow = Green (enhance green, reduce red and blue)
+            finalG = Math.min(255, (blueContribution + yellowContribution) * 0.8);
+            finalR = Math.max(0, finalR * 0.3);
+            finalB = Math.max(0, finalB * 0.3);
+        }
+        
+        if (redRatio > 0 && blueRatio > 0) {
+            // Red + Blue = Purple (keep red and blue, reduce green)
+            finalG = Math.max(0, finalG * 0.2);
+        }
+        
+        // Normalize to 0-255 range
+        finalR = Math.min(255, Math.max(0, finalR));
+        finalG = Math.min(255, Math.max(0, finalG));
+        finalB = Math.min(255, Math.max(0, finalB));
+        
+        // If no colors are mixed, stay white
+        if (redRatio === 0 && blueRatio === 0 && yellowRatio === 0) {
+            finalR = finalG = finalB = 255;
+        }
     }
     
     mixingCircle.style.background = `rgb(${Math.round(finalR)}, ${Math.round(finalG)}, ${Math.round(finalB)})`;
