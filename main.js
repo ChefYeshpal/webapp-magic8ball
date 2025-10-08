@@ -400,6 +400,8 @@ async function startColorTheoryExplanation() {
 // --- Color mixing game ---
 let currentMixture = { red: 0, blue: 0, yellow: 0 };
 let targetColor = null;
+let isDragging = false;
+let draggedColor = null;
 
 function startColorMixingGame() {
     const potionDialogueBox = document.getElementById('potion-dialogue-box');
@@ -423,7 +425,7 @@ function startColorMixingGame() {
         
         // Generate random target color and set up game
         generateTargetColor();
-        setupColorMixingInteractions();
+        setupDragAndDropInteractions();
     }, 400);
 }
 
@@ -446,85 +448,111 @@ function generateTargetColor() {
     targetName.textContent = targetColor.name;
 }
 
-function setupColorMixingInteractions() {
+function setupDragAndDropInteractions() {
     const mixingCircle = document.getElementById('mixing-circle');
-    const redSlider = document.getElementById('red-slider');
-    const blueSlider = document.getElementById('blue-slider');
-    const yellowSlider = document.getElementById('yellow-slider');
+    const colorSources = document.querySelectorAll('.color-source');
     const submitBtn = document.getElementById('submit-mixture');
     const resetBtn = document.getElementById('reset-mixture');
     
-    // Reset mixture and sliders
+    // Reset mixture
     resetMixture();
     
-    // Set up slider event listeners
-    [redSlider, blueSlider, yellowSlider].forEach(slider => {
-        slider.addEventListener('input', handleSliderChange);
-        slider.addEventListener('change', handleSliderChange);
+    // Set up drag and drop for color sources
+    colorSources.forEach(source => {
+        source.addEventListener('mousedown', startDrag);
+        source.addEventListener('dragstart', e => e.preventDefault()); // Prevent default drag
     });
+    
+    // Global mouse events
+    document.addEventListener('mousemove', handleDrag);
+    document.addEventListener('mouseup', endDrag);
     
     // Button event listeners
     submitBtn.addEventListener('click', evaluateMixture);
     resetBtn.addEventListener('click', resetMixture);
     
-    function handleSliderChange(e) {
-        const color = e.target.dataset.color;
-        const value = parseInt(e.target.value);
+    function startDrag(e) {
+        isDragging = true;
+        draggedColor = e.target.dataset.color;
+        e.target.style.pointerEvents = 'none';
+        document.body.style.cursor = 'grabbing';
+        e.preventDefault();
+    }
+    
+    function handleDrag(e) {
+        if (!isDragging) return;
         
-        // Update mixture ratios (convert percentage to 0-1 range)
-        currentMixture[color] = value / 100;
-        
-        // Update the percentage display
-        const valueSpan = e.target.parentNode.querySelector('.slider-value');
-        valueSpan.textContent = value + '%';
-        
-        // Add ripple effect to mixing circle
+        // Calculate distance from mixing circle center
         const mixingCircle = document.getElementById('mixing-circle');
-        mixingCircle.classList.add('mixing');
-        setTimeout(() => mixingCircle.classList.remove('mixing'), 600);
+        const rect = mixingCircle.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
         
-        // Update mixing circle color and check if it has color
+        const distance = Math.sqrt(
+            Math.pow(e.clientX - centerX, 2) + 
+            Math.pow(e.clientY - centerY, 2)
+        );
+        
+        const maxDistance = 200; // Maximum effective distance
+        const circleRadius = 60; // Radius of mixing circle
+        
+        if (distance <= circleRadius) {
+            // Inside the mixing circle - add color based on proximity to center
+            const intensity = Math.max(0, (circleRadius - distance) / circleRadius) * 0.03;
+            adjustColor(draggedColor, intensity);
+        } else if (distance <= maxDistance) {
+            // Outside the circle but within range - remove color
+            const intensity = Math.max(0, (distance - circleRadius) / (maxDistance - circleRadius)) * 0.02;
+            adjustColor(draggedColor, -intensity);
+        }
+    }
+    
+    function endDrag(e) {
+        if (!isDragging) return;
+        
+        isDragging = false;
+        draggedColor = null;
+        document.body.style.cursor = 'default';
+        
+        // Re-enable pointer events on color sources
+        colorSources.forEach(source => {
+            source.style.pointerEvents = 'auto';
+        });
+    }
+    
+    function adjustColor(color, amount) {
+        currentMixture[color] = Math.max(0, Math.min(1, currentMixture[color] + amount));
         updateMixingCircleColor();
-        
-        // Update accuracy meter
-        updateAccuracyMeter();
+        updateAccuracyBar();
     }
     
     function resetMixture() {
         // Reset mixture values
         currentMixture = { red: 0, blue: 0, yellow: 0 };
         
-        // Reset all sliders
-        redSlider.value = 0;
-        blueSlider.value = 0;
-        yellowSlider.value = 0;
-        
-        // Reset percentage displays
-        document.querySelectorAll('.slider-value').forEach(span => {
-            span.textContent = '0%';
-        });
-        
         // Update mixing circle to white
         updateMixingCircleColor();
         
-        // Reset accuracy meter
-        updateAccuracyMeter();
+        // Reset accuracy bar
+        updateAccuracyBar();
     }
 }
 
-function updateAccuracyMeter() {
+function updateAccuracyBar() {
     if (!targetColor) return;
     
     const mixingCircle = document.getElementById('mixing-circle');
-    const accuracyBar = document.getElementById('accuracy-bar');
-    const accuracyText = document.getElementById('accuracy-text');
+    const accuracyArrow = document.getElementById('accuracy-arrow');
     
     // Get current color
     const currentStyle = getComputedStyle(mixingCircle);
     const currentBg = currentStyle.backgroundColor;
     const rgbMatch = currentBg.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
     
-    if (!rgbMatch) return;
+    if (!rgbMatch) {
+        accuracyArrow.style.left = '0%';
+        return;
+    }
     
     const currentR = parseInt(rgbMatch[1]);
     const currentG = parseInt(rgbMatch[2]);
@@ -539,34 +567,10 @@ function updateAccuracyMeter() {
     
     const maxDistance = Math.sqrt(3 * Math.pow(255, 2));
     const similarity = 1 - (distance / maxDistance);
-    const percentage = Math.round(similarity * 100);
+    const percentage = Math.max(0, Math.min(100, similarity * 100));
     
-    // Update accuracy bar
-    accuracyBar.style.setProperty('--accuracy', percentage + '%');
-    accuracyBar.querySelector('::after') || (accuracyBar.style.background = `linear-gradient(to right, 
-        #ff4444 0%, 
-        #ffff44 50%, 
-        #44ff44 100%), 
-        rgba(0,0,0,0.7)`);
-    
-    // Animate the bar
-    const afterElement = accuracyBar.querySelector('::after') || accuracyBar;
-    afterElement.style.right = (100 - percentage) + '%';
-    
-    // Update text
-    if (percentage < 20) {
-        accuracyText.textContent = '🤔 Keep trying...';
-    } else if (percentage < 40) {
-        accuracyText.textContent = '🧪 Getting warmer!';
-    } else if (percentage < 60) {
-        accuracyText.textContent = '⚗️ Not bad!';
-    } else if (percentage < 80) {
-        accuracyText.textContent = '✨ Very close!';
-    } else if (percentage < 95) {
-        accuracyText.textContent = '🎯 Almost perfect!';
-    } else {
-        accuracyText.textContent = '🏆 AMAZING!';
-    }
+    // Update arrow position (0% = left/red, 100% = right/green)
+    accuracyArrow.style.left = `${percentage}%`;
 }
 
 function updateMixingCircleColor() {
@@ -588,6 +592,58 @@ function updateMixingCircleColor() {
     
     // Start with white background
     let finalR = 255;
+    let finalG = 255;
+    let finalB = 255;
+    
+    // Apply color mixing based on ratios
+    if (hasColor) {
+        // Calculate base colors
+        const redContribution = redRatio * 255;
+        const blueContribution = blueRatio * 255;
+        const yellowContribution = yellowRatio * 255;
+        
+        // Start with black and add colors
+        finalR = 0;
+        finalG = 0;
+        finalB = 0;
+        
+        // Add red
+        finalR += redContribution;
+        
+        // Add blue
+        finalB += blueContribution;
+        
+        // Add yellow (yellow = red + green in RGB)
+        finalR += yellowContribution;
+        finalG += yellowContribution;
+        
+        // Handle color mixing combinations
+        if (redRatio > 0 && yellowRatio > 0) {
+            // Red + Yellow = Orange (enhance red, moderate green)
+            finalR = Math.min(255, finalR * 1.1);
+            finalG = Math.min(255, finalG * 0.6);
+        }
+        
+        if (blueRatio > 0 && yellowRatio > 0) {
+            // Blue + Yellow = Green (enhance green, reduce red and blue)
+            finalG = Math.min(255, (blueContribution + yellowContribution) * 0.8);
+            finalR = Math.max(0, finalR * 0.3);
+            finalB = Math.max(0, finalB * 0.3);
+        }
+        
+        if (redRatio > 0 && blueRatio > 0) {
+            // Red + Blue = Purple (keep red and blue, reduce green)
+            finalG = Math.max(0, finalG * 0.2);
+        }
+        
+        // Normalize to 0-255 range
+        finalR = Math.min(255, Math.max(0, finalR));
+        finalG = Math.min(255, Math.max(0, finalG));
+        finalB = Math.min(255, Math.max(0, finalB));
+    }
+    
+    mixingCircle.style.background = `rgb(${Math.round(finalR)}, ${Math.round(finalG)}, ${Math.round(finalB)})`;
+}
     let finalG = 255;
     let finalB = 255;
     

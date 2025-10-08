@@ -49,36 +49,19 @@
             </div>
             
             <div id="mixing-area">
-                <div id="mixing-circle">
-                    <div id="mixing-ripple"></div>
-                </div>
-                
-                <div class="color-slider-container">
-                    <div class="color-preview" id="red-preview"></div>
-                    <label for="red-slider">Red</label>
-                    <input type="range" id="red-slider" class="color-slider red-slider" min="0" max="100" value="0" data-color="red">
-                    <span class="slider-value">0%</span>
-                </div>
-                
-                <div class="color-slider-container">
-                    <div class="color-preview" id="blue-preview"></div>
-                    <label for="blue-slider">Blue</label>
-                    <input type="range" id="blue-slider" class="color-slider blue-slider" min="0" max="100" value="0" data-color="blue">
-                    <span class="slider-value">0%</span>
-                </div>
-                
-                <div class="color-slider-container">
-                    <div class="color-preview" id="yellow-preview"></div>
-                    <label for="yellow-slider">Yellow</label>
-                    <input type="range" id="yellow-slider" class="color-slider yellow-slider" min="0" max="100" value="0" data-color="yellow">
-                    <span class="slider-value">0%</span>
-                </div>
+                <div id="mixing-circle"></div>
+                <div id="red-source" class="color-source" data-color="red"></div>
+                <div id="blue-source" class="color-source" data-color="blue"></div>
+                <div id="yellow-source" class="color-source" data-color="yellow"></div>
             </div>
             
-            <div id="mixing-feedback">
-                <div id="accuracy-meter">
-                    <div id="accuracy-bar"></div>
-                    <span id="accuracy-text">Start mixing!</span>
+            <div id="accuracy-bar-container">
+                <div id="accuracy-bar">
+                    <div id="accuracy-arrow"></div>
+                </div>
+                <div id="accuracy-labels">
+                    <span>Bad</span>
+                    <span>Perfect!</span>
                 </div>
             </div>
             
