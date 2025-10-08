@@ -367,26 +367,26 @@ async function startColorTheoryExplanation() {
     // Start the color theory explanation with kid-friendly humor
     await typeTextPromiseColorTheory(potionDialogueText, 'so, first, lets talk a little about colour theory.');
     await waitForUserInput();
-    
-    await typeTextPromiseColorTheory(potionDialogueText, 'Think of colors like... ice cream flavors! You know how vanilla and chocolate make a swirl? Colors work the same way, but way more magical!');
+
+    await typeTextPromiseColorTheory(potionDialogueText, 'Think of colors like how you think of ice cream flavors. You know how vanilla and chocolate make a swirl? Colors work the same way, but yadayada magic.');
     await waitForUserInput();
     
-    await typeTextPromiseColorTheory(potionDialogueText, 'There are three special colors called "primary colors" - Red, Blue, and Yellow. These are like the superhero colors! They\'re so cool they don\'t need any other colors to exist.');
+    await typeTextPromiseColorTheory(potionDialogueText, 'There are three special colors called "primary colors" - Red, Blue, and Yellow. These are the main colors, they\'re the reason why all the other colours exist... like, a great great grandpa of colours.');
     await waitForUserInput();
     
-    await typeTextPromiseColorTheory(potionDialogueText, 'Now here\'s where it gets FUN! When you mix two primary colors together, they have babies! Well... color babies. Red + Yellow = Orange (like a sunset!)');
+    await typeTextPromiseColorTheory(potionDialogueText, 'Now here\'s where it gets fun! When you mix two primary colors together, they have babies! Well... color babies. Red + Yellow = Orange (like a sunset)');
     await waitForUserInput();
     
-    await typeTextPromiseColorTheory(potionDialogueText, 'Blue + Yellow = Green (like grass after it eats too much sunlight). And Red + Blue = Purple (the color of fancy wizards and grape juice!)');
+    await typeTextPromiseColorTheory(potionDialogueText, 'Blue + Yellow = Green (like grass after it eats too much sunlight). And Red + Blue = Purple (the color of fancy wizards and grape juice)');
     await waitForUserInput();
     
-    await typeTextPromiseColorTheory(potionDialogueText, 'These new colors are called "secondary colors" - they\'re like the cool kids who are friends with the superheroes.');
+    await typeTextPromiseColorTheory(potionDialogueText, 'These new colors are called "secondary colors" - they\'re the kids of the great great grandpa');
     await waitForUserInput();
     
     await typeTextPromiseColorTheory(potionDialogueText, 'But WAIT! There\'s more! You can keep mixing! Add white to make colors lighter (like adding milk to coffee), or black to make them darker (like drawing in a shadowy cave).');
     await waitForUserInput();
-    
-    await typeTextPromiseColorTheory(potionDialogueText, 'And here\'s a secret: some colors are "complementary" - they\'re like best friends who look amazing together! Red loves Green, Blue adores Orange, and Yellow is BFFs with Purple!');
+
+    await typeTextPromiseColorTheory(potionDialogueText, 'And here\'s a secret: some colors are "complementary" - they\'re like best friends who look amazing together! Red loves Green, Blue adores Orange, and Yellow is the bestie with Purple!');
     await waitForUserInput();
     
     await typeTextPromiseColorTheory(potionDialogueText, 'Got all that, future potion master? Don\'t worry if it sounds like a lot - we\'ll start with easy recipes! Think of it like making the world\'s most colorful sandwich!');
