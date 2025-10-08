@@ -45,33 +45,46 @@
             <div id="target-color-display">
                 <label>Target Color:</label>
                 <div id="target-color-sample"></div>
+                <div id="target-color-name">Purple</div>
             </div>
             
             <div id="mixing-area">
-                <div id="mixing-circle"></div>
+                <div id="mixing-circle">
+                    <div id="mixing-ripple"></div>
+                </div>
                 
                 <div class="color-slider-container">
+                    <div class="color-preview" id="red-preview"></div>
                     <label for="red-slider">Red</label>
-                    <input type="range" id="red-slider" class="color-slider" min="0" max="100" value="0" data-color="red">
+                    <input type="range" id="red-slider" class="color-slider red-slider" min="0" max="100" value="0" data-color="red">
                     <span class="slider-value">0%</span>
                 </div>
                 
                 <div class="color-slider-container">
+                    <div class="color-preview" id="blue-preview"></div>
                     <label for="blue-slider">Blue</label>
-                    <input type="range" id="blue-slider" class="color-slider" min="0" max="100" value="0" data-color="blue">
+                    <input type="range" id="blue-slider" class="color-slider blue-slider" min="0" max="100" value="0" data-color="blue">
                     <span class="slider-value">0%</span>
                 </div>
                 
                 <div class="color-slider-container">
+                    <div class="color-preview" id="yellow-preview"></div>
                     <label for="yellow-slider">Yellow</label>
-                    <input type="range" id="yellow-slider" class="color-slider" min="0" max="100" value="0" data-color="yellow">
+                    <input type="range" id="yellow-slider" class="color-slider yellow-slider" min="0" max="100" value="0" data-color="yellow">
                     <span class="slider-value">0%</span>
+                </div>
+            </div>
+            
+            <div id="mixing-feedback">
+                <div id="accuracy-meter">
+                    <div id="accuracy-bar"></div>
+                    <span id="accuracy-text">Start mixing!</span>
                 </div>
             </div>
             
             <div class="game-buttons">
-                <button id="reset-mixture">Reset</button>
-                <button id="submit-mixture">Submit Potion</button>
+                <button id="reset-mixture">🔄 Reset</button>
+                <button id="submit-mixture">🧪 Submit Potion</button>
             </div>
         </div>
     </div>

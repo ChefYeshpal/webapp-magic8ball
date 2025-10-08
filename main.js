@@ -441,7 +441,9 @@ function generateTargetColor() {
     targetColor = colors[Math.floor(Math.random() * colors.length)];
     
     const targetSample = document.getElementById('target-color-sample');
+    const targetName = document.getElementById('target-color-name');
     targetSample.style.background = `rgb(${targetColor.red}, ${targetColor.green}, ${targetColor.blue})`;
+    targetName.textContent = targetColor.name;
 }
 
 function setupColorMixingInteractions() {
@@ -476,8 +478,16 @@ function setupColorMixingInteractions() {
         const valueSpan = e.target.parentNode.querySelector('.slider-value');
         valueSpan.textContent = value + '%';
         
-        // Update mixing circle color
+        // Add ripple effect to mixing circle
+        const mixingCircle = document.getElementById('mixing-circle');
+        mixingCircle.classList.add('mixing');
+        setTimeout(() => mixingCircle.classList.remove('mixing'), 600);
+        
+        // Update mixing circle color and check if it has color
         updateMixingCircleColor();
+        
+        // Update accuracy meter
+        updateAccuracyMeter();
     }
     
     function resetMixture() {
@@ -496,6 +506,66 @@ function setupColorMixingInteractions() {
         
         // Update mixing circle to white
         updateMixingCircleColor();
+        
+        // Reset accuracy meter
+        updateAccuracyMeter();
+    }
+}
+
+function updateAccuracyMeter() {
+    if (!targetColor) return;
+    
+    const mixingCircle = document.getElementById('mixing-circle');
+    const accuracyBar = document.getElementById('accuracy-bar');
+    const accuracyText = document.getElementById('accuracy-text');
+    
+    // Get current color
+    const currentStyle = getComputedStyle(mixingCircle);
+    const currentBg = currentStyle.backgroundColor;
+    const rgbMatch = currentBg.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+    
+    if (!rgbMatch) return;
+    
+    const currentR = parseInt(rgbMatch[1]);
+    const currentG = parseInt(rgbMatch[2]);
+    const currentB = parseInt(rgbMatch[3]);
+    
+    // Calculate distance from target color
+    const distance = Math.sqrt(
+        Math.pow(currentR - targetColor.red, 2) +
+        Math.pow(currentG - targetColor.green, 2) +
+        Math.pow(currentB - targetColor.blue, 2)
+    );
+    
+    const maxDistance = Math.sqrt(3 * Math.pow(255, 2));
+    const similarity = 1 - (distance / maxDistance);
+    const percentage = Math.round(similarity * 100);
+    
+    // Update accuracy bar
+    accuracyBar.style.setProperty('--accuracy', percentage + '%');
+    accuracyBar.querySelector('::after') || (accuracyBar.style.background = `linear-gradient(to right, 
+        #ff4444 0%, 
+        #ffff44 50%, 
+        #44ff44 100%), 
+        rgba(0,0,0,0.7)`);
+    
+    // Animate the bar
+    const afterElement = accuracyBar.querySelector('::after') || accuracyBar;
+    afterElement.style.right = (100 - percentage) + '%';
+    
+    // Update text
+    if (percentage < 20) {
+        accuracyText.textContent = '🤔 Keep trying...';
+    } else if (percentage < 40) {
+        accuracyText.textContent = '🧪 Getting warmer!';
+    } else if (percentage < 60) {
+        accuracyText.textContent = '⚗️ Not bad!';
+    } else if (percentage < 80) {
+        accuracyText.textContent = '✨ Very close!';
+    } else if (percentage < 95) {
+        accuracyText.textContent = '🎯 Almost perfect!';
+    } else {
+        accuracyText.textContent = '🏆 AMAZING!';
     }
 }
 
@@ -507,13 +577,22 @@ function updateMixingCircleColor() {
     const blueRatio = currentMixture.blue;
     const yellowRatio = currentMixture.yellow;
     
+    // Check if any colors are mixed
+    const hasColor = redRatio > 0 || blueRatio > 0 || yellowRatio > 0;
+    
+    if (hasColor) {
+        mixingCircle.classList.add('has-color');
+    } else {
+        mixingCircle.classList.remove('has-color');
+    }
+    
     // Start with white background
     let finalR = 255;
     let finalG = 255;
     let finalB = 255;
     
     // Apply color mixing based on ratios
-    if (redRatio > 0 || blueRatio > 0 || yellowRatio > 0) {
+    if (hasColor) {
         // Calculate base colors
         const redContribution = redRatio * 255;
         const blueContribution = blueRatio * 255;
@@ -557,11 +636,6 @@ function updateMixingCircleColor() {
         finalR = Math.min(255, Math.max(0, finalR));
         finalG = Math.min(255, Math.max(0, finalG));
         finalB = Math.min(255, Math.max(0, finalB));
-        
-        // If no colors are mixed, stay white
-        if (redRatio === 0 && blueRatio === 0 && yellowRatio === 0) {
-            finalR = finalG = finalB = 255;
-        }
     }
     
     mixingCircle.style.background = `rgb(${Math.round(finalR)}, ${Math.round(finalG)}, ${Math.round(finalB)})`;
