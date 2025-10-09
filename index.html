@@ -6,31 +6,30 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="ball-bg">
+  <div class="container">
+    <!-- Center glass window with seeker dialogue -->
     <div class="glass-window">
-      <div class="inner-space">
-        <!-- Glass reflection effects -->
-        <div class="glass-reflection"></div>
-        <div class="glass-highlight"></div>
-        
-        <!-- Central seeker dialogue card -->
-        <div id="seeker-dialogue" class="seeker-card fade">
-          <div class="quote-mark left">"</div>
-          <div class="dialogue-text"></div>
-          <div class="quote-mark right">"</div>
-        </div>
-        
-        <!-- Options positioned around the window -->
-        <div class="options-container" id="options"></div>
-        
-        <!-- Connection line between seeker card and highlighted option -->
-        <svg class="connection-line" id="connection-line">
-          <path id="connection-path" d="" stroke="rgba(255, 215, 0, 0.6)" stroke-width="2" fill="none" />
-        </svg>
+      <div class="glass-highlight"></div>
+      <div class="seeker-card" id="seeker-dialogue">
+        <div class="quote-mark left">"</div>
+        <div class="dialogue-text" id="dialogue-text">Click an option to ask the Magic 8 Ball...</div>
+        <div class="quote-mark right">"</div>
       </div>
     </div>
+    
+    <!-- Options positioned around the window in the black area -->
+    <div class="options-container" id="options-container">
+      <!-- Options will be dynamically positioned here -->
+    </div>
+    
+    <!-- Connection line SVG -->
+    <svg class="connection-line" id="connection-line">
+      <path id="connection-path"></path>
+    </svg>
   </div>
-  <script src="main.js"></script>
+
+  <script src="answers-data.js"></script>
   <script src="tree.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
