@@ -24,16 +24,15 @@ function animateCardFlip(callback) {
   }, 1200);
 }
 
-function getRandomQuestion() {
-  currentQuestionIndex = Math.floor(Math.random() * magicQuestions.length);
-  return magicQuestions[currentQuestionIndex];
-}
-
 function initializeMagic8Ball() {
-  const question = getRandomQuestion();
-  displayQuestion(question);
-  createOptionButtons(question.options);
-  positionOptionsAroundWindow();
+  // Initialize with Timmy's story for now
+  if (typeof timmyDialogueTree !== 'undefined') {
+    currentCharacter = timmyDialogueTree;
+    currentDialogueId = 'start';
+    displayCurrentDialogue();
+  } else {
+    console.error('Timmy dialogue tree not loaded');
+  }
   
   // Show the seeker card after a brief delay
   setTimeout(() => {
@@ -44,61 +43,159 @@ function initializeMagic8Ball() {
   }, 500);
 }
 
-function displayQuestion(questionData) {
+function displayCurrentDialogue() {
+  if (!currentCharacter) return;
+  
+  const dialogue = currentCharacter.getCurrentDialogue(currentDialogueId);
   const dialogueText = document.getElementById('dialogue-text');
-  if (dialogueText) {
+  
+  if (dialogueText && dialogue) {
+    // Apply mood-based styling
+    const moodStyle = currentCharacter.getMoodStyling(dialogue.mood);
+    
     // Animate the card flip before changing text
     animateCardFlip(() => {
-      dialogueText.textContent = questionData.question;
+      dialogueText.textContent = dialogue.text;
       dialogueText.classList.remove('response');
+      
+      // Apply mood styling
+      Object.assign(dialogueText.style, moodStyle);
+      
+      // Add special effects for certain moods
+      if (dialogue.mood === 'panicked') {
+        dialogueText.classList.add('shaking');
+      } else {
+        dialogueText.classList.remove('shaking');
+      }
     });
+    
+    // Create option buttons for this dialogue
+    createDialogueOptions(dialogue);
+    positionOptionsAroundWindow();
   }
+  
   isAnswered = false;
 }
 
-function createOptionButtons(options) {
+function createDialogueOptions(dialogue) {
+  const container = document.getElementById('options-container');
+  if (!container || !dialogue.options) return;
+  
+  // Clear existing options
+  container.innerHTML = '';
+  
+  dialogue.options.forEach((option, index) => {
+    const button = document.createElement('button');
+    button.className = `option-btn ${option.tone}`;
+    button.textContent = option.text;
+    button.setAttribute('data-leads-to', option.leads_to);
+    button.setAttribute('data-tone', option.tone);
+    button.addEventListener('click', () => handleDialogueChoice(option));
+    container.appendChild(button);
+  });
+}
+
+function handleDialogueChoice(chosenOption) {
+  if (isAnswered) return;
+  
+  // Track the choice
+  if (currentCharacter && currentCharacter.trackChoice) {
+    currentCharacter.trackChoice(currentDialogueId, chosenOption, chosenOption.leads_to);
+  }
+  
+  // Add choice to history
+  dialogueHistory.push({
+    from: currentDialogueId,
+    choice: chosenOption,
+    timestamp: new Date()
+  });
+  
+  // Move to the next dialogue
+  const nextDialogueId = chosenOption.leads_to;
+  const nextDialogue = currentCharacter.getCurrentDialogue(nextDialogueId);
+  
+  isAnswered = true;
+  
+  // If this is an ending dialogue, handle it specially
+  if (nextDialogue.ending) {
+    setTimeout(() => {
+      displayEndingDialogue(nextDialogueId);
+    }, 1000);
+  } else {
+    // Continue the conversation after a brief pause
+    setTimeout(() => {
+      currentDialogueId = nextDialogueId;
+      displayCurrentDialogue();
+      
+      // Reinitialize mouse tracking for new buttons
+      if (window.initMouseTracking) {
+        setTimeout(window.initMouseTracking, 100);
+      }
+    }, 2000);
+  }
+}
+
+function displayEndingDialogue(endingDialogueId) {
+  currentDialogueId = endingDialogueId;
+  displayCurrentDialogue();
+  
+  // Show ending options after displaying the final dialogue
+  setTimeout(() => {
+    createEndingOptions();
+  }, 3000);
+}
+
+function createEndingOptions() {
   const container = document.getElementById('options-container');
   if (!container) return;
   
   // Clear existing options
   container.innerHTML = '';
   
-  options.forEach((option, index) => {
-    const button = document.createElement('button');
-    button.className = 'option-btn';
-    button.textContent = option.text;
-    button.setAttribute('data-response', option.response);
-    button.addEventListener('click', () => handleOptionClick(option));
-    container.appendChild(button);
-  });
+  // Create restart and path summary options
+  const restartButton = document.createElement('button');
+  restartButton.className = 'option-btn restart';
+  restartButton.textContent = 'Help Timmy Again';
+  restartButton.addEventListener('click', restartStory);
+  container.appendChild(restartButton);
+  
+  const summaryButton = document.createElement('button');
+  summaryButton.className = 'option-btn summary';
+  summaryButton.textContent = 'See Path Summary';
+  summaryButton.addEventListener('click', showPathSummary);
+  container.appendChild(summaryButton);
+  
+  positionOptionsAroundWindow();
+  
+  // Reinitialize mouse tracking
+  if (window.initMouseTracking) {
+    setTimeout(window.initMouseTracking, 100);
+  }
 }
 
-function handleOptionClick(option) {
-  if (isAnswered) return;
+function restartStory() {
+  currentDialogueId = 'start';
+  dialogueHistory = [];
+  if (currentCharacter && currentCharacter.choiceHistory) {
+    currentCharacter.choiceHistory = [];
+  }
+  displayCurrentDialogue();
+}
+
+function showPathSummary() {
+  if (!currentCharacter || !currentCharacter.getPathSummary) return;
   
-  // Animate the card flip before showing the response
-  animateCardFlip(() => {
-    const dialogueText = document.getElementById('dialogue-text');
-    if (dialogueText) {
-      dialogueText.textContent = option.response;
-      dialogueText.classList.add('response');
-    }
-  });
+  const summary = currentCharacter.getPathSummary();
+  const dialogueText = document.getElementById('dialogue-text');
   
-  isAnswered = true;
-  
-  // Reset after 5 seconds with a new question
-  setTimeout(() => {
-    const nextQuestion = getRandomQuestion();
-    displayQuestion(nextQuestion);
-    createOptionButtons(nextQuestion.options);
-    positionOptionsAroundWindow();
-    
-    // Reinitialize mouse tracking for new buttons
-    if (window.initMouseTracking) {
-      setTimeout(window.initMouseTracking, 100);
-    }
-  }, 5000);
+  if (dialogueText) {
+    animateCardFlip(() => {
+      const pathDescription = `Your guidance led Timmy through ${summary.choiceCount} decisions. Your choices were mostly ${summary.pathPersonality.join(', ')} in tone, ultimately leading to: ${summary.finalOutcome}. You shaped his destiny!`;
+      dialogueText.textContent = pathDescription;
+      dialogueText.style.color = '#ffd700';
+      dialogueText.style.fontSize = '1.1em';
+    });
+  }
 }
 
 function positionOptionsAroundWindow() {
