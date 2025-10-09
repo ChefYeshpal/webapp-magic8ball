@@ -25,8 +25,8 @@ body, html {
 
 /* Center circular glass window */
 .glass-window {
-    width: 350px;
-    height: 350px;
+    width: 500px;
+    height: 500px;
     border-radius: 50%;
     background: radial-gradient(circle at 30% 30%, 
         rgba(255, 255, 255, 0.15) 0%,
@@ -235,7 +235,6 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(46, 213, 115, 1) 0%,
     rgba(34, 162, 87, 1) 100%);
-  box-shadow: 0 0 20px rgba(46, 213, 115, 0.6);
 }
 
 .option-btn.discouraging {
@@ -249,7 +248,6 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(255, 71, 87, 1) 0%,
     rgba(220, 20, 60, 1) 100%);
-  box-shadow: 0 0 20px rgba(255, 71, 87, 0.6);
 }
 
 .option-btn.mysterious {
@@ -263,7 +261,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(95, 39, 205, 1) 0%,
     rgba(55, 66, 250, 1) 100%);
-  box-shadow: 0 0 20px rgba(95, 39, 205, 0.6);
+
 }
 
 .option-btn.wise {
@@ -277,7 +275,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(9, 132, 227, 1) 0%,
     rgba(0, 123, 255, 1) 100%);
-  box-shadow: 0 0 20px rgba(9, 132, 227, 0.6);
+
 }
 
 .option-btn.chaotic {
@@ -289,15 +287,14 @@ body, html {
 }
 
 @keyframes chaticGlow {
-  0%, 100% { box-shadow: 0 0 10px rgba(255, 159, 243, 0.4); }
-  50% { box-shadow: 0 0 20px rgba(255, 159, 243, 0.8); }
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
 }
 
 .option-btn.chaotic:hover {
   background: linear-gradient(135deg, 
     rgba(255, 159, 243, 1) 0%,
     rgba(238, 130, 238, 1) 100%);
-  box-shadow: 0 0 25px rgba(255, 159, 243, 0.8);
 }
 
 .option-btn.practical {
@@ -311,7 +308,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(255, 165, 2, 1) 0%,
     rgba(255, 140, 0, 1) 100%);
-  box-shadow: 0 0 20px rgba(255, 165, 2, 0.6);
+
 }
 
 .option-btn.grounding {
@@ -325,7 +322,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(112, 161, 255, 1) 0%,
     rgba(74, 144, 226, 1) 100%);
-  box-shadow: 0 0 20px rgba(112, 161, 255, 0.6);
+
 }
 
 .option-btn.absurd {
@@ -345,7 +342,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(255, 195, 18, 1) 0%,
     rgba(196, 229, 56, 1) 100%);
-  box-shadow: 0 0 20px rgba(255, 195, 18, 0.8);
+
 }
 
 .option-btn.dark {
@@ -360,7 +357,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(47, 53, 66, 1) 0%,
     rgba(28, 28, 30, 1) 100%);
-  box-shadow: 0 0 15px rgba(100, 100, 100, 0.4);
+
   color: #fff;
 }
 
@@ -381,7 +378,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(255, 99, 72, 1) 0%,
     rgba(255, 153, 102, 1) 100%);
-  box-shadow: 0 0 20px rgba(255, 99, 72, 0.6);
+
 }
 
 .option-btn.modern {
@@ -395,7 +392,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(29, 209, 161, 1) 0%,
     rgba(26, 188, 156, 1) 100%);
-  box-shadow: 0 0 20px rgba(29, 209, 161, 0.6);
+
 }
 
 .option-btn.responsible {
@@ -409,7 +406,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(72, 52, 212, 1) 0%,
     rgba(67, 56, 202, 1) 100%);
-  box-shadow: 0 0 20px rgba(72, 52, 212, 0.6);
+
 }
 
 /* Special ending button styles */
@@ -430,7 +427,7 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(34, 193, 195, 1) 0%,
     rgba(253, 187, 45, 1) 100%);
-  box-shadow: 0 0 30px rgba(34, 193, 195, 0.8);
+
 }
 
 .option-btn.summary {
@@ -444,7 +441,189 @@ body, html {
   background: linear-gradient(135deg, 
     rgba(255, 215, 0, 1) 0%,
     rgba(255, 193, 7, 1) 100%);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+
+}
+
+/* New tone styles for expanded dialogue options */
+.option-btn.helpful {
+  background: linear-gradient(135deg, 
+    rgba(116, 185, 255, 0.8) 0%,
+    rgba(84, 160, 255, 0.9) 100%);
+  border-color: rgba(116, 185, 255, 0.5);
+}
+
+.option-btn.helpful:hover {
+  background: linear-gradient(135deg, 
+    rgba(116, 185, 255, 1) 0%,
+    rgba(84, 160, 255, 1) 100%);
+
+}
+
+.option-btn.understanding {
+  background: linear-gradient(135deg, 
+    rgba(168, 85, 247, 0.8) 0%,
+    rgba(139, 69, 255, 0.9) 100%);
+  border-color: rgba(168, 85, 247, 0.5);
+}
+
+.option-btn.understanding:hover {
+  background: linear-gradient(135deg, 
+    rgba(168, 85, 247, 1) 0%,
+    rgba(139, 69, 255, 1) 100%);
+
+}
+
+.option-btn.comedic {
+  background: linear-gradient(135deg, 
+    rgba(255, 183, 77, 0.8) 0%,
+    rgba(255, 171, 145, 0.9) 100%);
+  border-color: rgba(255, 183, 77, 0.5);
+  animation: comedyBounce 2s ease-in-out infinite;
+}
+
+@keyframes comedyBounce {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  75% { transform: rotate(-1deg); }
+}
+
+.option-btn.comedic:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 183, 77, 1) 0%,
+    rgba(255, 171, 145, 1) 100%);
+
+}
+
+.option-btn.curious {
+  background: linear-gradient(135deg, 
+    rgba(255, 105, 180, 0.8) 0%,
+    rgba(255, 20, 147, 0.9) 100%);
+  border-color: rgba(255, 105, 180, 0.5);
+}
+
+.option-btn.curious:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 105, 180, 1) 0%,
+    rgba(255, 20, 147, 1) 100%);
+
+}
+
+.option-btn.creative {
+  background: linear-gradient(135deg, 
+    rgba(159, 122, 234, 0.8) 0%,
+    rgba(162, 155, 254, 0.9) 100%);
+  border-color: rgba(159, 122, 234, 0.5);
+  animation: creativeGlow 3s ease-in-out infinite;
+}
+
+@keyframes creativeGlow {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(30deg); }
+}
+
+.option-btn.creative:hover {
+  background: linear-gradient(135deg, 
+    rgba(159, 122, 234, 1) 0%,
+    rgba(162, 155, 254, 1) 100%);
+
+}
+
+.option-btn.brave {
+  background: linear-gradient(135deg, 
+    rgba(255, 94, 77, 0.8) 0%,
+    rgba(255, 154, 0, 0.9) 100%);
+  border-color: rgba(255, 94, 77, 0.5);
+}
+
+.option-btn.brave:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 94, 77, 1) 0%,
+    rgba(255, 154, 0, 1) 100%);
+
+}
+
+.option-btn.scientific {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.8) 0%,
+    rgba(139, 92, 246, 0.9) 100%);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+.option-btn.scientific:hover {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 1) 0%,
+    rgba(139, 92, 246, 1) 100%);
+
+}
+
+.option-btn.entrepreneurial {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 0.8) 0%,
+    rgba(22, 163, 74, 0.9) 100%);
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.option-btn.entrepreneurial:hover {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 1) 0%,
+    rgba(22, 163, 74, 1) 100%);
+
+}
+
+.option-btn.clever {
+  background: linear-gradient(135deg, 
+    rgba(45, 212, 191, 0.8) 0%,
+    rgba(14, 165, 233, 0.9) 100%);
+  border-color: rgba(45, 212, 191, 0.5);
+}
+
+.option-btn.clever:hover {
+  background: linear-gradient(135deg, 
+    rgba(45, 212, 191, 1) 0%,
+    rgba(14, 165, 233, 1) 100%);
+
+}
+
+.option-btn.artistic {
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 0.8) 0%,
+    rgba(190, 24, 93, 0.9) 100%);
+  border-color: rgba(236, 72, 153, 0.5);
+  animation: artisticSwirl 4s ease-in-out infinite;
+}
+
+@keyframes artisticSwirl {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(1deg) scale(1.01); }
+  50% { transform: rotate(0deg) scale(1); }
+  75% { transform: rotate(-1deg) scale(1.01); }
+}
+
+.option-btn.artistic:hover {
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 1) 0%,
+    rgba(190, 24, 93, 1) 100%);
+
+}
+
+.option-btn.motivational {
+  background: linear-gradient(135deg, 
+    rgba(251, 146, 60, 0.8) 0%,
+    rgba(249, 115, 22, 0.9) 100%);
+  border-color: rgba(251, 146, 60, 0.5);
+  animation: motivationalPulse 2s ease-in-out infinite;
+}
+
+@keyframes motivationalPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.option-btn.motivational:hover {
+  background: linear-gradient(135deg, 
+    rgba(251, 146, 60, 1) 0%,
+    rgba(249, 115, 22, 1) 100%);
+
 }.connection-line {
   position: absolute;
   top: 0;
