@@ -59,6 +59,24 @@ const magicQuestions = [
 let currentQuestionIndex = 0;
 let isAnswered = false;
 
+function animateCardFlip(callback) {
+  const seekerCard = document.getElementById('seeker-dialogue');
+  if (!seekerCard) return;
+  
+  // Add flipping class to trigger animation
+  seekerCard.classList.add('flipping');
+  
+  // Change text at the midpoint of the animation (when card is "facing inwards")
+  setTimeout(() => {
+    if (callback) callback();
+  }, 600); // Halfway through the 1.2s animation
+  
+  // Remove flipping class after animation completes
+  setTimeout(() => {
+    seekerCard.classList.remove('flipping');
+  }, 1200);
+}
+
 function getRandomQuestion() {
   currentQuestionIndex = Math.floor(Math.random() * magicQuestions.length);
   return magicQuestions[currentQuestionIndex];
@@ -82,8 +100,11 @@ function initializeMagic8Ball() {
 function displayQuestion(questionData) {
   const dialogueText = document.getElementById('dialogue-text');
   if (dialogueText) {
-    dialogueText.textContent = questionData.question;
-    dialogueText.classList.remove('response');
+    // Animate the card flip before changing text
+    animateCardFlip(() => {
+      dialogueText.textContent = questionData.question;
+      dialogueText.classList.remove('response');
+    });
   }
   isAnswered = false;
 }
@@ -108,11 +129,14 @@ function createOptionButtons(options) {
 function handleOptionClick(option) {
   if (isAnswered) return;
   
-  const dialogueText = document.getElementById('dialogue-text');
-  if (dialogueText) {
-    dialogueText.textContent = option.response;
-    dialogueText.classList.add('response');
-  }
+  // Animate the card flip before showing the response
+  animateCardFlip(() => {
+    const dialogueText = document.getElementById('dialogue-text');
+    if (dialogueText) {
+      dialogueText.textContent = option.response;
+      dialogueText.classList.add('response');
+    }
+  });
   
   isAnswered = true;
   
