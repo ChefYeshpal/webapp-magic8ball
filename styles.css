@@ -156,6 +156,32 @@ body, html {
   line-height: 1.4;
   margin: 20px 0;
   letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+/* Dialogue mood animations and effects */
+.dialogue-text.shaking {
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+/* Special dialogue text effects for different moods */
+.dialogue-text[style*="panicked"] {
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+.dialogue-text[style*="dramatic"] {
+  animation: dramaticPulse 2s ease-in-out infinite;
+}
+
+@keyframes dramaticPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 .options-container {
@@ -205,6 +231,230 @@ body, html {
     transform: scale(1.05);
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Option button tone-based styling */
+.option-btn.encouraging {
+  background: linear-gradient(135deg, 
+    rgba(46, 213, 115, 0.8) 0%,
+    rgba(34, 162, 87, 0.9) 100%);
+  border-color: rgba(46, 213, 115, 0.5);
+}
+
+.option-btn.encouraging:hover {
+  background: linear-gradient(135deg, 
+    rgba(46, 213, 115, 1) 0%,
+    rgba(34, 162, 87, 1) 100%);
+  box-shadow: 0 0 20px rgba(46, 213, 115, 0.6);
+}
+
+.option-btn.discouraging {
+  background: linear-gradient(135deg, 
+    rgba(255, 71, 87, 0.8) 0%,
+    rgba(220, 20, 60, 0.9) 100%);
+  border-color: rgba(255, 71, 87, 0.5);
+}
+
+.option-btn.discouraging:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 71, 87, 1) 0%,
+    rgba(220, 20, 60, 1) 100%);
+  box-shadow: 0 0 20px rgba(255, 71, 87, 0.6);
+}
+
+.option-btn.mysterious {
+  background: linear-gradient(135deg, 
+    rgba(95, 39, 205, 0.8) 0%,
+    rgba(55, 66, 250, 0.9) 100%);
+  border-color: rgba(95, 39, 205, 0.5);
+}
+
+.option-btn.mysterious:hover {
+  background: linear-gradient(135deg, 
+    rgba(95, 39, 205, 1) 0%,
+    rgba(55, 66, 250, 1) 100%);
+  box-shadow: 0 0 20px rgba(95, 39, 205, 0.6);
+}
+
+.option-btn.wise {
+  background: linear-gradient(135deg, 
+    rgba(9, 132, 227, 0.8) 0%,
+    rgba(0, 123, 255, 0.9) 100%);
+  border-color: rgba(9, 132, 227, 0.5);
+}
+
+.option-btn.wise:hover {
+  background: linear-gradient(135deg, 
+    rgba(9, 132, 227, 1) 0%,
+    rgba(0, 123, 255, 1) 100%);
+  box-shadow: 0 0 20px rgba(9, 132, 227, 0.6);
+}
+
+.option-btn.chaotic {
+  background: linear-gradient(135deg, 
+    rgba(255, 159, 243, 0.8) 0%,
+    rgba(238, 130, 238, 0.9) 100%);
+  border-color: rgba(255, 159, 243, 0.5);
+  animation: chaticGlow 2s ease-in-out infinite;
+}
+
+@keyframes chaticGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 159, 243, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(255, 159, 243, 0.8); }
+}
+
+.option-btn.chaotic:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 159, 243, 1) 0%,
+    rgba(238, 130, 238, 1) 100%);
+  box-shadow: 0 0 25px rgba(255, 159, 243, 0.8);
+}
+
+.option-btn.practical {
+  background: linear-gradient(135deg, 
+    rgba(255, 165, 2, 0.8) 0%,
+    rgba(255, 140, 0, 0.9) 100%);
+  border-color: rgba(255, 165, 2, 0.5);
+}
+
+.option-btn.practical:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 165, 2, 1) 0%,
+    rgba(255, 140, 0, 1) 100%);
+  box-shadow: 0 0 20px rgba(255, 165, 2, 0.6);
+}
+
+.option-btn.grounding {
+  background: linear-gradient(135deg, 
+    rgba(112, 161, 255, 0.8) 0%,
+    rgba(74, 144, 226, 0.9) 100%);
+  border-color: rgba(112, 161, 255, 0.5);
+}
+
+.option-btn.grounding:hover {
+  background: linear-gradient(135deg, 
+    rgba(112, 161, 255, 1) 0%,
+    rgba(74, 144, 226, 1) 100%);
+  box-shadow: 0 0 20px rgba(112, 161, 255, 0.6);
+}
+
+.option-btn.absurd {
+  background: linear-gradient(135deg, 
+    rgba(255, 195, 18, 0.8) 0%,
+    rgba(196, 229, 56, 0.9) 100%);
+  border-color: rgba(255, 195, 18, 0.5);
+  animation: absurdBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes absurdBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.option-btn.absurd:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 195, 18, 1) 0%,
+    rgba(196, 229, 56, 1) 100%);
+  box-shadow: 0 0 20px rgba(255, 195, 18, 0.8);
+}
+
+.option-btn.dark {
+  background: linear-gradient(135deg, 
+    rgba(47, 53, 66, 0.9) 0%,
+    rgba(28, 28, 30, 0.95) 100%);
+  border-color: rgba(100, 100, 100, 0.5);
+  color: #ccc;
+}
+
+.option-btn.dark:hover {
+  background: linear-gradient(135deg, 
+    rgba(47, 53, 66, 1) 0%,
+    rgba(28, 28, 30, 1) 100%);
+  box-shadow: 0 0 15px rgba(100, 100, 100, 0.4);
+  color: #fff;
+}
+
+.option-btn.dreamy {
+  background: linear-gradient(135deg, 
+    rgba(255, 99, 72, 0.8) 0%,
+    rgba(255, 153, 102, 0.9) 100%);
+  border-color: rgba(255, 99, 72, 0.5);
+  animation: dreamyFloat 3s ease-in-out infinite;
+}
+
+@keyframes dreamyFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2px) scale(1.02); }
+}
+
+.option-btn.dreamy:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 99, 72, 1) 0%,
+    rgba(255, 153, 102, 1) 100%);
+  box-shadow: 0 0 20px rgba(255, 99, 72, 0.6);
+}
+
+.option-btn.modern {
+  background: linear-gradient(135deg, 
+    rgba(29, 209, 161, 0.8) 0%,
+    rgba(26, 188, 156, 0.9) 100%);
+  border-color: rgba(29, 209, 161, 0.5);
+}
+
+.option-btn.modern:hover {
+  background: linear-gradient(135deg, 
+    rgba(29, 209, 161, 1) 0%,
+    rgba(26, 188, 156, 1) 100%);
+  box-shadow: 0 0 20px rgba(29, 209, 161, 0.6);
+}
+
+.option-btn.responsible {
+  background: linear-gradient(135deg, 
+    rgba(72, 52, 212, 0.8) 0%,
+    rgba(67, 56, 202, 0.9) 100%);
+  border-color: rgba(72, 52, 212, 0.5);
+}
+
+.option-btn.responsible:hover {
+  background: linear-gradient(135deg, 
+    rgba(72, 52, 212, 1) 0%,
+    rgba(67, 56, 202, 1) 100%);
+  box-shadow: 0 0 20px rgba(72, 52, 212, 0.6);
+}
+
+/* Special ending button styles */
+.option-btn.restart {
+  background: linear-gradient(135deg, 
+    rgba(34, 193, 195, 0.8) 0%,
+    rgba(253, 187, 45, 0.9) 100%);
+  border-color: rgba(34, 193, 195, 0.5);
+  animation: restartPulse 2s ease-in-out infinite;
+}
+
+@keyframes restartPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(34, 193, 195, 0.4); }
+  50% { box-shadow: 0 0 25px rgba(34, 193, 195, 0.8); }
+}
+
+.option-btn.restart:hover {
+  background: linear-gradient(135deg, 
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%);
+  box-shadow: 0 0 30px rgba(34, 193, 195, 0.8);
+}
+
+.option-btn.summary {
+  background: linear-gradient(135deg, 
+    rgba(255, 215, 0, 0.8) 0%,
+    rgba(255, 193, 7, 0.9) 100%);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.option-btn.summary:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 215, 0, 1) 0%,
+    rgba(255, 193, 7, 1) 100%);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
 }.connection-line {
   position: absolute;
   top: 0;
