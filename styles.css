@@ -219,18 +219,8 @@ body, html {
 
 .option-btn:hover,
 .option-btn.highlighted {
-    background: linear-gradient(135deg, 
-        rgba(255, 215, 0, 0.9) 0%,
-        rgba(255, 180, 0, 0.8) 100%);
-    border-color: rgba(255, 215, 0, 0.8);
-    box-shadow: 
-        0 0 20px rgba(255, 215, 0, 0.6),
-        0 0 30px rgba(255, 215, 0, 0.3),
-        0 4px 15px rgba(0, 0, 0, 0.4),
-        inset 0 0 12px rgba(255, 255, 255, 0.2);
     transform: scale(1.05);
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.2);
 }
 
 /* Option button tone-based styling */
