@@ -2,73 +2,91 @@ body, html {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 .ball-bg {
   height: 100vh;
   width: 100vw;
-  background: radial-gradient(ellipse at center, #111 0%, #222 80%);
+  background: radial-gradient(ellipse at center, #18192b 0%, #0b0c13 100%);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .window {
-  background: radial-gradient(ellipse at center, #40a6eb 60%, #125088 100%);
-  box-shadow: 0 0 80px 20px #2236;
+  background: radial-gradient(ellipse at center, #3285d1 65%, #242f45 100%);
   border-radius: 50% / 45%;
-  width: 400px;
+  width: 420px;
   height: 320px;
+  box-shadow: 0 0 90px 10px #212b44;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 10px solid #141d3a;
   position: relative;
-  border: 10px solid #232851;
 }
 
-#question {
-  font-size: 1.4rem;
+#seeker-dialogue {
+  font-size: 1.22rem;
   color: #fff;
   text-align: center;
-  padding: 32px 24px 24px 24px;
-  border-radius: 22px;
-  background: rgba(30, 44, 82, 0.5);
-  box-shadow: 0 2px 15px 2px #223b;
+  min-height: 55px;
+  max-width: 290px;
+  background: rgba(23,32,54,0.55);
+  border-radius: 20px;
+  box-shadow: 0 2px 15px 2px #203b;
   margin-bottom: 34px;
-  min-height: 50px;
-  max-width: 300px;
   opacity: 0;
-  transition: opacity 0.6s;
+  transition: opacity 0.7s;
+  padding: 30px 20px 24px 20px;
   letter-spacing: 1px;
 }
 
-#question.visible {
+#seeker-dialogue.visible {
   opacity: 1;
 }
 
 .options {
   display: flex;
-  gap: 20px;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.option {
-  background: linear-gradient(180deg, #c1e3fd 60%, #2573c8 100%);
-  color: #125088;
+.option-btn {
+  background: linear-gradient(180deg, #e0f7fe 65%, #308ad6 100%);
+  color: #114066;
   border: none;
-  border-radius: 18px;
-  padding: 10px 26px;
-  font-size: 1.05rem;
+  border-radius: 16px;
+  padding: 11px 25px;
+  font-size: 1.08rem;
   font-weight: 600;
-  box-shadow: 0 5px 18px #1235;
+  box-shadow: 0 5px 16px #1a255a60;
   cursor: pointer;
   transform: translateY(0);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.22s;
+  margin-bottom: 10px;
+}
+.option-btn:hover, .option-btn:focus {
+  transform: translateY(-11px) scale(1.06);
+  box-shadow: 0 12px 29px 2px #22ccf888;
+  background: linear-gradient(180deg, #bbebfd 65%, #2469ac 100%);
+  outline: none;
 }
 
-.option:hover,
-.option:focus {
-  transform: translateY(-10px) scale(1.07);
-  box-shadow: 0 10px 22px 6px #3bb9;
-  outline: none;
+@media (max-width: 500px) {
+  .window {
+    width: 98vw;
+    height: 63vw;
+    min-width: 230px;
+    min-height: 200px;
+    max-width: 98vw;
+    max-height: 70vw;
+  }
+  #seeker-dialogue {
+    font-size: 1rem;
+    max-width: 80vw;
+  }
 }
