@@ -1,113 +1,141 @@
-// Dialogue nodes: Each "seeker" node represents what a user/asker says to the Magic 8 Ball (YOU).
-// Each options array is what the USER (as the 8 Ball) can reply.
-const dialogueTree = [
+// Magic 8 Ball Questions and Unique Endings System
+const magicQuestions = [
   {
-    text: "Will I pass my big exam?",
+    question: "Will I find love this year?",
     options: [
-      { label: "It is certain.", next: 1 },
-      { label: "Ask again later.", next: 2 },
-      { label: "Don't count on it.", next: 3 }
+      { text: "Yes, absolutely", response: "The stars align for romance - love is heading your way within 3 months!" },
+      { text: "No, not likely", response: "Focus on loving yourself first, then love will find you when you least expect it." },
+      { text: "Maybe", response: "Love works in mysterious ways - stay open to unexpected connections." },
+      { text: "Ask your heart", response: "The universe whispers love songs to those who listen with their heart." }
     ]
   },
   {
-    text: "Oh, thanks! Should I study more though?",
+    question: "Should I quit my job and follow my dreams?",
     options: [
-      { label: "Definitely yes.", next: 4 },
-      { label: "Time will tell.", next: 5 }
+      { text: "Definitely quit", response: "Life is too short for unfulfilling work - your dreams are calling loudly!" },
+      { text: "Stay and save", response: "Build your foundation first, then leap - financial security empowers dreams." },
+      { text: "Start a side hustle", response: "Test the waters while keeping your safety net - wisdom in balance." },
+      { text: "Follow your passion", response: "Passion is the fuel of greatness - let it guide your every decision." }
     ]
   },
   {
-    text: "Alright... hmm. What about my love life?",
+    question: "Will I be successful in my new venture?",
     options: [
-      { label: "Outlook good.", next: 4 },
-      { label: "My sources say no.", next: 6 }
+      { text: "Huge success awaits", response: "Success flows through you like a mighty river - unstoppable and inevitable!" },
+      { text: "Challenges ahead", response: "Every challenge is a stepping stone - your struggles forge your strength." },
+      { text: "Moderate success", response: "Steady progress builds lasting empires - your patience will be rewarded." },
+      { text: "Redefine success", response: "True success is happiness in the journey, not just the destination." }
     ]
   },
   {
-    text: "Aww man... Okay, can I get a tiny hint?",
+    question: "Should I move to a new city for opportunities?",
     options: [
-      { label: "Better not tell you now.", next: 2 },
-      { label: "You may rely on it.", next: 4 }
+      { text: "Pack your bags", response: "Adventure calls your name - new horizons bring new possibilities!" },
+      { text: "Stay and grow", response: "Bloom where you're planted - hidden opportunities surround you here." },
+      { text: "Visit first", response: "Wisdom guides the prepared mind - explore before you transplant your roots." },
+      { text: "Trust your instincts", response: "Your inner compass never lies - it knows which path leads to happiness." }
     ]
   },
   {
-    text: "Wow! You're the best. One last thing—should I take a nap or keep working?",
+    question: "Will my creative project succeed?",
     options: [
-      { label: "Nap time is now.", next: 7 },
-      { label: "Keep working, dreamer.", next: 8 }
+      { text: "Masterpiece incoming", response: "Your creativity is a gift to the world - prepare for recognition and acclaim!" },
+      { text: "Keep refining", response: "Great art is never finished, only abandoned - perfectionism is your friend." },
+      { text: "Share it now", response: "The world needs your unique voice - don't hide your light under a bushel." },
+      { text: "Collaborate", response: "Two creative minds spark brighter than one - seek your creative soulmate." }
     ]
   },
   {
-    text: "I guess I'll just let fate decide. Thanks, mysterious orb!",
+    question: "Will I overcome my current struggles?",
     options: [
-      { label: "Farewell, seeker.", next: 0 }
-    ]
-  },
-  {
-    text: "Ah, tough break! Thanks for the honesty.",
-    options: [
-      { label: "Truth is my gift.", next: 0 }
-    ]
-  },
-  {
-    text: "Zzz... (The seeker falls asleep. The end!)",
-    options: [
-      { label: "Restart prophecy.", next: 0 }
-    ]
-  },
-  {
-    text: "Hustle never sleeps! Thanks for your guidance.",
-    options: [
-      { label: "Destiny is yours.", next: 0 }
+      { text: "Victory is certain", response: "You are stronger than your struggles - triumph is written in your stars!" },
+      { text: "One step at a time", response: "Mountains are climbed one step at a time - keep moving forward." },
+      { text: "Seek help", response: "Courage is asking for help when you need it - your support system awaits." },
+      { text: "Find the lesson", response: "Every struggle carries a gift - unwrap the wisdom it offers you." }
     ]
   }
 ];
 
-// Utility: Pick a random root dialogue node (start with first 2-3 for variety)
-function getRandomStart() {
-  return Math.floor(Math.random() * 3);
+let currentQuestionIndex = 0;
+let isAnswered = false;
+
+function getRandomQuestion() {
+  currentQuestionIndex = Math.floor(Math.random() * magicQuestions.length);
+  return magicQuestions[currentQuestionIndex];
 }
 
-const dialogueDiv = document.getElementById('seeker-dialogue');
-const dialogueTextDiv = dialogueDiv.querySelector('.dialogue-text');
-const optionsDiv = document.getElementById('options');
-let currentNode = 0;
-
-// Show dialogue node w/ animated fade
-function showNode(nodeIdx, fadeInOnly = false) {
-  dialogueDiv.classList.remove('visible');
+function initializeMagic8Ball() {
+  const question = getRandomQuestion();
+  displayQuestion(question);
+  createOptionButtons(question.options);
+  positionOptionsAroundWindow();
+  
+  // Show the seeker card after a brief delay
   setTimeout(() => {
-    dialogueTextDiv.textContent = dialogueTree[nodeIdx].text;
-    dialogueDiv.classList.add('visible');
-    
-    // Clear existing options
-    optionsDiv.innerHTML = '';
-    
-    // Create new options positioned around the window
-    dialogueTree[nodeIdx].options.forEach((opt, index) => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.textContent = opt.label;
-      btn.onclick = () => showNode(opt.next);
-      
-      // Position buttons around the perimeter
-      positionOptionButton(btn, index, dialogueTree[nodeIdx].options.length);
-      
-      optionsDiv.appendChild(btn);
-    });
-    
-    // Initialize mouse tracking for the new buttons
-    if (window.initMouseTracking) {
-      window.initMouseTracking();
+    const seekerCard = document.getElementById('seeker-dialogue');
+    if (seekerCard) {
+      seekerCard.classList.add('visible');
     }
-  }, fadeInOnly ? 0 : 480);
+  }, 500);
 }
 
-// Position buttons around the window perimeter
+function displayQuestion(questionData) {
+  const dialogueText = document.getElementById('dialogue-text');
+  if (dialogueText) {
+    dialogueText.textContent = questionData.question;
+    dialogueText.classList.remove('response');
+  }
+  isAnswered = false;
+}
+
+function createOptionButtons(options) {
+  const container = document.getElementById('options-container');
+  if (!container) return;
+  
+  // Clear existing options
+  container.innerHTML = '';
+  
+  options.forEach((option, index) => {
+    const button = document.createElement('button');
+    button.className = 'option-btn';
+    button.textContent = option.text;
+    button.setAttribute('data-response', option.response);
+    button.addEventListener('click', () => handleOptionClick(option));
+    container.appendChild(button);
+  });
+}
+
+function handleOptionClick(option) {
+  if (isAnswered) return;
+  
+  const dialogueText = document.getElementById('dialogue-text');
+  if (dialogueText) {
+    dialogueText.textContent = option.response;
+    dialogueText.classList.add('response');
+  }
+  
+  isAnswered = true;
+  
+  // Reset after 5 seconds with a new question
+  setTimeout(() => {
+    const nextQuestion = getRandomQuestion();
+    displayQuestion(nextQuestion);
+    createOptionButtons(nextQuestion.options);
+    positionOptionsAroundWindow();
+    
+    // Reinitialize mouse tracking for new buttons
+    if (window.initMouseTracking) {
+      setTimeout(window.initMouseTracking, 100);
+    }
+  }, 5000);
+}
+
 function positionOptionsAroundWindow() {
   const options = document.querySelectorAll('.option-btn');
   const container = document.querySelector('.container');
-  const windowRadius = 250; // Adjusted to be visible but outside the 400px window
+  if (!container || options.length === 0) return;
+  
+  const windowRadius = 220; // Outside the 350px glass window 
   const centerX = container.offsetWidth / 2;
   const centerY = container.offsetHeight / 2;
   
@@ -116,17 +144,17 @@ function positionOptionsAroundWindow() {
     const x = centerX + Math.cos(angle) * windowRadius - option.offsetWidth / 2;
     const y = centerY + Math.sin(angle) * windowRadius - option.offsetHeight / 2;
     
-    // Ensure options stay within the viewport
-    const maxX = container.offsetWidth - option.offsetWidth - 20;
-    const maxY = container.offsetHeight - option.offsetHeight - 20;
+    // Ensure options stay within the black area (viewport)
+    const margin = 30;
+    const maxX = container.offsetWidth - option.offsetWidth - margin;
+    const maxY = container.offsetHeight - option.offsetHeight - margin;
     
-    option.style.left = `${Math.max(20, Math.min(x, maxX))}px`;
-    option.style.top = `${Math.max(20, Math.min(y, maxY))}px`;
+    option.style.left = `${Math.max(margin, Math.min(x, maxX))}px`;
+    option.style.top = `${Math.max(margin, Math.min(y, maxY))}px`;
   });
 }
 
-// On first load, pick a random starting node and show
-window.onload = () => {
-  currentNode = getRandomStart();
-  setTimeout(() => showNode(currentNode, true), 350);
-};
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initializeMagic8Ball, 100);
+});
