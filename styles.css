@@ -111,6 +111,22 @@ body, html {
   z-index: 10;
 }
 
+.seeker-card.flipping {
+  animation: cardFade 1.2s ease-in-out;
+}
+
+@keyframes cardFade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .seeker-card.visible {
   opacity: 1;
 }
