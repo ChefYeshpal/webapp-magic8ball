@@ -139,10 +139,48 @@ function displayEndingDialogue(endingDialogueId) {
   currentDialogueId = endingDialogueId;
   displayCurrentDialogue();
   
-  // Show ending options after displaying the final dialogue
+  // Show path summary after displaying the final dialogue
+  setTimeout(() => {
+    showPathSummaryDialogue();
+  }, 4000);
+}
+
+function showPathSummaryDialogue() {
+  if (!currentCharacter || !currentCharacter.getPathSummary) return;
+  
+  const summary = currentCharacter.getPathSummary();
+  const endingDialogue = currentCharacter.getCurrentDialogue(currentDialogueId);
+  const dialogueText = document.getElementById('dialogue-text');
+  
+  if (dialogueText && endingDialogue) {
+    const pathDescription = generatePathDescription(summary, endingDialogue);
+    
+    animateCardFlip(() => {
+      dialogueText.textContent = pathDescription;
+      dialogueText.style.color = '#ffd700';
+      dialogueText.style.fontSize = '1.05em';
+      dialogueText.style.fontStyle = 'italic';
+    });
+  }
+  
+  // Show ending options after the path summary
   setTimeout(() => {
     createEndingOptions();
-  }, 3000);
+  }, 5000);
+}
+
+function generatePathDescription(summary, endingDialogue) {
+  const pathDescriptions = {
+    mentorship_success: "Through your wise guidance, Timmy discovered that showing genuine curiosity and building relationships was the key to academic success. He transformed from a panicking student into Professor Meltdown's star pupil!",
+    musical_science_success: "Your creative encouragement led Timmy to become a viral science educator! He turned his struggles into songs that help kids worldwide learn chemistry. Sometimes the most unexpected paths lead to the greatest impact!",
+    cat_science_revolution: "Your absurd wisdom guided Timmy to embrace chaos as a learning tool! With Mr. Whiskers as his co-researcher, he revolutionized science education by proving that unconventional methods can yield extraordinary results!",
+    innovative_learning_success: "Your clever guidance helped Timmy discover that learning comes in many forms! By connecting chemistry to everyday things like ramen, he not only passed his exam but created a whole new way of teaching science!",
+    safety_specialist_success: "Your practical advice helped Timmy turn his fears into strengths! By embracing safety and preparation, he became a leader and found his calling in making science safer for everyone!"
+  };
+  
+  const defaultDescription = `Your ${summary.choiceCount} choices guided Timmy through ${summary.pathPersonality.join(', ')} decisions, ultimately leading him to: ${endingDialogue.outcome}. You shaped his destiny through the power of the Magic 8 Ball!`;
+  
+  return pathDescriptions[endingDialogue.outcome] || defaultDescription;
 }
 
 function createEndingOptions() {
@@ -152,18 +190,19 @@ function createEndingOptions() {
   // Clear existing options
   container.innerHTML = '';
   
-  // Create restart and path summary options
+  // Create restart option
   const restartButton = document.createElement('button');
   restartButton.className = 'option-btn restart';
   restartButton.textContent = 'Help Timmy Again';
   restartButton.addEventListener('click', restartStory);
   container.appendChild(restartButton);
   
-  const summaryButton = document.createElement('button');
-  summaryButton.className = 'option-btn summary';
-  summaryButton.textContent = 'See Path Summary';
-  summaryButton.addEventListener('click', showPathSummary);
-  container.appendChild(summaryButton);
+  // Create "different path" option for variety
+  const differentPathButton = document.createElement('button');
+  differentPathButton.className = 'option-btn summary';
+  differentPathButton.textContent = 'Try a Different Path';
+  differentPathButton.addEventListener('click', restartStory);
+  container.appendChild(differentPathButton);
   
   positionOptionsAroundWindow();
   
@@ -173,6 +212,11 @@ function createEndingOptions() {
   }
 }
 
+function showPathSummary() {
+  // This function now just calls the path summary dialogue
+  showPathSummaryDialogue();
+}
+
 function restartStory() {
   currentDialogueId = 'start';
   dialogueHistory = [];
@@ -180,22 +224,6 @@ function restartStory() {
     currentCharacter.choiceHistory = [];
   }
   displayCurrentDialogue();
-}
-
-function showPathSummary() {
-  if (!currentCharacter || !currentCharacter.getPathSummary) return;
-  
-  const summary = currentCharacter.getPathSummary();
-  const dialogueText = document.getElementById('dialogue-text');
-  
-  if (dialogueText) {
-    animateCardFlip(() => {
-      const pathDescription = `Your guidance led Timmy through ${summary.choiceCount} decisions. Your choices were mostly ${summary.pathPersonality.join(', ')} in tone, ultimately leading to: ${summary.finalOutcome}. You shaped his destiny!`;
-      dialogueText.textContent = pathDescription;
-      dialogueText.style.color = '#ffd700';
-      dialogueText.style.fontSize = '1.1em';
-    });
-  }
 }
 
 function positionOptionsAroundWindow() {
