@@ -1,22 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Magic 8 Ball</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>You Are the Magic 8 Ball</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="ball-bg">
-        <div class="window">
-            <div id="question" class="fade">What is your wish?</div>
-            <div class="options">
-                <button class="options">Yes</button>
-                <button class="options">Ask again</button>
-                <button class="options">No</button>
-            </div>
-        </div>
+  <div class="ball-bg">
+    <div class="window">
+      <div id="seeker-dialogue" class="fade"></div>
+      <div class="options" id="options"></div>
     </div>
-    <script src="tree.js"></script>
+  </div>
+  <script src="dialogue.js"></script>
 </body>
 </html>
