@@ -7,11 +7,30 @@
 </head>
 <body>
   <div class="ball-bg">
-    <div class="window">
-      <div id="seeker-dialogue" class="fade"></div>
-      <div class="options" id="options"></div>
+    <div class="glass-window">
+      <div class="inner-space">
+        <!-- Glass reflection effects -->
+        <div class="glass-reflection"></div>
+        <div class="glass-highlight"></div>
+        
+        <!-- Central seeker dialogue card -->
+        <div id="seeker-dialogue" class="seeker-card fade">
+          <div class="quote-mark left">"</div>
+          <div class="dialogue-text"></div>
+          <div class="quote-mark right">"</div>
+        </div>
+        
+        <!-- Options positioned around the window -->
+        <div class="options-container" id="options"></div>
+        
+        <!-- Connection line between seeker card and highlighted option -->
+        <svg class="connection-line" id="connection-line">
+          <path id="connection-path" d="" stroke="rgba(255, 215, 0, 0.6)" stroke-width="2" fill="none" />
+        </svg>
+      </div>
     </div>
   </div>
+  <script src="main.js"></script>
   <script src="tree.js"></script>
 </body>
 </html>
