@@ -1,6 +1,11 @@
 # webapp-magic8ball
 This is a project for the 6th week of siege, the theme for this project is "magic" and hence this is a magic 8 ball.
 What does it do? well, just type in your question, and it will give you a morally ambigious answer. Upon noticing what "official" answers the 8 ball gives, I noticed they are phrased in such a way, and they can literally answer **any** question... Seriously, it's just an advanced form of "yes", "no", and "I dont understand".
+-
+
+Having ideas to change:
+Maybe, make it so that **you** are the magic 8 ball? I'll have to do something to find the questions, and that you have to answer them? And like, a reverse 8 ball, so it's the inside pov of the ball! You also get follow up questions, or something like that? I'll have to look at how to do that... Like, how th do I set up some way to add follow up questions without it being ai?
+
 
 # Things to add
 
@@ -30,3 +35,6 @@ What does it do? well, just type in your question, and it will give you a morall
         - Drag sliders should help in adjusting the amount of colour added, no?
     - Improved dialogue for the potion making scenes
     - Should also add a skip functionality or something, dunno...
+
+- 9 Oct 2025
+    - Removed all code.
