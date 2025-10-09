@@ -77,7 +77,7 @@ function initMouseTracking() {
     
     // Add wave effect with time-based animation
     const time = Date.now() * 0.003;
-    const waveAmplitude = 15;
+    const waveAmplitude = 20; // Increased from 15 for more noticeable waves
     const waveFrequency = 2;
     
     // Calculate perpendicular direction for wave
