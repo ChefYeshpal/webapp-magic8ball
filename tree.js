@@ -79,10 +79,26 @@ function displayCurrentDialogue() {
 
 function createDialogueOptions(dialogue) {
   const container = document.getElementById('options-container');
-  if (!container || !dialogue.options) return;
+  if (!container) return;
   
   // Clear existing options
   container.innerHTML = '';
+  
+  // If this is an ending dialogue, create a "Continue" button
+  if (dialogue.ending) {
+    const continueButton = document.createElement('button');
+    continueButton.className = 'option-btn wise';
+    continueButton.textContent = 'Continue...';
+    continueButton.addEventListener('click', () => {
+      showPathSummaryDialogue();
+    });
+    container.appendChild(continueButton);
+    positionOptionsAroundWindow();
+    return;
+  }
+  
+  // Regular dialogue options
+  if (!dialogue.options) return;
   
   dialogue.options.forEach((option, index) => {
     const button = document.createElement('button');
@@ -119,8 +135,14 @@ function handleDialogueChoice(chosenOption) {
   // If this is an ending dialogue, handle it specially
   if (nextDialogue.ending) {
     setTimeout(() => {
-      displayEndingDialogue(nextDialogueId);
-    }, 1000);
+      currentDialogueId = nextDialogueId;
+      displayCurrentDialogue();
+      
+      // Reinitialize mouse tracking for new buttons
+      if (window.initMouseTracking) {
+        setTimeout(window.initMouseTracking, 100);
+      }
+    }, 2000);
   } else {
     // Continue the conversation after a brief pause
     setTimeout(() => {
@@ -163,10 +185,32 @@ function showPathSummaryDialogue() {
     });
   }
   
-  // Show ending options after the path summary
+  // Show restart option after the path summary
   setTimeout(() => {
-    createEndingOptions();
-  }, 5000);
+    createRestartOption();
+  }, 4000);
+}
+
+function createRestartOption() {
+  const container = document.getElementById('options-container');
+  if (!container) return;
+  
+  // Clear existing options
+  container.innerHTML = '';
+  
+  // Create single restart button
+  const restartButton = document.createElement('button');
+  restartButton.className = 'option-btn restart';
+  restartButton.textContent = 'Do you want to start again?';
+  restartButton.addEventListener('click', restartStory);
+  container.appendChild(restartButton);
+  
+  positionOptionsAroundWindow();
+  
+  // Reinitialize mouse tracking
+  if (window.initMouseTracking) {
+    setTimeout(window.initMouseTracking, 100);
+  }
 }
 
 function generatePathDescription(summary, endingDialogue) {
