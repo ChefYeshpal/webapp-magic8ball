@@ -43,3 +43,4 @@ Maybe, make it so that **you** are the magic 8 ball? I'll have to do something t
         - On the center, there should be a card which is what the people as the 8ball
         - The user is the 8 ball, I should mention it prolly
     - Added options and all for the 8 ball questions
+    - Dialogue for timmy and a full tree
