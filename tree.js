@@ -135,7 +135,7 @@ function positionOptionsAroundWindow() {
   const container = document.querySelector('.container');
   if (!container || options.length === 0) return;
   
-  const windowRadius = 220; // Outside the 350px glass window 
+  const windowRadius = 280; // Increased from 220 to make options farther from the card
   const centerX = container.offsetWidth / 2;
   const centerY = container.offsetHeight / 2;
   
