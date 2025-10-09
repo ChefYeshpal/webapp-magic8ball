@@ -13,7 +13,7 @@ const timmyDialogueTree = {
   dialogues: {
     start: {
       id: "start",
-      text: "Oh great and mystical Magic 8 Ball! I'm Little Timmy, and I'm in SERIOUS trouble! I have my final chemistry exam in exactly one week, and I haven't studied a single page! My parents will literally ground me until I'm 30 if I fail. What should I do?!",
+      text: "Oh great Magic 8 Ball! I'm Timmy and I'm DOOMED! Chemistry exam in one week, haven't studied AT ALL! My parents will ground me until I'm 30 if I fail! Help!",
       mood: "panicked",
       options: [
         {
@@ -41,7 +41,7 @@ const timmyDialogueTree = {
 
     exam_details: {
       id: "exam_details",
-      text: "Oh, you want the gory details? It's Professor Meltdown's Advanced Chemistry class! He's called 'Meltdown' because last year a student asked him about the periodic table and he literally had a breakdown about how 'kids these days don't appreciate the beauty of molecular bonds!' The exam covers everything from atomic structure to organic chemistry. I don't even know what a molecule IS!",
+      text: "It's Professor Meltdown's class! He's called 'Meltdown' because he literally had a breakdown about molecular bonds! Last year he threw a banana at the board to demonstrate potassium decay! I don't even know what a molecule IS!",
       mood: "dramatic_despair",
       options: [
         {
@@ -69,7 +69,7 @@ const timmyDialogueTree = {
 
     professor_focus: {
       id: "professor_focus", 
-      text: "You know what? You're right! Maybe Professor Meltdown isn't that scary. I mean, he's passionate about chemistry, right? Maybe if I show genuine interest and ask good questions, he'll appreciate my effort even if I don't know everything perfectly!",
+      text: "You're right! Maybe he's just passionate about chemistry! If I show genuine interest and ask good questions, he might appreciate my effort even if I don't know everything perfectly!",
       mood: "contemplative",
       options: [
         {
@@ -92,7 +92,7 @@ const timmyDialogueTree = {
 
     professor_terror: {
       id: "professor_terror",
-      text: "RIGHT?! Last month he made a kid cry because they confused sodium with potassium! He started yelling about how 'SALT ISN'T JUST SALT, THERE ARE DIFFERENT KINDS!' I heard he once threw a banana at the whiteboard to demonstrate potassium decay! What if he throws fruit at ME?!",
+      text: "RIGHT?! He made a kid cry over sodium vs potassium! He yelled 'SALT ISN'T JUST SALT!' and threw a banana! What if he throws fruit at ME?!",
       mood: "panicked",
       options: [
         {
@@ -120,7 +120,7 @@ const timmyDialogueTree = {
 
     study_breakdown: {
       id: "study_breakdown",
-      text: "Okay, okay... let me think. Atomic structure - that's like... atoms have parts? Organic chemistry - that's about... organic things? Like vegetables? Chemical bonds - things stick together somehow? Actually, when you put it like that, it sounds like I need to learn EVERYTHING about EVERYTHING!",
+      text: "Let me think... Atomic structure - atoms have parts? Organic chemistry - vegetables? Chemical bonds - things stick together? Wait, I need to learn EVERYTHING about EVERYTHING!",
       mood: "overwhelmed",
       options: [
         {
@@ -148,7 +148,7 @@ const timmyDialogueTree = {
 
     charm_path: {
       id: "charm_path",
-      text: "Ooh, interesting idea! I could walk into the exam with finger guns, wink at Professor Meltdown, and say 'Hey there, Prof! Nice periodic table you got there. Mind if I... bond with it?' Then I'd do a little chemistry pun dance! Think that would work?",
+      text: "I'll walk in with finger guns, wink at Prof Meltdown, and say 'Nice periodic table! Mind if I... bond with it?' Then do a chemistry pun dance! Think that'll work?",
       mood: "absurdly_happy",
       options: [
         {
@@ -176,7 +176,7 @@ const timmyDialogueTree = {
 
     study_path_1: {
       id: "study_path_1",
-      text: "You're right! One week is totally enough time! I'll study 16 hours a day and drink nothing but energy drinks! But wait... where do I even start? Chemistry is like... atoms and stuff, right? Should I memorize the entire periodic table first?",
+      text: "You're right! One week is plenty! I'll study 16 hours a day and live on energy drinks! But where do I start? Chemistry is atoms and stuff, right? Should I memorize the entire periodic table first?",
       mood: "overly_optimistic",
       options: [
         {
@@ -204,7 +204,7 @@ const timmyDialogueTree = {
 
     study_plan_creation: {
       id: "study_plan_creation",
-      text: "Okay, okay, you're right! Let me make a SUPER DETAILED study plan! Day 1: Learn what an atom is. Day 2: Learn what molecules are. Day 3: Figure out why things explode. Day 4: Panic about everything I still don't know. Day 5: More panic. Day 6: Accept my fate. Day 7: Exam day! Perfect plan, right?",
+      text: "Perfect! My SUPER DETAILED plan: Day 1: Learn atoms. Day 2: Learn molecules. Day 3: Why things explode. Day 4: Panic. Day 5: More panic. Day 6: Accept fate. Day 7: Exam! Solid plan, right?",
       mood: "overly_optimistic",
       options: [
         {
@@ -232,7 +232,7 @@ const timmyDialogueTree = {
 
     memorization_madness: {
       id: "memorization_madness",
-      text: "YES! I'll memorize EVERYTHING! Hydrogen-1-proton-helium-2-protons-lithium-3-protons... wait, there are HOW MANY elements?! 118?! And each one has properties and electron configurations and... OH NO, my brain is already full and I'm only at Beryllium! How do people fit all this knowledge in their heads?!",
+      text: "YES! Hydrogen-1-proton-helium-2-protons... wait, there are 118 elements?! And each has properties and configurations and... OH NO, my brain is full at Beryllium! How do people fit all this in their heads?!",
       mood: "dramatic_despair",
       options: [
         {
@@ -260,7 +260,7 @@ const timmyDialogueTree = {
 
     tutor_search: {
       id: "tutor_search",
-      text: "Great idea! I'll find a tutor! Let's see... there's Sarah the Chemistry Genius, but she speaks only in chemical formulas. There's Bob the Grad Student who explains everything using food analogies. And there's my neighbor's cat, Mr. Whiskers, who once knocked over a chemistry set and somehow created a small rainbow. Who should I choose?",
+      text: "Great idea! There's Sarah who speaks only in chemical formulas, Bob who explains everything with food analogies, and my neighbor's cat Mr. Whiskers who once made a rainbow by knocking over chemicals. Who should I choose?",
       mood: "contemplative",
       options: [
         {
@@ -286,37 +286,9 @@ const timmyDialogueTree = {
       ]
     },
 
-    realistic_schedule: {
-      id: "realistic_schedule",
-      text: "You know what, you're totally right! 16 hours is insane. I need sleep, food, and bathroom breaks! Let me try... 6 hours of studying a day? That leaves 8 hours for sleep, 2 hours for meals, 1 hour for crying, 1 hour for staring at the ceiling in existential dread, and 6 hours for... wait, that's 24 hours. Math is hard too!",
-      mood: "confused_but_trying",
-      options: [
-        {
-          text: "Let's work on that math together",
-          leads_to: "math_help",
-          tone: "helpful"
-        },
-        {
-          text: "4 hours studying might be more realistic",
-          leads_to: "realistic_goals",
-          tone: "practical"
-        },
-        {
-          text: "The crying hour is essential",
-          leads_to: "emotional_schedule",
-          tone: "understanding"
-        },
-        {
-          text: "Maybe hire a time manager",
-          leads_to: "time_management_consultant",
-          tone: "absurd"
-        }
-      ]
-    },
-
     panic_path_1: {
       id: "panic_path_1", 
-      text: "OH NO! You're absolutely right! It IS hopeless! I'm doomed! My life is over! I'll never get into college, I'll end up living in a cardboard box, eating nothing but instant ramen! Maybe I should just disappear forever! What's the point of anything anymore?!",
+      text: "OH NO! You're right! It IS hopeless! I'm doomed! I'll live in a cardboard box eating ramen! Maybe I should just disappear forever! What's the point?!",
       mood: "dramatic_despair",
       options: [
         {
@@ -344,7 +316,7 @@ const timmyDialogueTree = {
 
     alternative_path_1: {
       id: "alternative_path_1",
-      text: "Hmm, other options... You know what, Magic 8 Ball? Maybe this is the universe telling me something! Maybe I'm not meant to be a chemistry student! Maybe I should pursue my TRUE calling... but what could that be?",
+      text: "You know what? Maybe this is the universe telling me something! Maybe I'm not meant for chemistry! Maybe I should pursue my TRUE calling... but what could that be?",
       mood: "contemplative",
       options: [
         {
@@ -370,11 +342,37 @@ const timmyDialogueTree = {
       ]
     },
 
-    // New detailed branches continuing the story...
+    realistic_schedule: {
+      id: "realistic_schedule",
+      text: "You're right! 16 hours is insane. Let me try 6 hours studying? That's 8 for sleep, 2 for food, 1 for crying, 1 for existential dread, and 6 for... wait, that's 24 hours. Math is hard too!",
+      mood: "confused_but_trying",
+      options: [
+        {
+          text: "Let's work on that math together",
+          leads_to: "math_help",
+          tone: "helpful"
+        },
+        {
+          text: "4 hours studying might be more realistic",
+          leads_to: "realistic_goals",
+          tone: "practical"
+        },
+        {
+          text: "The crying hour is essential",
+          leads_to: "emotional_schedule",
+          tone: "understanding"
+        },
+        {
+          text: "Maybe hire a time manager",
+          leads_to: "time_management_consultant",
+          tone: "absurd"
+        }
+      ]
+    },
 
     engagement_path: {
       id: "engagement_path",
-      text: "You know what? I went to Professor Meltdown's office hours and asked him about molecular bonding! His eyes literally lit up! He spent 2 hours explaining how atoms are like people looking for friendship, and molecules are like friend groups! Then he gave me extra credit for 'showing genuine curiosity!' Who knew being interested actually works?",
+      text: "I went to Professor Meltdown's office hours! His eyes lit up when I asked about molecular bonding! He spent 2 hours explaining atoms like people looking for friends! Then he gave me extra credit for 'genuine curiosity!' Being interested actually works!",
       mood: "pleasantly_surprised",
       options: [
         {
@@ -397,7 +395,7 @@ const timmyDialogueTree = {
 
     protection_comedy: {
       id: "protection_comedy",
-      text: "I showed up to the next class wearing a helmet, safety goggles, and a lab coat covered in fruit stickers! Professor Meltdown took one look at me and burst out laughing! Turns out he only threw that banana because he was demonstrating radioactive decay and wanted something 'naturally occurring with potassium!' Now he calls me 'Safety Timmy' and I'm his favorite student!",
+      text: "I wore a helmet, safety goggles, and fruit stickers to class! Professor Meltdown burst out laughing! Turns out he only threw that banana to demonstrate radioactive decay! Now he calls me 'Safety Timmy' and I'm his favorite student!",
       mood: "absurdly_happy",
       options: [
         {
@@ -420,7 +418,7 @@ const timmyDialogueTree = {
 
     pun_master: {
       id: "pun_master",
-      text: "Oh my gosh, yes! I've been practicing! 'I've got my ion you!' 'Are you made of copper and tellurium? Because you're Cu-Te!' 'I wish I was adenine so I could get paired with U!' Wait... that last one might be biology... OH NO, am I mixing up my sciences?! Is that like crossing the streams in Ghostbusters?!",
+      text: "I've been practicing! 'I've got my ion you!' 'Are you made of copper and tellurium? Because you're Cu-Te!' Wait... is that biology? OH NO, am I mixing sciences like crossing streams in Ghostbusters?!",
       mood: "panicked_excitement",
       options: [
         {
@@ -448,7 +446,7 @@ const timmyDialogueTree = {
 
     element_song: {
       id: "element_song",
-      text: "♪ Hydrogen and helium, lithium too! Beryllium's fancy, boron's so blue! Carbon's in pencils, nitrogen's in air, oxygen helps us breathe everywhere! ♪ Wait, this is actually working! I remember more elements now! Should I record this and become the next Hamilton but for chemistry?",
+      text: "♪ Hydrogen and helium, lithium too! Beryllium's fancy, boron's so blue! ♪ Wait, this is working! I remember more elements! Should I become the next Hamilton but for chemistry?",
       mood: "artistic_triumph",
       options: [
         {
@@ -476,7 +474,7 @@ const timmyDialogueTree = {
 
     cat_tutoring: {
       id: "cat_tutoring",
-      text: "I convinced Mr. Whiskers to be my tutor! I set up a chemistry lab in my backyard, and every time he knocks something over, I try to explain what reaction would happen! When he knocked over the baking soda and vinegar, I explained acid-base reactions! When he got into the food coloring, I learned about chemical indicators! He's the most chaotic but effective teacher ever!",
+      text: "Mr. Whiskers is my tutor! Every time he knocks something over, I explain the reaction! Baking soda + vinegar = acid-base reactions! Food coloring = chemical indicators! He's chaotic but effective!",
       mood: "absurdly_happy",
       options: [
         {
@@ -504,7 +502,7 @@ const timmyDialogueTree = {
 
     ramen_philosophy: {
       id: "ramen_philosophy",
-      text: "You know what? You're right! Ramen is actually amazing! It's like... chemistry in a bowl! The noodles are carbohydrates, the broth has proteins and fats, the flavor packet is pure chemistry magic! Maybe failing chemistry and becoming a ramen philosopher isn't such a bad life! I could write books like 'The Tao of Sodium' and 'Zen and the Art of Instant Noodles!'",
+      text: "You're right! Ramen is chemistry in a bowl! Noodles are carbohydrates, broth has proteins, flavor packet is pure chemistry magic! Maybe being a ramen philosopher isn't bad! 'The Tao of Sodium' and 'Zen and Instant Noodles!'",
       mood: "philosophical_comedy",
       options: [
         {
@@ -533,7 +531,7 @@ const timmyDialogueTree = {
     // Success ending branches
     professor_mentorship: {
       id: "professor_mentorship",
-      text: "Professor Meltdown became my mentor! He taught me that chemistry is like a language, and once you learn the vocabulary, everything else makes sense! I not only passed the exam, I got an A+! He's even recommending me for advanced chemistry next year! Who would have thought that showing genuine interest was the secret all along?",
+      text: "Professor Meltdown became my mentor! He taught me chemistry is like a language - learn the vocabulary and everything makes sense! I got an A+! He's recommending me for advanced chemistry! Genuine interest was the secret!",
       mood: "grateful_success",
       ending: true,
       outcome: "mentorship_success"
@@ -541,7 +539,7 @@ const timmyDialogueTree = {
 
     science_musician_path: {
       id: "science_musician_path",
-      text: "My chemistry songs went viral! I became 'Timmy the Science Bard' and now I have a YouTube channel with 2 million subscribers! Kids around the world are learning chemistry through my songs! I even got invited to perform at the Nobel Prize ceremony! Who knew failing chemistry could lead to making chemistry fun for everyone?",
+      text: "My chemistry songs went viral! I'm 'Timmy the Science Bard' with 2 million YouTube subscribers! Kids worldwide learn chemistry through my songs! I performed at the Nobel Prize ceremony! Failing chemistry led to making it fun for everyone!",
       mood: "artistic_triumph",
       ending: true,
       outcome: "musical_science_success"
@@ -549,7 +547,7 @@ const timmyDialogueTree = {
 
     cat_science_fair: {
       id: "cat_science_fair",
-      text: "Mr. Whiskers and I won first place at the Regional Science Fair with our project 'Chaos Theory in Chemical Reactions: A Feline Perspective!' Universities are calling, National Geographic wants to do a documentary, and Mr. Whiskers now has his own Instagram account with 500K followers! We're revolutionizing science education, one knocked-over beaker at a time!",
+      text: "Mr. Whiskers and I won first place with 'Chaos Theory in Chemical Reactions: A Feline Perspective!' Universities are calling, National Geographic wants a documentary, and Mr. Whiskers has 500K Instagram followers! Science revolution, one knocked-over beaker at a time!",
       mood: "absurdly_triumphant",
       ending: true,
       outcome: "cat_science_revolution"
@@ -557,7 +555,7 @@ const timmyDialogueTree = {
 
     ramen_chemistry_lessons: {
       id: "ramen_chemistry_lessons",
-      text: "I used different types of ramen to learn every chemistry concept! Miso ramen taught me about pH levels, spicy ramen showed me exothermic reactions, and seafood ramen demonstrated protein structures! My 'Ramen Chemistry Guide' became required reading at universities worldwide! I passed my exam with flying colors and now I'm known as the 'Ramen Chemist!' Sometimes the weirdest study methods work best!",
+      text: "I used ramen to learn everything! Miso = pH levels, spicy = exothermic reactions, seafood = protein structures! My 'Ramen Chemistry Guide' is required reading at universities! I'm the 'Ramen Chemist!' Weird study methods work best!",
       mood: "proud_innovation",
       ending: true,
       outcome: "innovative_learning_success"
@@ -565,7 +563,7 @@ const timmyDialogueTree = {
 
     safety_timmy_path: {
       id: "safety_timmy_path",
-      text: "I embraced being 'Safety Timmy!' I started a school safety committee, designed better lab protocols, and even got a scholarship for 'Innovation in Laboratory Safety!' My helmet-wearing, fruit-sticker-covered self became a symbol of how asking questions and being prepared isn't nerdy - it's smart! I aced the chemistry exam and now I'm studying to become a chemical safety engineer!",
+      text: "I embraced 'Safety Timmy!' Started a safety committee, designed lab protocols, got a scholarship for 'Innovation in Laboratory Safety!' My helmet-wearing self proved being prepared is smart! Now studying to be a chemical safety engineer!",
       mood: "proud_transformation",
       ending: true,
       outcome: "safety_specialist_success"
