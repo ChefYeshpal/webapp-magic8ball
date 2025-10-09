@@ -1,507 +1,74 @@
-/* Basic reset */
-* { box-sizing: border-box; }
-html,body { height: 100%; margin: 0; font-family: Arial, Helvetica, sans-serif; }
-
-/* Center the main controls in the page */
-.container {
-	min-height: 60vh; /* leave space for the answer at the bottom */
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 12px;
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-input#question {
-	padding: 8px 10px;
-	font-size: 16px;
-	width: 260px;
+.ball-bg {
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(ellipse at center, #111 0%, #222 80%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-button#submit {
-	padding: 8px 14px;
-	font-size: 16px;
-	cursor: pointer;
+.window {
+  background: radial-gradient(ellipse at center, #40a6eb 60%, #125088 100%);
+  box-shadow: 0 0 80px 20px #2236;
+  border-radius: 50% / 45%;
+  width: 400px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 10px solid #232851;
 }
 
-/* Visible interactive 8-ball (the one you click to ask) */
-#eight-ball {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	background: #000; /* outer black ball */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 36px;
-	color: #000; /* dark 8 on light inner circle */
-	cursor: pointer;
-	position: relative;
+#question {
+  font-size: 1.4rem;
+  color: #fff;
+  text-align: center;
+  padding: 32px 24px 24px 24px;
+  border-radius: 22px;
+  background: rgba(30, 44, 82, 0.5);
+  box-shadow: 0 2px 15px 2px #223b;
+  margin-bottom: 34px;
+  min-height: 50px;
+  max-width: 300px;
+  opacity: 0;
+  transition: opacity 0.6s;
+  letter-spacing: 1px;
 }
 
-/* small white inner circle (the window showing the 8) */
-#eight-ball::before {
-	content: '';
-	position: absolute;
-	width: 56px;
-	height: 56px;
-	border-radius: 50%;
-	background: #fff;
-	box-shadow: inset 0 -4px 8px rgba(0,0,0,0.12);
+#question.visible {
+  opacity: 1;
 }
 
-/* make the textual '8' sit above the pseudo element */
-#eight-ball { z-index: 1; }
-#eight-ball::before { z-index: 0; }
-#eight-ball .ball-num { position: relative; z-index: 2; color: #000; font-weight: 700; }
-
-#eight-ball:focus {
-	outline: 2px solid #fff;
-	outline-offset: 6px;
+.options {
+  display: flex;
+  gap: 20px;
 }
 
-/* revealed 8-ball (pure CSS) */
-#eight-ball-img {
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	width: 128px;
-	height: 128px;
-	opacity: 0;
-	transition: transform 600ms ease, opacity 400ms ease, left 700ms ease, top 700ms ease;
-	z-index: 50;
-	border-radius: 50%;
-	background: #000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: default;
+.option {
+  background: linear-gradient(180deg, #c1e3fd 60%, #2573c8 100%);
+  color: #125088;
+  border: none;
+  border-radius: 18px;
+  padding: 10px 26px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  box-shadow: 0 5px 18px #1235;
+  cursor: pointer;
+  transform: translateY(0);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* inner white window */
-#eight-ball-img::before {
-	content: '';
-	position: absolute;
-	width: 64px;
-	height: 64px;
-	border-radius: 50%;
-	background: #fff;
-}
-
-/* the '8' */
-#eight-ball-img::after {
-	content: '8';
-	position: relative;
-	z-index: 1;
-	font-size: 40px;
-	color: #000;
-}
-
-#answer {
-	min-height: 10vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 18px;
-	padding: 12px;
-	border-top: 1px solid #a15050;
-}
-
-@keyframes shake {
-	0%, 100% { transform: rotate(0deg); }
-	10% { transform: rotate(-25deg); }
-	20% { transform: rotate(20deg); }
-	30% { transform: rotate(-18deg); }
-	40% { transform: rotate(16deg); }
-	50% { transform: rotate(-12deg); }
-	60% { transform: rotate(10deg); }
-	70% { transform: rotate(-6deg); }
-	80% { transform: rotate(4deg); }
-	90% { transform: rotate(-2deg); }
-}
-
-#eight-ball.shake {
-	animation: shake 0.9s cubic-bezier(.2,.9,.3,1.2);
-}
-
-/* extra class to make very vigorous shaking when proving sentience */
-#eight-ball.shake-vigorous {
-	animation-duration: 1200ms;
-	transform-origin: center center;
-}
-
-input#question.shake {
-    animation: shake 0.3s ease;
-}
-
-/* Fullscreen black overlay used in the secret sequence */
-#black-overlay {
-	position: fixed;
-	inset: 0;
-	background: #000;
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 300ms ease;
-	z-index: 40;
-}
-#black-overlay.visible {
-	opacity: 1;
-	pointer-events: auto;
-}
-
-/* When the overlay switches to white for the final whiteout, animate background and opacity */
-#black-overlay.whiteout {
-	background: #fff;
-	transition: background 600ms ease, opacity 400ms ease;
-}
-
-/* Hidden 8ball image used for the reveal. Starts centered, then moves to corner */
-#eight-ball-img {
-	position: fixed;
-	left: 10%;
-	top: 10%;
-	transform: translate(-50%, -50%) scale(0.6);
-	width: 220px;
-	height: auto;
-	opacity: 0;
-	transition: transform 600ms ease, opacity 400ms ease, left 700ms ease, top 700ms ease;
-	z-index: 50;
-	border-radius: 8px;
-	box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-}
-#eight-ball-img.visible {
-	opacity: 1;
-}
-
-/* move to corner */
-#eight-ball-img.move-to-corner {
-	left: 20px;
-	right: auto;
-	top: 20px;
-	transform: translate(0, 0);
-	width: 128px;
-	height: 128px;
-}
-
-/* Hover: flip horizontally and show pointer */
-#eight-ball-img:hover {
-	cursor: pointer;
-	transform: translate(-50%, -50%) rotateY(180deg);
-}
-
-/* When already in corner, preserve corner transform but flip horizontally */
-#eight-ball-img.move-to-corner:hover {
-	transform: translate(0, 0) rotateY(180deg);
-}
-
-/* Dialog that appears after the image moves */
-#sentient-dialog {
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	background: #111;
-	color: #eaeaea;
-	padding: 18px;
-	border-radius: 8px;
-	box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-	z-index: 60;
-	width: min(560px, 90%);
-	max-width: 90%;
-	text-align: left;
-}
-
-.hidden { display: none; }
-
-#dialog-text { white-space: pre-wrap; min-height: 64px; }
-.dialog-buttons { margin-top: 12px; display: flex; gap: 8px; justify-content: center; }
-.dialog-buttons button { padding: 8px 12px; font-size: 15px; cursor: pointer; }
-
-/* --- Potion brewing scene styles --- */
-#potion-scene {
-    position: fixed;
-    inset: 0;
-    z-index: 70;
-    overflow: hidden;
-}
-
-/* Wall background (upper 3/4 of screen) - complementary to brown table */
-#potion-wall {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 75vh;
-    background: linear-gradient(180deg, #8B7D6B 0%, #A0927E  100%);
-    /* Warm stone/plaster wall color that complements brown */
-}
-
-/* Table surface (bottom 1/4 of screen) */
-#potion-table {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 25vh;
-    background: linear-gradient(180deg, #8B4513 0%, #A0522D 50%, #654321 100%);
-    /* Rich brown wooden table */
-    box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
-}
-
-/* Dialogue box in the bottom 1/4 (Pokemon-style) */
-#potion-dialogue-box {
-    position: absolute;
-    bottom: 8px;
-    left: 8px;
-    right: 8px;
-    height: calc(25vh - 16px);
-    background: linear-gradient(180deg, #FFFACD 0%, #F5E6A3 100%);
-    /* Pale yellow like old Pokemon games */
-    border: 3px solid #8B4513;
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: 
-        inset 0 2px 4px rgba(255,255,255,0.6),
-        0 4px 12px rgba(0,0,0,0.3);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#potion-dialogue-text {
-    flex: 1;
-    font-family: 'Courier New', monospace;
-    font-size: 16px;
-    color: #2F1B14;
-    line-height: 1.4;
-    white-space: pre-wrap;
-    overflow-y: auto;
-    margin-bottom: 8px;
-}
-
-.potion-dialogue-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin-top: 8px;
-}
-
-.potion-dialogue-buttons button {
-    padding: 8px 16px;
-    font-size: 14px;
-    font-family: 'Courier New', monospace;
-    background: #8B4513;
-    color: #FFFACD;
-    border: 2px solid #654321;
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    transition: all 0.2s ease;
-}
-
-.potion-dialogue-buttons button:hover {
-    background: #A0522D;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-}
-
-.potion-dialogue-buttons button:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-}
-
-/* 8-ball in the potion scene (repositioned on the table) */
-#potion-ball {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #333, #000);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 
-        0 8px 16px rgba(0,0,0,0.4),
-        inset 0 -4px 8px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease;
-}
-
-#potion-ball:hover {
-    transform: translate(-50%, -50%) scale(1.05);
-}
-
-/* Inner white window for the 8 */
-#potion-ball::before {
-    content: '';
-    position: absolute;
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #fff, #f0f0f0);
-    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
-}
-
-/* The '8' character */
-#potion-ball::after {
-    content: '8';
-    position: relative;
-    z-index: 1;
-    font-size: 42px;
-    font-weight: bold;
-    color: #000;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-}
-
-/* --- Color mixing game interface --- */
-#color-mixing-game {
-    position: absolute;
-    inset: 0;
-    z-index: 80;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    pointer-events: none;
-}
-
-#color-mixing-game.active {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
-}
-
-/* Target color display (top right) */
-#target-color-display {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 250, 205, 0.9);
-    padding: 16px;
-    border-radius: 12px;
-    border: 2px solid #8B4513;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-#target-color-display label {
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    color: #2F1B14;
-    font-weight: bold;
-}
-
-#target-color-sample {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid #654321;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Central mixing area */
-#mixing-area {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Central white mixing circle */
-#mixing-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 4px solid #8B4513;
-    box-shadow: 
-        inset 0 4px 8px rgba(0,0,0,0.1),
-        0 6px 16px rgba(0,0,0,0.3);
-    position: absolute;
-    transition: background-color 0.3s ease;
-}
-
-/* Color source circles arranged around the center */
-.color-source {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid #654321;
-    cursor: grab;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    position: absolute;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    user-select: none;
-}
-
-.color-source:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
-}
-
-.color-source:active {
-    cursor: grabbing;
-    transform: scale(0.95);
-}
-
-/* Position the three primary color sources in a triangle around the center */
-#red-source {
-    background: radial-gradient(circle at 30% 30%, #ff6b6b, #cc0000);
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-#blue-source {
-    background: radial-gradient(circle at 30% 30%, #4dabf7, #0066cc);
-    bottom: 40px;
-    left: 40px;
-}
-
-#yellow-source {
-    background: radial-gradient(circle at 30% 30%, #ffd43b, #ccaa00);
-    bottom: 40px;
-    right: 40px;
-}
-
-/* Submit button */
-#submit-mixture {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 24px;
-    font-size: 16px;
-    font-family: 'Courier New', monospace;
-    background: linear-gradient(180deg, #8B4513 0%, #654321 100%);
-    color: #FFFACD;
-    border: 3px solid #654321;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: all 0.2s ease;
-}
-
-#submit-mixture:hover {
-    background: linear-gradient(180deg, #A0522D 0%, #8B4513 100%);
-    transform: translateX(-50%) translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
-}
-
-#submit-mixture:active {
-    transform: translateX(-50%) translateY(0);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+.option:hover,
+.option:focus {
+  transform: translateY(-10px) scale(1.07);
+  box-shadow: 0 10px 22px 6px #3bb9;
+  outline: none;
 }
