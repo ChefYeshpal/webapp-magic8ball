@@ -70,16 +70,42 @@ function initMouseTracking() {
     const buttonCenterX = (buttonRect.left + buttonRect.width / 2) - svgRect.left;
     const buttonCenterY = (buttonRect.top + buttonRect.height / 2) - svgRect.top;
     
-    // Create a curved path
-    const controlX1 = cardCenterX + (buttonCenterX - cardCenterX) * 0.3;
-    const controlY1 = cardCenterY + (buttonCenterY - cardCenterY) * 0.3;
-    const controlX2 = cardCenterX + (buttonCenterX - cardCenterX) * 0.7;
-    const controlY2 = cardCenterY + (buttonCenterY - cardCenterY) * 0.7;
+    // Create a wavy curved path with multiple control points
+    const deltaX = buttonCenterX - cardCenterX;
+    const deltaY = buttonCenterY - cardCenterY;
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     
-    const pathD = `M ${cardCenterX} ${cardCenterY} 
-                  C ${controlX1} ${controlY1}, 
-                    ${controlX2} ${controlY2}, 
-                    ${buttonCenterX} ${buttonCenterY}`;
+    // Add wave effect with time-based animation
+    const time = Date.now() * 0.003;
+    const waveAmplitude = 15;
+    const waveFrequency = 2;
+    
+    // Calculate perpendicular direction for wave
+    const perpX = -deltaY / distance;
+    const perpY = deltaX / distance;
+    
+    // Create wavy path with multiple points
+    const segments = 5;
+    let pathD = `M ${cardCenterX} ${cardCenterY}`;
+    
+    for (let i = 1; i <= segments; i++) {
+      const t = i / segments;
+      const x = cardCenterX + deltaX * t;
+      const y = cardCenterY + deltaY * t;
+      
+      // Add wave displacement
+      const waveOffset = Math.sin(t * Math.PI * waveFrequency + time) * waveAmplitude * Math.sin(t * Math.PI);
+      const waveX = x + perpX * waveOffset;
+      const waveY = y + perpY * waveOffset;
+      
+      if (i === 1) {
+        pathD += ` Q ${waveX} ${waveY}`;
+      } else if (i === segments) {
+        pathD += ` ${buttonCenterX} ${buttonCenterY}`;
+      } else {
+        pathD += ` T ${waveX} ${waveY}`;
+      }
+    }
     
     connectionPath.setAttribute('d', pathD);
     connectionPath.style.opacity = '1';
@@ -154,6 +180,15 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     initMouseTracking();
     createParticleEffect();
+    
+    // Start continuous animation loop for wavy line
+    function animateWavyLine() {
+      if (highlightedButton) {
+        updateConnectionLine();
+      }
+      requestAnimationFrame(animateWavyLine);
+    }
+    animateWavyLine();
   }, 500);
 });
 
