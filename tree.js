@@ -1,63 +1,10 @@
-// Magic 8 Ball Questions and Unique Endings System
-const magicQuestions = [
-  {
-    question: "Will I find love this year?",
-    options: [
-      { text: "Yes, absolutely", response: "The stars align for romance - love is heading your way within 3 months!" },
-      { text: "No, not likely", response: "Focus on loving yourself first, then love will find you when you least expect it." },
-      { text: "Maybe", response: "Love works in mysterious ways - stay open to unexpected connections." },
-      { text: "Ask your heart", response: "The universe whispers love songs to those who listen with their heart." }
-    ]
-  },
-  {
-    question: "Should I quit my job and follow my dreams?",
-    options: [
-      { text: "Definitely quit", response: "Life is too short for unfulfilling work - your dreams are calling loudly!" },
-      { text: "Stay and save", response: "Build your foundation first, then leap - financial security empowers dreams." },
-      { text: "Start a side hustle", response: "Test the waters while keeping your safety net - wisdom in balance." },
-      { text: "Follow your passion", response: "Passion is the fuel of greatness - let it guide your every decision." }
-    ]
-  },
-  {
-    question: "Will I be successful in my new venture?",
-    options: [
-      { text: "Huge success awaits", response: "Success flows through you like a mighty river - unstoppable and inevitable!" },
-      { text: "Challenges ahead", response: "Every challenge is a stepping stone - your struggles forge your strength." },
-      { text: "Moderate success", response: "Steady progress builds lasting empires - your patience will be rewarded." },
-      { text: "Redefine success", response: "True success is happiness in the journey, not just the destination." }
-    ]
-  },
-  {
-    question: "Should I move to a new city for opportunities?",
-    options: [
-      { text: "Pack your bags", response: "Adventure calls your name - new horizons bring new possibilities!" },
-      { text: "Stay and grow", response: "Bloom where you're planted - hidden opportunities surround you here." },
-      { text: "Visit first", response: "Wisdom guides the prepared mind - explore before you transplant your roots." },
-      { text: "Trust your instincts", response: "Your inner compass never lies - it knows which path leads to happiness." }
-    ]
-  },
-  {
-    question: "Will my creative project succeed?",
-    options: [
-      { text: "Masterpiece incoming", response: "Your creativity is a gift to the world - prepare for recognition and acclaim!" },
-      { text: "Keep refining", response: "Great art is never finished, only abandoned - perfectionism is your friend." },
-      { text: "Share it now", response: "The world needs your unique voice - don't hide your light under a bushel." },
-      { text: "Collaborate", response: "Two creative minds spark brighter than one - seek your creative soulmate." }
-    ]
-  },
-  {
-    question: "Will I overcome my current struggles?",
-    options: [
-      { text: "Victory is certain", response: "You are stronger than your struggles - triumph is written in your stars!" },
-      { text: "One step at a time", response: "Mountains are climbed one step at a time - keep moving forward." },
-      { text: "Seek help", response: "Courage is asking for help when you need it - your support system awaits." },
-      { text: "Find the lesson", response: "Every struggle carries a gift - unwrap the wisdom it offers you." }
-    ]
-  }
-];
+// Magic 8 Ball Dialogue Tree System
+// Now featuring character-based branching narratives
 
-let currentQuestionIndex = 0;
+let currentDialogueId = 'start';
+let currentCharacter = null;
 let isAnswered = false;
+let dialogueHistory = [];
 
 function animateCardFlip(callback) {
   const seekerCard = document.getElementById('seeker-dialogue');
