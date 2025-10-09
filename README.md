@@ -19,7 +19,7 @@ Maybe, make it so that **you** are the magic 8 ball? I'll have to do something t
     - Added a phraseword.
     - Added dialogue box, so that it shows up after I've typed in the specific phraseword
 
--7 Oct 2025
+- 7 Oct 2025
     - Added await lines
         - Basically, the user will need to press enter, space, or click the screen for the dialogue to go forwards
         - This is only for when they are in the potion making thing
@@ -38,3 +38,8 @@ Maybe, make it so that **you** are the magic 8 ball? I'll have to do something t
 
 - 9 Oct 2025
     - Removed all code.
+    - Added a logic tree ```tree.js```
+    - Added a center "orb" that's the window to look outside the 8ball
+        - On the center, there should be a card which is what the people as the 8ball
+        - The user is the 8 ball, I should mention it prolly
+    - Added options and all for the 8 ball questions
