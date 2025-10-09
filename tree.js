@@ -1,84 +1,96 @@
+// Dialogue nodes: Each "seeker" node represents what a user/asker says to the Magic 8 Ball (YOU).
+// Each options array is what the USER (as the 8 Ball) can reply.
 const dialogueTree = [
   {
-    question: "What is your wish?",
+    text: "Will I pass my big exam?",
     options: [
-      { text: "I want to know my fate", next: 1 },
-      { text: "Is luck with me?", next: 2 },
-      { text: "Reveal a secret...", next: 3 }
+      { label: "It is certain.", next: 1 },
+      { label: "Ask again later.", next: 2 },
+      { label: "Don't count on it.", next: 3 }
     ]
   },
   {
-    question: "The mist clears... You are bold! Dare you ask again?",
+    text: "Oh, thanks! Should I study more though?",
     options: [
-      { text: "Yes!", next: 4 },
-      { text: "No, thanks", next: 0 }
+      { label: "Definitely yes.", next: 4 },
+      { label: "Time will tell.", next: 5 }
     ]
   },
   {
-    question: "Perhaps. You will see a sign before sunset.",
+    text: "Alright... hmm. What about my love life?",
     options: [
-      { text: "What sign?", next: 3 },
-      { text: "Another question!", next: 0 }
+      { label: "Outlook good.", next: 4 },
+      { label: "My sources say no.", next: 6 }
     ]
   },
   {
-    question: "Shh... Secrets aren’t free! Offer me a riddle.",
+    text: "Aww man... Okay, can I get a tiny hint?",
     options: [
-      { text: "Riddle: What has keys but can’t open locks?", next: 5 }
+      { label: "Better not tell you now.", next: 2 },
+      { label: "You may rely on it.", next: 4 }
     ]
   },
   {
-    question: "You are brave. Now, ask the most important one...",
+    text: "Wow! You're the best. One last thing—should I take a nap or keep working?",
     options: [
-      { text: "Will I succeed?", next: 6 },
-      { text: "Will I fail?", next: 7 }
+      { label: "Nap time is now.", next: 7 },
+      { label: "Keep working, dreamer.", next: 8 }
     ]
   },
   {
-    question: "The answer swirls in music shapes. The answer is: a piano.",
+    text: "I guess I'll just let fate decide. Thanks, mysterious orb!",
     options: [
-      { text: "Again!", next: 0 }
+      { label: "Farewell, seeker.", next: 0 }
     ]
   },
   {
-    question: "Success finds those who persist. Try again later, fortune favors you.",
+    text: "Ah, tough break! Thanks for the honesty.",
     options: [
-      { text: "Thank you!", next: 0 }
+      { label: "Truth is my gift.", next: 0 }
     ]
   },
   {
-    question: "Failure is a lesson in disguise. Ask a better question!",
+    text: "Zzz... (The seeker falls asleep. The end!)",
     options: [
-      { text: "Restart", next: 0 }
+      { label: "Restart prophecy.", next: 0 }
+    ]
+  },
+  {
+    text: "Hustle never sleeps! Thanks for your guidance.",
+    options: [
+      { label: "Destiny is yours.", next: 0 }
     ]
   }
 ];
 
-const qDiv = document.getElementById('question');
-const optionDiv = document.querySelector('.options');
-
-let curNode = 0;
-
-function showNode(nodeIdx) {
-  // Hide question then show next after delay
-  qDiv.classList.remove('visible');
-  setTimeout(() => {
-    qDiv.textContent = dialogueTree[nodeIdx].question;
-    qDiv.classList.add('visible');
-    // Remove old options
-    optionDiv.innerHTML = '';
-    dialogueTree[nodeIdx].options.forEach((opt, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'option';
-      btn.textContent = opt.text;
-      btn.onclick = () => {
-        showNode(opt.next);
-      };
-      optionDiv.appendChild(btn);
-    });
-  }, 400);
+// Utility: Pick a random root dialogue node (start with first 2-3 for variety)
+function getRandomStart() {
+  return Math.floor(Math.random() * 3);
 }
 
+const dialogueDiv = document.getElementById('seeker-dialogue');
+const optionsDiv = document.getElementById('options');
+let currentNode = 0;
+
+// Show dialogue node w/ animated fade
+function showNode(nodeIdx, fadeInOnly = false) {
+  dialogueDiv.classList.remove('visible');
+  setTimeout(() => {
+    dialogueDiv.textContent = dialogueTree[nodeIdx].text;
+    dialogueDiv.classList.add('visible');
+    optionsDiv.innerHTML = '';
+    dialogueTree[nodeIdx].options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.textContent = opt.label;
+      btn.onclick = () => showNode(opt.next);
+      optionsDiv.appendChild(btn);
+    });
+  }, fadeInOnly ? 0 : 480);
+}
+
+// On first load, pick a random starting node and show
 window.onload = () => {
-  setTimeout(() => showNode(curNode), 200);
+  currentNode = getRandomStart();
+  setTimeout(() => showNode(currentNode, true), 350);
 };
