@@ -92,18 +92,19 @@ body, html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(135deg, 
+  background: linear-gradient(135deg,
     rgba(30, 30, 60, 0.9) 0%,
     rgba(20, 20, 40, 0.95) 100%);
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
-  padding: 25px 30px;
-  box-shadow: 
+  padding: 25px 40px; /* More horizontal padding for rectangular shape */
+  box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.5),
     inset 0 0 20px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
-  min-width: 200px;
-  max-width: 300px;
+  min-width: 300px; /* Wider than tall */
+  max-width: 400px;
+  min-height: 120px; /* Explicit minimum height */
   text-align: center;
   opacity: 0;
   transition: opacity 0.7s ease-in-out;
@@ -153,39 +154,41 @@ body, html {
 .option-btn {
   position: absolute;
   background: linear-gradient(135deg, 
-    rgba(70, 130, 180, 0.9) 0%,
-    rgba(30, 70, 120, 0.95) 100%);
+    rgba(60, 100, 140, 0.8) 0%,
+    rgba(40, 80, 120, 0.9) 100%);
   color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-radius: 15px;
-  padding: 12px 20px;
-  font-size: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
   font-weight: 600;
   box-shadow: 
-    0 5px 15px rgba(0, 0, 0, 0.4),
-    inset 0 0 10px rgba(255, 255, 255, 0.15),
-    0 0 10px rgba(70, 130, 180, 0.3);
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 0 8px rgba(255, 255, 255, 0.1);
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
   pointer-events: auto;
   white-space: nowrap;
-  min-width: 120px;
+  min-width: 100px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  transform-origin: center;
 }
 
 .option-btn:hover,
 .option-btn.highlighted {
   background: linear-gradient(135deg, 
     rgba(255, 215, 0, 0.9) 0%,
-    rgba(255, 165, 0, 0.8) 100%);
+    rgba(255, 180, 0, 0.8) 100%);
   border-color: rgba(255, 215, 0, 0.8);
   box-shadow: 
     0 0 20px rgba(255, 215, 0, 0.6),
-    0 5px 25px rgba(0, 0, 0, 0.4),
-    inset 0 0 15px rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
+    0 0 30px rgba(255, 215, 0, 0.3),
+    0 4px 15px rgba(0, 0, 0, 0.4),
+    inset 0 0 12px rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
   color: #000;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .connection-line {
@@ -199,115 +202,26 @@ body, html {
 }
 
 #connection-path {
-  filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.8));
-  animation: connectionPulse 2s ease-in-out infinite;
-}
-
-@keyframes connectionPulse {
-  0%, 100% { 
-    stroke-opacity: 0.6;
-    stroke-width: 2;
-  }
-  50% { 
-    stroke-opacity: 1;
-  /* Options container - covers entire screen */
-.options-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 5;
-}
-
-/* Option buttons positioned OUTSIDE the glass window */
-.option-btn {
-    position: absolute;
-    background: linear-gradient(135deg, 
-        rgba(60, 100, 140, 0.8) 0%,
-        rgba(40, 80, 120, 0.9) 100%);
-    color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    padding: 10px 16px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.4),
-        inset 0 0 8px rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(8px);
-    pointer-events: auto;
-    white-space: nowrap;
-    min-width: 100px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    transform-origin: center;
-}
-
-.option-btn:hover,
-.option-btn.highlighted {
-    background: linear-gradient(135deg, 
-        rgba(255, 215, 0, 0.9) 0%,
-        rgba(255, 180, 0, 0.8) 100%);
-    border-color: rgba(255, 215, 0, 0.8);
-    box-shadow: 
-        0 0 20px rgba(255, 215, 0, 0.6),
-        0 0 30px rgba(255, 215, 0, 0.3),
-        0 4px 15px rgba(0, 0, 0, 0.4),
-        inset 0 0 12px rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-    color: #000;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* Connection line SVG */
-.connection-line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 3;
-}
-
-#connection-path {
     fill: none;
-    stroke: rgba(255, 215, 0, 0.8);
-    stroke-width: 2;
+    stroke: rgba(255, 215, 0, 0.9);
+    stroke-width: 3;
     opacity: 0;
     transition: opacity 0.3s ease;
-    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
     animation: connectionFlow 2s ease-in-out infinite;
 }
 
 @keyframes connectionFlow {
     0%, 100% { 
-        stroke-opacity: 0.6;
-        stroke-width: 2;
+        stroke-opacity: 0.7;
+        stroke-width: 3;
         stroke-dasharray: 0;
     }
     50% { 
         stroke-opacity: 1;
-        stroke-width: 3;
-        stroke-dasharray: 5 5;
+        stroke-width: 4;
+        stroke-dasharray: 8 8;
     }
-}
-
-/* Response styling */
-.response {
-    color: #ffdd44;
-    font-weight: bold;
-    font-size: 1.3rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    animation: responseGlow 2s ease-in-out infinite;
-}
-
-@keyframes responseGlow {
-    0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
-    50% { text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.6); }
 }
 
 @media (max-width: 768px) {
