@@ -135,7 +135,7 @@ function positionOptionsAroundWindow() {
   const container = document.querySelector('.container');
   if (!container || options.length === 0) return;
   
-  const windowRadius = 280; // Increased from 220 to make options farther from the card
+  const windowRadius = 350; // Move options much farther from center
   const centerX = container.offsetWidth / 2;
   const centerY = container.offsetHeight / 2;
   
@@ -144,8 +144,8 @@ function positionOptionsAroundWindow() {
     const x = centerX + Math.cos(angle) * windowRadius - option.offsetWidth / 2;
     const y = centerY + Math.sin(angle) * windowRadius - option.offsetHeight / 2;
     
-    // Ensure options stay within the black area (viewport)
-    const margin = 30;
+    // Ensure options stay within the black area (viewport) with larger margins
+    const margin = 80; // Increased margin to prevent clamping
     const maxX = container.offsetWidth - option.offsetWidth - margin;
     const maxY = container.offsetHeight - option.offsetHeight - margin;
     

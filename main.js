@@ -7,7 +7,6 @@ let connectionPath = null;
 
 // Initialize mouse tracking
 function initMouseTracking() {
-  const optionButtons = document.querySelectorAll('.option-btn');
   connectionPath = document.getElementById('connection-path');
   seekerCard = document.getElementById('seeker-dialogue');
   
@@ -16,47 +15,53 @@ function initMouseTracking() {
   
   // Add new event listener
   document.addEventListener('mousemove', handleMouseMove);
+}
+
+// Handle mouse movement and button highlighting
+function handleMouseMove(e) {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
   
-  function handleMouseMove(e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+  // Get current option buttons (refreshes each time)
+  const optionButtons = document.querySelectorAll('.option-btn');
+  const container = document.querySelector('.container');
+  const containerRect = container.getBoundingClientRect();
+  
+  let closestButton = null;
+  let minDistance = Infinity;
+  
+  // Find the closest button to the mouse
+  optionButtons.forEach((button) => {
+    // Use offsetLeft/offsetTop for consistency with ember positioning
+    const buttonCenterX = containerRect.left + button.offsetLeft + button.offsetWidth / 2;
+    const buttonCenterY = containerRect.top + button.offsetTop + button.offsetHeight / 2;
     
-    let closestButton = null;
-    let minDistance = Infinity;
+    const distance = Math.sqrt(
+      Math.pow(mouseX - buttonCenterX, 2) + 
+      Math.pow(mouseY - buttonCenterY, 2)
+    );
     
-    // Find the closest button to the mouse
-    optionButtons.forEach(button => {
-      const rect = button.getBoundingClientRect();
-      const buttonCenterX = rect.left + rect.width / 2;
-      const buttonCenterY = rect.top + rect.height / 2;
-      
-      const distance = Math.sqrt(
-        Math.pow(mouseX - buttonCenterX, 2) + 
-        Math.pow(mouseY - buttonCenterY, 2)
-      );
-      
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestButton = button;
-      }
-    });
+    if (distance < minDistance && distance < 200) { // Increased threshold to 200px
+      minDistance = distance;
+      closestButton = button;
+    }
+  });
+  
+  // Update highlighted button
+  if (highlightedButton !== closestButton) {
+    if (highlightedButton) {
+      highlightedButton.classList.remove('highlighted');
+    }
     
-    // Update highlighted button
-    if (highlightedButton !== closestButton) {
-      if (highlightedButton) {
-        highlightedButton.classList.remove('highlighted');
-      }
-      
-      highlightedButton = closestButton;
-      
-      if (highlightedButton) {
-        highlightedButton.classList.add('highlighted');
-        updateConnectionLine();
-        createEmbers(highlightedButton); // Add embers effect
-      } else {
-        hideConnectionLine();
-        stopEmbers(); // Stop embers when not highlighted
-      }
+    highlightedButton = closestButton;
+    
+    if (highlightedButton) {
+      highlightedButton.classList.add('highlighted');
+      updateConnectionLine();
+      createEmbers(highlightedButton); // Add embers effect
+    } else {
+      hideConnectionLine();
+      stopEmbers(); // Stop embers when not highlighted
     }
   }
 }
@@ -65,25 +70,31 @@ function initMouseTracking() {
 function updateConnectionLine() {
   if (!highlightedButton || !seekerCard || !connectionPath) return;
   
-  const buttonRect = highlightedButton.getBoundingClientRect();
-  const cardRect = seekerCard.getBoundingClientRect();
+  const container = document.querySelector('.container');
+  const containerRect = container.getBoundingClientRect();
   const svgRect = document.getElementById('connection-line').getBoundingClientRect();
   
-  // Calculate relative positions within the SVG
-  const cardCenterX = (cardRect.left + cardRect.width / 2) - svgRect.left;
-  const cardCenterY = (cardRect.top + cardRect.height / 2) - svgRect.top;
+  // Use consistent positioning method
+  const cardCenterX = seekerCard.offsetLeft + seekerCard.offsetWidth / 2;
+  const cardCenterY = seekerCard.offsetTop + seekerCard.offsetHeight / 2;
   
-  const buttonCenterX = (buttonRect.left + buttonRect.width / 2) - svgRect.left;
-  const buttonCenterY = (buttonRect.top + buttonRect.height / 2) - svgRect.top;
+  const buttonCenterX = highlightedButton.offsetLeft + highlightedButton.offsetWidth / 2;
+  const buttonCenterY = highlightedButton.offsetTop + highlightedButton.offsetHeight / 2;
+  
+  // Convert to SVG coordinates
+  const svgCardX = containerRect.left + cardCenterX - svgRect.left;
+  const svgCardY = containerRect.top + cardCenterY - svgRect.top;
+  const svgButtonX = containerRect.left + buttonCenterX - svgRect.left;
+  const svgButtonY = containerRect.top + buttonCenterY - svgRect.top;
   
   // Create a wavy curved path with multiple control points
-  const deltaX = buttonCenterX - cardCenterX;
-  const deltaY = buttonCenterY - cardCenterY;
+  const deltaX = svgButtonX - svgCardX;
+  const deltaY = svgButtonY - svgCardY;
   const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
   
   // Add wave effect with time-based animation
   const time = Date.now() * 0.003;
-  const waveAmplitude = 20; // Increased from 15 for more noticeable waves
+  const waveAmplitude = 20;
   const waveFrequency = 2;
   
   // Calculate perpendicular direction for wave
@@ -92,12 +103,12 @@ function updateConnectionLine() {
   
   // Create wavy path with multiple points
   const segments = 5;
-  let pathD = `M ${cardCenterX} ${cardCenterY}`;
+  let pathD = `M ${svgCardX} ${svgCardY}`;
   
   for (let i = 1; i <= segments; i++) {
     const t = i / segments;
-    const x = cardCenterX + deltaX * t;
-    const y = cardCenterY + deltaY * t;
+    const x = svgCardX + deltaX * t;
+    const y = svgCardY + deltaY * t;
     
     // Add wave displacement
     const waveOffset = Math.sin(t * Math.PI * waveFrequency + time) * waveAmplitude * Math.sin(t * Math.PI);
@@ -107,7 +118,7 @@ function updateConnectionLine() {
     if (i === 1) {
       pathD += ` Q ${waveX} ${waveY}`;
     } else if (i === segments) {
-      pathD += ` ${buttonCenterX} ${buttonCenterY}`;
+      pathD += ` ${svgButtonX} ${svgButtonY}`;
     } else {
       pathD += ` T ${waveX} ${waveY}`;
     }
@@ -235,15 +246,21 @@ function createSingleEmber(button) {
   ember.style.pointerEvents = 'none';
   ember.style.zIndex = '6';
   
-  // Position ember randomly around the button
-  const buttonRect = button.getBoundingClientRect();
-  const angle = Math.random() * Math.PI * 2;
-  const distance = Math.random() * 20 + 10;
-  const x = buttonRect.left + buttonRect.width / 2 + Math.cos(angle) * distance;
-  const y = buttonRect.top + buttonRect.height / 2 + Math.sin(angle) * distance;
+  // Use offsetLeft/offsetTop for more reliable positioning
+  const container = document.querySelector('.container');
+  const containerRect = container.getBoundingClientRect();
   
-  ember.style.left = `${x}px`;
-  ember.style.top = `${y}px`;
+  const buttonCenterX = button.offsetLeft + button.offsetWidth / 2;
+  const buttonCenterY = button.offsetTop + button.offsetHeight / 2;
+  
+  const angle = Math.random() * Math.PI * 2;
+  const distance = Math.random() * 25 + 15; // Slightly larger spread
+  const x = buttonCenterX + Math.cos(angle) * distance;
+  const y = buttonCenterY + Math.sin(angle) * distance;
+  
+  // Position relative to container
+  ember.style.left = `${containerRect.left + x}px`;
+  ember.style.top = `${containerRect.top + y}px`;
   
   // Random animation duration
   const duration = 1.5 + Math.random() * 1;
