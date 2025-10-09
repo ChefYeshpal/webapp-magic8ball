@@ -7,58 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <input id="question" placeholder="Ask a question" aria-label="Question" />
-        <button id="submit">Ask</button>
-    <div id="eight-ball" role="button" aria-label="Ask the magic 8 ball"><span class="ball-num">8</span></div>
-    </div>
-
-    <div id="answer" aria-live="polite"></div>
-
-    <!-- Hidden elements used by the secret sentience flow -->
-    <div id="black-overlay" aria-hidden="true"></div>
-    <div id="eight-ball-img" title="ask me a question." aria-hidden="true"></div>
-
-    <div id="sentient-dialog" class="hidden" role="dialog" aria-hidden="true">
-        <div id="dialog-text"></div>
-        <div class="dialog-buttons">
-            <button id="dialog-yes">Yes</button>
-            <button id="dialog-no">No</button>
-        </div>
-    </div>
-
-    <!-- Potion brewing scene -->
-    <div id="potion-scene" class="hidden" aria-hidden="true">
-        <div id="potion-wall"></div>
-        <div id="potion-table"></div>
-        <div id="potion-dialogue-box">
-            <div id="potion-dialogue-text"></div>
-            <div class="potion-dialogue-buttons">
-                <button id="potion-yes">Yes</button>
-                <button id="potion-no">No</button>
+    <div class="ball-bg">
+        <div class="window">
+            <div id="question" class="fade">What is your wish?</div>
+            <div class="options">
+                <button class="options">Yes</button>
+                <button class="options">Ask again</button>
+                <button class="options">No</button>
             </div>
         </div>
-        <div id="potion-ball"></div>
-        
-        <!-- Color mixing game interface -->
-        <div id="color-mixing-game" class="hidden">
-            <div id="target-color-display">
-                <label>Target Color:</label>
-                <div id="target-color-sample"></div>
-            </div>
-            
-            <div id="mixing-area">
-                <div id="mixing-circle"></div>
-                <div id="red-source" class="color-source" data-color="red"></div>
-                <div id="blue-source" class="color-source" data-color="blue"></div>
-                <div id="yellow-source" class="color-source" data-color="yellow"></div>
-            </div>
-            
-            <button id="submit-mixture">Submit Potion</button>
-        </div>
     </div>
-
-    <script src="answers-data.js"></script>
-    <script src="main.js"></script>
+    <script src="tree.js"></script>
 </body>
 </html>
