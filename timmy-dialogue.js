@@ -370,6 +370,246 @@ const timmyDialogueTree = {
       ]
     },
 
+    math_help: {
+      id: "math_help",
+      text: "We worked on time management math together! 24 hours = 8 sleep + 3 meals + 1 personal time + 1 exercise + 5 study + 6 other activities! I learned scheduling is just applied math! Now I'm organized AND good at chemistry!",
+      mood: "mathematical_enlightenment",
+      ending: true,
+      outcome: "time_management_mastery"
+    },
+
+    realistic_goals: {
+      id: "realistic_goals",
+      text: "4 hours of focused studying worked perfectly! I used the Pomodoro technique, took breaks, and actually retained information! Quality over quantity! I got an A- and learned that sustainable habits beat cramming!",
+      mood: "balanced_success",
+      ending: true,
+      outcome: "sustainable_study_success"
+    },
+
+    emotional_schedule: {
+      id: "emotional_schedule",
+      text: "The crying hour became my emotional release time! I scheduled it daily, processed my stress healthily, then focused better on studying! My therapist says I'm a pioneer in 'structured emotional processing!' Mental health first!",
+      mood: "emotional_intelligence_triumph",
+      ending: true,
+      outcome: "emotional_wellness_innovation"
+    },
+
+    time_management_consultant: {
+      id: "time_management_consultant",
+      text: "I hired a professional time manager! She taught me efficiency, priority matrices, and work-life balance! I became so good at time management, I started my own consulting business for overwhelmed students! Productivity guru at 16!",
+      mood: "efficiency_entrepreneur",
+      ending: true,
+      outcome: "time_management_business_success"
+    },
+
+    ignore_professor: {
+      id: "ignore_professor",
+      text: "I focused purely on learning chemistry concepts and ignored Professor Meltdown's quirks! Knowledge became my shield! I understood the material so well that his teaching style didn't matter! I aced the exam through pure preparation!",
+      mood: "focused_determination",
+      ending: true,
+      outcome: "knowledge_over_fear_triumph"
+    },
+
+    fear_motivation: {
+      id: "fear_motivation",
+      text: "Fear of Professor Meltdown's wrath motivated me to study harder than ever before! I knew every concept inside and out! Ironically, my terror-driven preparation impressed him so much he offered me a research position!",
+      mood: "fear_transformed_to_opportunity",
+      ending: true,
+      outcome: "anxiety_driven_excellence"
+    },
+
+    escape_plan: {
+      id: "escape_plan",
+      text: "I researched transferring schools but realized Professor Meltdown was actually brilliant and caring! The 'escape plan' research taught me about different educational approaches! I stayed, thrived, and now help other students see past intimidating exteriors!",
+      mood: "perspective_shift_wisdom",
+      ending: true,
+      outcome: "judge_not_by_appearances_success"
+    },
+
+    topic_by_topic: {
+      id: "topic_by_topic",
+      text: "I tackled one topic per day! Day 1: Atoms, Day 2: Molecules, Day 3: Bonds, etc. Breaking it down made everything manageable! I built chemistry knowledge like building blocks! Steady progress beats overwhelming panic!",
+      mood: "systematic_success",
+      ending: true,
+      outcome: "methodical_learning_victory"
+    },
+
+    misconception_fix: {
+      id: "misconception_fix",
+      text: "You corrected my vegetable misconception! Organic chemistry is about carbon compounds, not vegetables! This one correction opened my understanding! Sometimes one small clarification can illuminate everything! I became the class's misconception-buster!",
+      mood: "clarity_breakthrough",
+      ending: true,
+      outcome: "misconception_correction_mastery"
+    },
+
+    formula_memorization: {
+      id: "formula_memorization",
+      text: "I memorized hundreds of formulas without understanding them! During the exam, I mixed everything up spectacularly! But Professor Meltdown appreciated my effort and taught me that understanding beats memorization! Failure led to better learning!",
+      mood: "failure_wisdom_transformation",
+      ending: true,
+      outcome: "learning_from_failure_success"
+    },
+
+    give_up_academics: {
+      id: "give_up_academics",
+      text: "I almost gave up on academics entirely! But then I realized chemistry might not be my strength, but learning is! I switched to art and discovered scientific illustration! Now I draw molecular structures for textbooks! Different paths, same destination!",
+      mood: "alternative_path_discovery",
+      ending: true,
+      outcome: "interdisciplinary_career_success"
+    },
+
+    charm_disaster: {
+      id: "charm_disaster",
+      text: "My finger guns and chemistry pun dance was... memorable! Professor Meltdown laughed so hard he cried! He said it was the most enthusiasm he'd seen in 20 years! My disaster became legendary! Sometimes being memorably bad is better than being forgettably average!",
+      mood: "legendary_disaster_success",
+      ending: true,
+      outcome: "memorable_enthusiasm_triumph"
+    },
+
+    subtle_charm: {
+      id: "subtle_charm",
+      text: "I toned down to respectful enthusiasm and genuine interest! Asked thoughtful questions, participated actively, and showed Professor Meltdown I truly cared about chemistry! Subtle charm and authentic passion won the day! Sincerity beats performance!",
+      mood: "authentic_connection_success",
+      ending: true,
+      outcome: "genuine_enthusiasm_victory"
+    },
+
+    plan_revision: {
+      id: "plan_revision", 
+      text: "Right! New plan: Day 1-3: Learn concepts with breaks. Day 4: Practice problems. Day 5: Review with friends. Day 6: Light review and relaxation. Day 7: Confident exam! Much better! Balanced approach worked perfectly!",
+      mood: "mature_planning_success",
+      ending: true,
+      outcome: "balanced_study_plan_success"
+    },
+
+    panic_endorsement: {
+      id: "panic_endorsement",
+      text: "You're right! Days 4-6 were peak panic efficiency! I channeled anxiety into laser focus! Panic became my superpower! I aced the exam through strategic stress management! Sometimes controlled chaos is the answer!",
+      mood: "productive_panic_mastery",
+      ending: true,
+      outcome: "anxiety_as_motivation_success"
+    },
+
+    practice_problems: {
+      id: "practice_problems",
+      text: "I added practice problems to every day! Repetition made everything click! By day 3, I was solving complex equations in my sleep! Practice truly makes perfect! I scored in the top 5% of the class!",
+      mood: "practice_perfection",
+      ending: true,
+      outcome: "repetition_mastery_success"
+    },
+
+    youtube_education: {
+      id: "youtube_education",
+      text: "YouTube University saved me! Khan Academy, CrashCourse, and Professor Dave explained everything clearly! I learned more from videos than textbooks! Modern education is amazing! I became a digital learning advocate!",
+      mood: "digital_native_triumph",
+      ending: true,
+      outcome: "online_learning_revolution"
+    },
+
+    memorization_reality: {
+      id: "memorization_reality",
+      text: "You're absolutely right! I focused on understanding patterns and relationships instead of brute memorization! Chemistry made sense as a logical system! Understanding beats memorizing every time! I became the class concept explainer!",
+      mood: "understanding_over_memorization",
+      ending: true,
+      outcome: "conceptual_learning_mastery"
+    },
+
+    flashcard_system: {
+      id: "flashcard_system",
+      text: "Flashcards with spaced repetition worked like magic! Anki app helped me review efficiently! I memorized key concepts without overwhelm! Technology made learning systematic and fun! Now I teach other students this method!",
+      mood: "systematic_learning_success",
+      ending: true,
+      outcome: "spaced_repetition_expertise"
+    },
+
+    brain_upgrade: {
+      id: "brain_upgrade",
+      text: "I researched brain optimization! Sleep, exercise, proper nutrition, and meditation boosted my learning capacity! My 'upgraded' brain absorbed chemistry like a sponge! I became a peak performance student and now coach others!",
+      mood: "biohacking_student_success",
+      ending: true,
+      outcome: "cognitive_optimization_mastery"
+    },
+
+    sarah_tutoring: {
+      id: "sarah_tutoring",
+      text: "Sarah taught me chemistry through pure formulas! At first it was overwhelming, but then I realized I was learning the language of science! Her systematic approach gave me a solid foundation! Formula fluency led to chemical literacy!",
+      mood: "systematic_excellence",
+      ending: true,
+      outcome: "formula_based_learning_success"
+    },
+
+    bob_tutoring: {
+      id: "bob_tutoring",
+      text: "Bob's food analogies made everything clear! 'Ionic bonds are like salt and pepper - opposites that stick together!' 'Covalent bonds share electrons like sharing pizza!' I learned through my stomach and my brain! Delicious education!",
+      mood: "culinary_chemistry_success",
+      ending: true,
+      outcome: "food_analogy_learning_mastery"
+    },
+
+    tutoring_committee: {
+      id: "tutoring_committee",
+      text: "All three tutors created the perfect learning system! Sarah's formulas, Bob's analogies, and Mr. Whiskers' chaos theory! I got systematic knowledge, memorable connections, and unpredictable insights! Dream team education!",
+      mood: "collaborative_tutoring_triumph",
+      ending: true,
+      outcome: "multi_method_learning_success"
+    },
+
+    reality_check_detailed: {
+      id: "reality_check_detailed",
+      text: "You helped me see perspective! One exam doesn't define my life! I calmed down, studied what I could, talked to the teacher about extra credit, and passed! Sometimes you need someone to remind you that life goes on!",
+      mood: "perspective_restored",
+      ending: true,
+      outcome: "life_perspective_wisdom"
+    },
+
+    circus_planning: {
+      id: "circus_planning",
+      text: "I researched joining the circus! Turns out they need people who understand chemistry for special effects! My panic about chemistry led to discovering pyrotechnics career paths! Sometimes running away leads you exactly where you need to be!",
+      mood: "unexpected_career_discovery",
+      ending: true,
+      outcome: "circus_chemistry_career_success"
+    },
+
+    fake_death_planning: {
+      id: "fake_death_planning",
+      text: "I researched fake death scenarios and discovered forensic science! Chemistry is crucial for understanding death investigations! My morbid escape plan led to a fascinating career path in forensic chemistry! Dark thoughts, bright future!",
+      mood: "dark_to_bright_transformation",
+      ending: true,
+      outcome: "forensic_science_career_discovery"
+    },
+
+    musician_exploration: {
+      id: "musician_exploration",
+      text: "I learned that music theory is mathematical and physics-based! Sound waves, frequency ratios, and acoustic chemistry fascinated me! I became a sound engineer who understands the science behind music! Science and art united!",
+      mood: "artistic_science_fusion",
+      ending: true,
+      outcome: "audio_science_engineering_success"
+    },
+
+    gaming_career: {
+      id: "gaming_career",
+      text: "I discovered that game development needs people who understand chemistry for realistic simulations! My gaming passion plus chemistry knowledge led to designing educational chemistry games! Players learn science while having fun!",
+      mood: "gamification_innovation",
+      ending: true,
+      outcome: "educational_game_developer_success"
+    },
+
+    back_to_reality_detailed: {
+      id: "back_to_reality_detailed",
+      text: "You reminded me that escaping won't solve anything! I faced the chemistry exam head-on, asked for help when needed, and discovered I was more capable than I thought! Sometimes you have to go through the challenge, not around it!",
+      mood: "facing_challenges_courage",
+      ending: true,
+      outcome: "confronting_fears_success"
+    },
+
+    mystical_career: {
+      id: "mystical_career",
+      text: "I became a professional Magic 8 Ball consultant! But I used chemistry knowledge to create better fortune-telling solutions! Color-changing chemistry, pH indicators, and molecular gastronomy! Science-based mysticism is surprisingly popular!",
+      mood: "scientific_mysticism_entrepreneur",
+      ending: true,
+      outcome: "science_mysticism_business_success"
+    },
+
     engagement_path: {
       id: "engagement_path",
       text: "I went to Professor Meltdown's office hours! His eyes lit up when I asked about molecular bonding! He spent 2 hours explaining atoms like people looking for friends! Then he gave me extra credit for 'genuine curiosity!' Being interested actually works!",
@@ -393,6 +633,22 @@ const timmyDialogueTree = {
       ]
     },
 
+    advanced_concepts: {
+      id: "advanced_concepts",
+      text: "I dove into quantum chemistry and molecular orbital theory! It's like Professor Meltdown opened a door to a secret universe! I'm tutoring other students now and considering a chemistry major! Who knew atoms could be so fascinating?",
+      mood: "intellectual_excitement",
+      ending: true,
+      outcome: "academic_excellence_success"
+    },
+
+    banana_story: {
+      id: "banana_story", 
+      text: "Professor Meltdown explained the banana incident! He was demonstrating how potassium-40 naturally decays - bananas are slightly radioactive! He threw it because 'kinetic energy demonstrates particle behavior!' Now I understand his teaching style perfectly!",
+      mood: "enlightened_comedy",
+      ending: true,
+      outcome: "understanding_teacher_success"
+    },
+
     protection_comedy: {
       id: "protection_comedy",
       text: "I wore a helmet, safety goggles, and fruit stickers to class! Professor Meltdown burst out laughing! Turns out he only threw that banana to demonstrate radioactive decay! Now he calls me 'Safety Timmy' and I'm his favorite student!",
@@ -414,6 +670,22 @@ const timmyDialogueTree = {
           tone: "responsible"
         }
       ]
+    },
+
+    safety_demonstrations: {
+      id: "safety_demonstrations",
+      text: "Professor Meltdown now does 'Safety Theater' in every class! We wear costumes for different experiments! I'm the 'Acid-Base Detective' and my friend Jenny is 'Captain Catalyst!' Learning chemistry through safety roleplay is surprisingly effective and hilarious!",
+      mood: "educational_theater_success",
+      ending: true,
+      outcome: "creative_learning_success"
+    },
+
+    safety_officer: {
+      id: "safety_officer",
+      text: "I became the official Chemistry Safety Officer! I inspect all lab equipment, teach safety protocols, and even got a special badge! The school hired me as a part-time safety consultant! My paranoia became my superpower!",
+      mood: "responsible_pride",
+      ending: true,
+      outcome: "safety_leadership_success"
     },
 
     pun_master: {
@@ -444,6 +716,38 @@ const timmyDialogueTree = {
       ]
     },
 
+    pun_acceptance: {
+      id: "pun_acceptance",
+      text: "You're right! All science puns are noble gases - they're inert but stable! I started a science comedy club called 'Laughing Gas!' We perform at schools making science fun! Even Professor Meltdown does guest spots now!",
+      mood: "comedic_triumph",
+      ending: true,
+      outcome: "science_comedy_success"
+    },
+
+    chemistry_puns_only: {
+      id: "chemistry_puns_only",
+      text: "I mastered chemistry puns! 'You're sodium fine!' 'We have great chemistry!' Professor Meltdown laughed so hard at my exam puns, he gave me bonus points! Humor made chemistry memorable and I aced everything!",
+      mood: "pun_master_success",
+      ending: true,
+      outcome: "humor_learning_success"
+    },
+
+    comedy_career: {
+      id: "comedy_career",
+      text: "My 'Chemistry Comedy Hour' went viral! I perform at universities worldwide, making science accessible through humor! Neil deGrasse Tyson invited me on his show! I'm the 'Comedy Chemist' with my own Netflix special coming!",
+      mood: "comedy_stardom",
+      ending: true,
+      outcome: "comedy_career_success"
+    },
+
+    pun_testing: {
+      id: "pun_testing",
+      text: "I tested my puns on Professor Meltdown! He groaned so hard he nearly had another 'meltdown!' But then he admitted they helped him remember concepts too! Now we collaborate on educational chemistry comedy skits!",
+      mood: "collaborative_comedy",
+      ending: true,
+      outcome: "teacher_student_comedy_partnership"
+    },
+
     element_song: {
       id: "element_song",
       text: "♪ Hydrogen and helium, lithium too! Beryllium's fancy, boron's so blue! ♪ Wait, this is working! I remember more elements! Should I become the next Hamilton but for chemistry?",
@@ -470,6 +774,30 @@ const timmyDialogueTree = {
           tone: "practical"
         }
       ]
+    },
+
+    science_choreography: {
+      id: "science_choreography",
+      text: "I created the 'Molecular Dance!' Hydrogen atoms do the simple step, carbon atoms do complex footwork, and noble gases just stand there! My dance-learning method spread worldwide! I'm teaching chemistry through choreography!",
+      mood: "dance_education_revolution",
+      ending: true,
+      outcome: "kinesthetic_learning_success"
+    },
+
+    classroom_performance: {
+      id: "classroom_performance",
+      text: "I performed my element song for the class! Everyone joined in! Now we sing chemistry concepts during every lesson! Professor Meltdown recorded us for educational videos! Our class became the 'Singing Chemists!'",
+      mood: "musical_classroom_success",
+      ending: true,
+      outcome: "collaborative_music_learning"
+    },
+
+    song_advanced_topics: {
+      id: "song_advanced_topics",
+      text: "I wrote songs for quantum mechanics and thermodynamics! '♪ Entropy's always rising, energy's conserved! ♪' My 'Advanced Chemistry Rock Opera' is being performed at MIT! Complex concepts become simple through music!",
+      mood: "musical_genius_recognition",
+      ending: true,
+      outcome: "advanced_musical_chemistry"
     },
 
     cat_tutoring: {
@@ -500,6 +828,30 @@ const timmyDialogueTree = {
       ]
     },
 
+    cat_science_journal: {
+      id: "cat_science_journal",
+      text: "My 'Feline Chemistry Lab Notes' went viral! Scientists worldwide now study 'chaos-based learning theory!' Mr. Whiskers has his own research grant! We're revolutionizing education through controlled randomness!",
+      mood: "scientific_breakthrough",
+      ending: true,
+      outcome: "chaos_theory_education_success"
+    },
+
+    pet_chemistry_school: {
+      id: "pet_chemistry_school",
+      text: "I opened 'Paws & Polymers Academy!' Dogs learn about pH with their saliva, cats demonstrate surface tension, and hamsters run wheels to generate electricity! Pet-assisted learning is the future of education!",
+      mood: "entrepreneurial_innovation",
+      ending: true,
+      outcome: "pet_education_empire"
+    },
+
+    hybrid_tutoring: {
+      id: "hybrid_tutoring",
+      text: "I combined Mr. Whiskers' chaos method with Sarah's systematic approach! Controlled chaos plus structure equals perfect learning! My hybrid method is now taught in education schools! Best of both worlds!",
+      mood: "balanced_innovation",
+      ending: true,
+      outcome: "hybrid_learning_methodology"
+    },
+
     ramen_philosophy: {
       id: "ramen_philosophy",
       text: "You're right! Ramen is chemistry in a bowl! Noodles are carbohydrates, broth has proteins, flavor packet is pure chemistry magic! Maybe being a ramen philosopher isn't bad! 'The Tao of Sodium' and 'Zen and Instant Noodles!'",
@@ -526,6 +878,30 @@ const timmyDialogueTree = {
           tone: "motivational"
         }
       ]
+    },
+
+    ramen_philosopher_career: {
+      id: "ramen_philosopher_career",
+      text: "My shop 'The Philosophical Noodle' serves wisdom with every bowl! 'The meaning of life is like instant ramen - simple ingredients, complex flavors, and always better when shared!' I'm the world's first Ramen Sage!",
+      mood: "philosophical_entrepreneurship",
+      ending: true,
+      outcome: "culinary_philosophy_success"
+    },
+
+    ramen_poetry: {
+      id: "ramen_poetry",
+      text: "My chemistry haikus are published! 'Sodium chloride / Dissolved in boiling water / Taste buds dance with joy' My book 'Molecular Gastronomy Poetry' won the Nobel Prize for Literature! Food science meets art!",
+      mood: "poetic_scientific_acclaim",
+      ending: true,
+      outcome: "scientific_poetry_mastery"
+    },
+
+    higher_aspirations: {
+      id: "higher_aspirations",
+      text: "You're right! I used ramen as a stepping stone to understand food chemistry, then biochemistry, then won a scholarship to culinary school and chemistry double-major! Now I'm developing space food for NASA!",
+      mood: "progressive_ambition_success",
+      ending: true,
+      outcome: "space_food_scientist"
     },
 
     // Success ending branches
@@ -601,7 +977,64 @@ const timmyDialogueTree = {
       philosophical_comedy: { color: "#a29bfe", fontSize: "1em", fontStyle: "italic" },
       absurdly_triumphant: { color: "#ff7675", fontSize: "1.2em", fontWeight: "bold" },
       proud_innovation: { color: "#00b894", fontSize: "1.1em" },
-      proud_transformation: { color: "#0984e3", fontSize: "1.1em", fontWeight: "bold" }
+      proud_transformation: { color: "#0984e3", fontSize: "1.1em", fontWeight: "bold" },
+      intellectual_excitement: { color: "#6c5ce7", fontSize: "1.1em", fontWeight: "bold" },
+      enlightened_comedy: { color: "#fd79a8", fontSize: "1.05em", fontStyle: "italic" },
+      educational_theater_success: { color: "#e84393", fontSize: "1.1em" },
+      responsible_pride: { color: "#00b894", fontSize: "1.05em", fontWeight: "bold" },
+      comedic_triumph: { color: "#ff7675", fontSize: "1.15em" },
+      pun_master_success: { color: "#fdcb6e", fontSize: "1.1em" },
+      comedy_stardom: { color: "#e17055", fontSize: "1.2em", fontWeight: "bold" },
+      collaborative_comedy: { color: "#74b9ff", fontSize: "1.05em" },
+      dance_education_revolution: { color: "#fd79a8", fontSize: "1.15em" },
+      musical_classroom_success: { color: "#55a3ff", fontSize: "1.1em" },
+      musical_genius_recognition: { color: "#a29bfe", fontSize: "1.2em", fontWeight: "bold" },
+      scientific_breakthrough: { color: "#00b894", fontSize: "1.15em", fontWeight: "bold" },
+      entrepreneurial_innovation: { color: "#e17055", fontSize: "1.1em" },
+      balanced_innovation: { color: "#6c5ce7", fontSize: "1.05em" },
+      philosophical_entrepreneurship: { color: "#a29bfe", fontSize: "1.1em", fontStyle: "italic" },
+      poetic_scientific_acclaim: { color: "#fd79a8", fontSize: "1.2em", fontWeight: "bold" },
+      progressive_ambition_success: { color: "#0984e3", fontSize: "1.15em", fontWeight: "bold" },
+      relieved_success: { color: "#00b894", fontSize: "1.05em" },
+      zen_acceptance: { color: "#6c5ce7", fontSize: "1em", fontStyle: "italic" },
+      communication_breakthrough: { color: "#74b9ff", fontSize: "1.1em" },
+      accidental_overachiever: { color: "#fdcb6e", fontSize: "1.1em" },
+      teaching_revelation: { color: "#55a3ff", fontSize: "1.05em" },
+      leadership_development: { color: "#0984e3", fontSize: "1.1em", fontWeight: "bold" },
+      whimsical_empire: { color: "#ff9ff3", fontSize: "1.2em" },
+      mentorship_fulfillment: { color: "#00b894", fontSize: "1.1em" },
+      digital_education_stardom: { color: "#74b9ff", fontSize: "1.15em", fontWeight: "bold" },
+      mathematical_enlightenment: { color: "#6c5ce7", fontSize: "1.1em" },
+      balanced_success: { color: "#00b894", fontSize: "1.05em" },
+      emotional_intelligence_triumph: { color: "#fd79a8", fontSize: "1.1em" },
+      efficiency_entrepreneur: { color: "#e17055", fontSize: "1.1em", fontWeight: "bold" },
+      focused_determination: { color: "#2d3436", fontSize: "1.1em", fontWeight: "bold" },
+      fear_transformed_to_opportunity: { color: "#0984e3", fontSize: "1.1em" },
+      perspective_shift_wisdom: { color: "#6c5ce7", fontSize: "1.05em", fontStyle: "italic" },
+      systematic_success: { color: "#00b894", fontSize: "1.05em" },
+      clarity_breakthrough: { color: "#74b9ff", fontSize: "1.1em" },
+      failure_wisdom_transformation: { color: "#e17055", fontSize: "1.1em" },
+      alternative_path_discovery: { color: "#a29bfe", fontSize: "1.05em" },
+      legendary_disaster_success: { color: "#ff7675", fontSize: "1.15em" },
+      authentic_connection_success: { color: "#00b894", fontSize: "1.1em" },
+      kinesthetic_revolution: { color: "#fd79a8", fontSize: "1.15em" },
+      mature_planning_success: { color: "#0984e3", fontSize: "1.05em" },
+      productive_panic_mastery: { color: "#e17055", fontSize: "1.1em" },
+      practice_perfection: { color: "#00b894", fontSize: "1.1em" },
+      digital_native_triumph: { color: "#74b9ff", fontSize: "1.1em" },
+      understanding_over_memorization: { color: "#6c5ce7", fontSize: "1.1em" },
+      systematic_learning_success: { color: "#55a3ff", fontSize: "1.05em" },
+      biohacking_student_success: { color: "#e17055", fontSize: "1.1em", fontWeight: "bold" },
+      systematic_excellence: { color: "#0984e3", fontSize: "1.05em" },
+      culinary_chemistry_success: { color: "#fdcb6e", fontSize: "1.1em" },
+      collaborative_tutoring_triumph: { color: "#74b9ff", fontSize: "1.15em", fontWeight: "bold" },
+      perspective_restored: { color: "#00b894", fontSize: "1.05em" },
+      unexpected_career_discovery: { color: "#e17055", fontSize: "1.1em" },
+      dark_to_bright_transformation: { color: "#6c5ce7", fontSize: "1.1em" },
+      artistic_science_fusion: { color: "#a29bfe", fontSize: "1.1em" },
+      gamification_innovation: { color: "#74b9ff", fontSize: "1.1em" },
+      facing_challenges_courage: { color: "#0984e3", fontSize: "1.1em", fontWeight: "bold" },
+      scientific_mysticism_entrepreneur: { color: "#fd79a8", fontSize: "1.15em" }
     };
     return moodStyles[mood] || { color: "#ffffff", fontSize: "1em" };
   },

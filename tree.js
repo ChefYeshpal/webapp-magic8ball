@@ -88,7 +88,7 @@ function createDialogueOptions(dialogue) {
   if (dialogue.ending) {
     const continueButton = document.createElement('button');
     continueButton.className = 'option-btn wise';
-    continueButton.textContent = 'Continue...';
+    continueButton.textContent = 'See the outcome...';
     continueButton.addEventListener('click', () => {
       showPathSummaryDialogue();
     });
@@ -132,29 +132,16 @@ function handleDialogueChoice(chosenOption) {
   
   isAnswered = true;
   
-  // If this is an ending dialogue, handle it specially
-  if (nextDialogue.ending) {
-    setTimeout(() => {
-      currentDialogueId = nextDialogueId;
-      displayCurrentDialogue();
-      
-      // Reinitialize mouse tracking for new buttons
-      if (window.initMouseTracking) {
-        setTimeout(window.initMouseTracking, 100);
-      }
-    }, 2000);
-  } else {
-    // Continue the conversation after a brief pause
-    setTimeout(() => {
-      currentDialogueId = nextDialogueId;
-      displayCurrentDialogue();
-      
-      // Reinitialize mouse tracking for new buttons
-      if (window.initMouseTracking) {
-        setTimeout(window.initMouseTracking, 100);
-      }
-    }, 2000);
-  }
+  // Always show the next dialogue first, then handle ending logic
+  setTimeout(() => {
+    currentDialogueId = nextDialogueId;
+    displayCurrentDialogue();
+    
+    // Reinitialize mouse tracking for new buttons
+    if (window.initMouseTracking) {
+      setTimeout(window.initMouseTracking, 100);
+    }
+  }, 2000);
 }
 
 function displayEndingDialogue(endingDialogueId) {
@@ -198,12 +185,19 @@ function createRestartOption() {
   // Clear existing options
   container.innerHTML = '';
   
-  // Create single restart button
+  // Create restart option with clear "go again" language
   const restartButton = document.createElement('button');
   restartButton.className = 'option-btn restart';
-  restartButton.textContent = 'Do you want to start again?';
+  restartButton.textContent = 'Do you want to help Timmy again?';
   restartButton.addEventListener('click', restartStory);
   container.appendChild(restartButton);
+  
+  // Create alternative option for variety
+  const differentPathButton = document.createElement('button');
+  differentPathButton.className = 'option-btn summary';
+  differentPathButton.textContent = 'Try a different path with Timmy';
+  differentPathButton.addEventListener('click', restartStory);
+  container.appendChild(differentPathButton);
   
   positionOptionsAroundWindow();
   
@@ -219,7 +213,46 @@ function generatePathDescription(summary, endingDialogue) {
     musical_science_success: "Your creative encouragement led Timmy to become a viral science educator! He turned his struggles into songs that help kids worldwide learn chemistry. Sometimes the most unexpected paths lead to the greatest impact!",
     cat_science_revolution: "Your absurd wisdom guided Timmy to embrace chaos as a learning tool! With Mr. Whiskers as his co-researcher, he revolutionized science education by proving that unconventional methods can yield extraordinary results!",
     innovative_learning_success: "Your clever guidance helped Timmy discover that learning comes in many forms! By connecting chemistry to everyday things like ramen, he not only passed his exam but created a whole new way of teaching science!",
-    safety_specialist_success: "Your practical advice helped Timmy turn his fears into strengths! By embracing safety and preparation, he became a leader and found his calling in making science safer for everyone!"
+    safety_specialist_success: "Your practical advice helped Timmy turn his fears into strengths! By embracing safety and preparation, he became a leader and found his calling in making science safer for everyone!",
+    academic_excellence_success: "Your encouragement pushed Timmy to excel beyond basic requirements! His curiosity led him to advanced concepts and academic greatness!",
+    understanding_teacher_success: "Your wisdom helped Timmy look beyond Professor Meltdown's intimidating exterior to discover a passionate educator! Understanding people is as important as understanding chemistry!",
+    creative_learning_success: "Your support of unconventional methods led to educational innovation! Timmy proved that safety and creativity can transform learning into entertainment!",
+    safety_leadership_success: "Your practical guidance helped Timmy become a responsible leader! He turned his concerns into proactive solutions that benefit everyone!",
+    science_comedy_success: "Your encouragement of humor made learning joyful! Timmy's comedy approach proves that laughter is the best teacher!",
+    humor_learning_success: "Your support of puns and humor helped Timmy make chemistry memorable and fun! Sometimes the silliest approaches work best!",
+    comedy_career_success: "Your belief in Timmy's comedic talent launched a career! He's making science accessible to millions through laughter!",
+    teacher_student_comedy_partnership: "Your guidance fostered a unique collaboration! Timmy and his teacher proved that humor can bridge any gap!",
+    kinesthetic_learning_success: "Your support of movement-based learning revolutionized education! Timmy proved that bodies and minds learn together!",
+    collaborative_music_learning: "Your encouragement of sharing turned individual talent into collective success! Music made the whole class better!",
+    advanced_musical_chemistry: "Your push for excellence led to sophisticated artistic achievement! Timmy proves that science and art can reach incredible heights together!",
+    chaos_theory_education_success: "Your embrace of unconventional methods led to scientific breakthroughs! Sometimes chaos is the best teacher!",
+    pet_education_empire: "Your entrepreneurial support helped Timmy create something unique! Who knew pets could be such effective teachers?",
+    hybrid_learning_methodology: "Your wisdom helped Timmy find balance between chaos and structure! The best solutions often combine opposites!",
+    culinary_philosophy_success: "Your support of unconventional paths led to wisdom and entrepreneurship! Philosophy can be found in the most unexpected places!",
+    scientific_poetry_mastery: "Your encouragement of artistic expression led to literary achievement! Science and poetry proved to be perfect partners!",
+    space_food_scientist: "Your motivational guidance helped Timmy aim high and achieve extraordinary things! Sometimes the simplest starting points lead to the stars!",
+    realistic_goals_achievement: "Your grounding wisdom helped Timmy overcome unnecessary fears and achieve realistic success! Sometimes the simplest approach is best!",
+    wisdom_through_uncertainty: "Your zen guidance taught Timmy that not knowing is the beginning of wisdom! Curiosity conquered fear!",
+    direct_approach_success: "Your practical advice proved that communication solves most problems! Simple solutions are often the most effective!",
+    overpreparation_reward: "Your support of thorough preparation led to unexpected opportunities! Sometimes doing too much is just enough!",
+    collaborative_leadership_success: "Your social guidance helped Timmy discover leadership through collaboration! Together everyone achieves more!",
+    creative_education_entrepreneur: "Your support of unconventional methods led to business innovation! Creativity can be surprisingly profitable!",
+    teaching_career_inspiration: "Your generous guidance showed Timmy the joy of helping others! The best way to learn is to teach!",
+    educational_media_success: "Your modern approach helped Timmy master digital education! Technology amplifies good teaching!",
+    time_management_mastery: "Your systematic guidance taught Timmy that organization is a learnable skill! Math applies to life, not just textbooks!",
+    sustainable_study_success: "Your balanced approach proved that consistency beats intensity! Sustainable habits create lasting success!",
+    emotional_wellness_innovation: "Your understanding support helped Timmy pioneer emotional intelligence! Mental health is the foundation of all success!",
+    time_management_business_success: "Your efficiency guidance launched an entrepreneurial career! Good habits can become profitable skills!",
+    knowledge_over_fear_triumph: "Your focus on substance over style helped Timmy overcome intimidation! Knowledge is the best armor against fear!",
+    anxiety_driven_excellence: "Your understanding that fear can motivate helped turn panic into performance! Sometimes anxiety is energy in disguise!",
+    judge_not_by_appearances_success: "Your wisdom about looking deeper helped Timmy discover that first impressions can deceive! Understanding trumps assumptions!",
+    methodical_learning_victory: "Your systematic approach proved that slow and steady wins the race! Breaking problems into pieces makes them manageable!",
+    misconception_correction_mastery: "Your correction helped Timmy become an expert at fixing misunderstandings! Sometimes one small truth unlocks everything!",
+    learning_from_failure_success: "Your support through failure helped Timmy discover that mistakes are teachers! Wisdom often comes disguised as failure!",
+    interdisciplinary_career_success: "Your encouragement to find alternative paths led to unexpected career success! Different doesn't mean wrong!",
+    memorable_enthusiasm_triumph: "Your support of authentic expression proved that being genuinely enthusiastic beats being artificially perfect! Passion is infectious!",
+    genuine_enthusiasm_victory: "Your guidance toward authenticity created real connection! Sincerity builds bridges that performance cannot!",
+    chemistry_dance_educator_success: "Your kinesthetic support launched a movement revolution! Bodies and minds learn better together!"
   };
   
   const defaultDescription = `Your ${summary.choiceCount} choices guided Timmy through ${summary.pathPersonality.join(', ')} decisions, ultimately leading him to: ${endingDialogue.outcome}. You shaped his destiny through the power of the Magic 8 Ball!`;
