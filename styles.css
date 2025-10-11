@@ -108,7 +108,7 @@ body, html {
   min-height: 100px; /* Minimum height */
   text-align: center;
   opacity: 0;
-  transition: opacity 0.7s ease-in-out;
+  transition: opacity 0.6s ease-in-out;
   z-index: 10;
   overflow: hidden; /* Hide any overflow */
   display: flex;
@@ -119,6 +119,16 @@ body, html {
 
 .seeker-card.flipping {
   animation: cardFade 1.2s ease-in-out;
+}
+
+.seeker-card.fading-out {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.seeker-card.fading-in {
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out;
 }
 
 @keyframes cardFade {
@@ -207,6 +217,18 @@ body, html {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.options-container.fading-out {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.options-container.fading-in {
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out;
 }
 
 .option-btn {

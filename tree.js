@@ -34,13 +34,59 @@ function initializeMagic8Ball() {
     console.error('Timmy dialogue tree not loaded');
   }
   
-  // Show the seeker card after a brief delay
+  // Show the seeker card after a brief delay with fade effect
   setTimeout(() => {
     const seekerCard = document.getElementById('seeker-dialogue');
     if (seekerCard) {
       seekerCard.classList.add('visible');
+      fadeInNewContent();
     }
   }, 500);
+}
+
+function fadeOutCurrentContent(callback) {
+  const seekerCard = document.getElementById('seeker-dialogue');
+  const optionsContainer = document.getElementById('options-container');
+  
+  // Add fade-out class to trigger CSS transition
+  if (seekerCard) {
+    seekerCard.classList.add('fading-out');
+  }
+  
+  if (optionsContainer) {
+    optionsContainer.classList.add('fading-out');
+  }
+  
+  // Wait for fade-out to complete, then execute callback
+  setTimeout(() => {
+    if (callback) callback();
+  }, 600); // Match this with CSS transition duration
+}
+
+function fadeInNewContent() {
+  const seekerCard = document.getElementById('seeker-dialogue');
+  const optionsContainer = document.getElementById('options-container');
+  
+  // Remove fade-out classes and add fade-in
+  if (seekerCard) {
+    seekerCard.classList.remove('fading-out');
+    seekerCard.classList.add('fading-in');
+    
+    // Remove fade-in class after animation
+    setTimeout(() => {
+      seekerCard.classList.remove('fading-in');
+    }, 600);
+  }
+  
+  if (optionsContainer) {
+    optionsContainer.classList.remove('fading-out');
+    optionsContainer.classList.add('fading-in');
+    
+    // Remove fade-in class after animation
+    setTimeout(() => {
+      optionsContainer.classList.remove('fading-in');
+    }, 600);
+  }
 }
 
 function displayCurrentDialogue() {
@@ -72,6 +118,11 @@ function displayCurrentDialogue() {
     // Create option buttons for this dialogue
     createDialogueOptions(dialogue);
     positionOptionsAroundWindow();
+    
+    // Fade in the new content
+    setTimeout(() => {
+      fadeInNewContent();
+    }, 1200); // Wait for card flip animation to complete
   }
   
   isAnswered = false;
@@ -132,8 +183,9 @@ function handleDialogueChoice(chosenOption) {
   
   isAnswered = true;
   
-  // Always show the next dialogue first, then handle ending logic
-  setTimeout(() => {
+  // Fade out current dialogue and options
+  fadeOutCurrentContent(() => {
+    // After fade out, update dialogue and fade in
     currentDialogueId = nextDialogueId;
     displayCurrentDialogue();
     
@@ -141,7 +193,7 @@ function handleDialogueChoice(chosenOption) {
     if (window.initMouseTracking) {
       setTimeout(window.initMouseTracking, 100);
     }
-  }, 2000);
+  });
 }
 
 function displayEndingDialogue(endingDialogueId) {
@@ -164,18 +216,23 @@ function showPathSummaryDialogue() {
   if (dialogueText && endingDialogue) {
     const pathDescription = generatePathDescription(summary, endingDialogue);
     
-    animateCardFlip(() => {
-      dialogueText.textContent = pathDescription;
-      dialogueText.style.color = '#ffd700';
-      dialogueText.style.fontSize = '1.05em';
-      dialogueText.style.fontStyle = 'italic';
+    // Fade out options first
+    fadeOutCurrentContent(() => {
+      // Update dialogue text
+      animateCardFlip(() => {
+        dialogueText.textContent = pathDescription;
+        dialogueText.style.color = '#ffd700';
+        dialogueText.style.fontSize = '1.05em';
+        dialogueText.style.fontStyle = 'italic';
+      });
+      
+      // Show restart option after the path summary
+      setTimeout(() => {
+        createRestartOption();
+        fadeInNewContent();
+      }, 1200); // Wait for card flip
     });
   }
-  
-  // Show restart option after the path summary
-  setTimeout(() => {
-    createRestartOption();
-  }, 4000);
 }
 
 function createRestartOption() {
@@ -295,12 +352,18 @@ function showPathSummary() {
 }
 
 function restartStory() {
-  currentDialogueId = 'start';
-  dialogueHistory = [];
-  if (currentCharacter && currentCharacter.choiceHistory) {
-    currentCharacter.choiceHistory = [];
-  }
-  displayCurrentDialogue();
+  // Fade out current content
+  fadeOutCurrentContent(() => {
+    // Reset dialogue state
+    currentDialogueId = 'start';
+    dialogueHistory = [];
+    if (currentCharacter && currentCharacter.choiceHistory) {
+      currentCharacter.choiceHistory = [];
+    }
+    
+    // Display starting dialogue
+    displayCurrentDialogue();
+  });
 }
 
 function positionOptionsAroundWindow() {
