@@ -40,6 +40,17 @@ body, html {
   display: none !important;
 }
 
+/* Fade-out animation when modal closes */
+.modal-overlay {
+  opacity: 1;
+  transition: opacity 320ms cubic-bezier(.22,.9,.35,1), transform 320ms cubic-bezier(.22,.9,.35,1);
+}
+.modal-overlay.modal-closing {
+  opacity: 0;
+  transform: scale(0.995);
+  pointer-events: none;
+}
+
 .modal-card {
   background: linear-gradient(180deg, #0f0f10 0%, #151517 100%);
   border: 1px solid rgba(255,255,255,0.06);
