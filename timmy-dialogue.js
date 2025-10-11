@@ -1014,7 +1014,7 @@ const timmyDialogueTree = {
       artistic_science_fusion: { color: "#a29bfe", fontSize: "1.1em" },
       gamification_innovation: { color: "#74b9ff", fontSize: "1.1em" },
       facing_challenges_courage: { color: "#0984e3", fontSize: "1.1em", fontWeight: "bold" },
-      // Add mood styles for the new darker themes
+      // mood styles for the new darker themes
       tragic_mental_breakdown: { color: "#2d3436", fontSize: "0.95em", fontStyle: "italic" },
       stimulant_addiction_collapse: { color: "#636e72", fontSize: "0.9em" },
       homeless_drug_addiction: { color: "#2d3436", fontSize: "0.85em", fontWeight: "300" },
