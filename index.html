@@ -6,6 +6,18 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Content warning modal (hidden by default) -->
+  <div id="grim-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="grim-title" aria-describedby="grim-desc" hidden>
+    <div class="modal-card" role="document">
+      <h2 id="grim-title">Content warning</h2>
+      <p id="grim-desc">This story contains some bad endings for Timmy. It may include dark themes such as addiction, homelessness, and self-harm. Do you still want to play?</p>
+      <div class="modal-actions">
+        <button id="grim-yes" class="grim-btn yes">Yes</button>
+        <button id="grim-no" class="grim-btn no">No</button>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <!-- Center glass window with seeker dialogue -->
     <div class="glass-window">
