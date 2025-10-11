@@ -232,30 +232,10 @@ const timmyDialogueTree = {
 
     memorization_madness: {
       id: "memorization_madness",
-      text: "YES! Hydrogen-1-proton-helium-2-protons... wait, there are 118 elements?! And each has properties and configurations and... OH NO, my brain is full at Beryllium! How do people fit all this in their heads?!",
-      mood: "dramatic_despair",
-      options: [
-        {
-          text: "You don't need to memorize everything",
-          leads_to: "memorization_reality",
-          tone: "grounding"
-        },
-        {
-          text: "Try making a song about elements",
-          leads_to: "element_song",
-          tone: "creative"
-        },
-        {
-          text: "Use flashcards and spaced repetition",
-          leads_to: "flashcard_system",
-          tone: "practical"
-        },
-        {
-          text: "Maybe your brain needs more RAM",
-          leads_to: "brain_upgrade",
-          tone: "absurd"
-        }
-      ]
+      text: "YES! Hydrogen-1-proton-helium-2-protons... I stayed awake for 72 hours straight trying to memorize everything. Energy drinks, caffeine pills, anything to keep going. I collapsed during the exam from exhaustion and malnutrition. When I woke up in the hospital, I'd developed a severe anxiety disorder and an addiction to stimulants. The doctor said my heart nearly stopped. I failed chemistry and spent the next year in and out of rehab.",
+      mood: "stimulant_addiction_collapse",
+      ending: true,
+      outcome: "substance_abuse_hospitalization"
     },
 
     tutor_search: {
@@ -452,10 +432,10 @@ const timmyDialogueTree = {
 
     give_up_academics: {
       id: "give_up_academics",
-      text: "I almost gave up on academics entirely! But then I realized chemistry might not be my strength, but learning is! I switched to art and discovered scientific illustration! Now I draw molecular structures for textbooks! Different paths, same destination!",
-      mood: "alternative_path_discovery",
+      text: "I gave up on academics completely and it destroyed my life. Without education, I couldn't find decent work. Started hanging around with dropouts who introduced me to meth. Within a year, I was stealing from my own family to feed my addiction. I lost 40 pounds, my teeth fell out, and I developed severe paranoia. Last my parents heard, I was living in an abandoned building downtown, selling my body to buy drugs. They don't even look for me anymore.",
+      mood: "academic_failure_meth_addiction",
       ending: true,
-      outcome: "interdisciplinary_career_success"
+      outcome: "education_abandonment_destruction"
     },
 
     charm_disaster: {
@@ -524,10 +504,10 @@ const timmyDialogueTree = {
 
     brain_upgrade: {
       id: "brain_upgrade",
-      text: "I researched brain optimization! Sleep, exercise, proper nutrition, and meditation boosted my learning capacity! My 'upgraded' brain absorbed chemistry like a sponge! I became a peak performance student and now coach others!",
-      mood: "biohacking_student_success",
+      text: "I became obsessed with 'upgrading' my brain through any means necessary. Started with nootropics, then moved to unprescribed Adderall I bought from classmates. When that wasn't enough, I found harder stimulants online. The 'enhanced' studying sessions became 3-day meth binges where I'd scribble equations on my walls with my own blood. My parents found me convulsing on my bedroom floor, surrounded by pages of nonsensical formulas. I nearly died from the overdose. Brain damage left me with permanent memory problems.",
+      mood: "drug_psychosis_overdose",
       ending: true,
-      outcome: "cognitive_optimization_mastery"
+      outcome: "stimulant_psychosis_brain_damage"
     },
 
     sarah_tutoring: {
@@ -564,18 +544,18 @@ const timmyDialogueTree = {
 
     circus_planning: {
       id: "circus_planning",
-      text: "I researched joining the circus! Turns out they need people who understand chemistry for special effects! My panic about chemistry led to discovering pyrotechnics career paths! Sometimes running away leads you exactly where you need to be!",
-      mood: "unexpected_career_discovery",
+      text: "I actually tried to run away and join the circus. Three months later, my parents found me living behind a dumpster near the train yards, strung out on whatever drugs the other runaways were sharing. I'd been surviving by begging and doing... things I'm not proud of. My teeth were rotting, I weighed 90 pounds, and I had track marks on my arms. The circus dream became a nightmare of addiction and homelessness. I spent two years in juvenile detention and rehab after they arrested me.",
+      mood: "homeless_drug_addiction",
       ending: true,
-      outcome: "circus_chemistry_career_success"
+      outcome: "runaway_addiction_arrest"
     },
 
     fake_death_planning: {
       id: "fake_death_planning",
-      text: "I researched fake death scenarios and discovered forensic science! Chemistry is crucial for understanding death investigations! My morbid escape plan led to a fascinating career path in forensic chemistry! Dark thoughts, bright future!",
-      mood: "dark_to_bright_transformation",
+      text: "I researched faking my death so thoroughly that I became obsessed with the real thing. The depression from failing chemistry spiraled into something darker. I started cutting myself to 'practice' being dead. My parents found me in the garage with a noose I'd been 'testing.' After my suicide attempt, I spent six months in a psychiatric ward where the other patients scared me more than any chemistry exam ever could. Some of them never made it out.",
+      mood: "suicidal_psychiatric_ward",
       ending: true,
-      outcome: "forensic_science_career_discovery"
+      outcome: "suicide_attempt_hospitalization"
     },
 
     musician_exploration: {
@@ -588,10 +568,10 @@ const timmyDialogueTree = {
 
     gaming_career: {
       id: "gaming_career",
-      text: "I discovered that game development needs people who understand chemistry for realistic simulations! My gaming passion plus chemistry knowledge led to designing educational chemistry games! Players learn science while having fun!",
-      mood: "gamification_innovation",
+      text: "I became obsessed with gaming to escape my chemistry failure. Started playing 16 hours a day, stopped showering, eating real food, or leaving my room. My parents cut off the internet, so I stole their credit cards to pay for gaming cafes. When the money ran out, I robbed a convenience store with a kitchen knife to get cash for more gaming time. Got arrested, spent two years in juvenile detention. When I got out, I was so disconnected from reality I couldn't function in society.",
+      mood: "gaming_addiction_crime",
       ending: true,
-      outcome: "educational_game_developer_success"
+      outcome: "gaming_obsession_criminal_record"
     },
 
     back_to_reality_detailed: {
@@ -882,10 +862,10 @@ const timmyDialogueTree = {
 
     ramen_philosopher_career: {
       id: "ramen_philosopher_career",
-      text: "My shop 'The Philosophical Noodle' serves wisdom with every bowl! 'The meaning of life is like instant ramen - simple ingredients, complex flavors, and always better when shared!' I'm the world's first Ramen Sage!",
-      mood: "philosophical_entrepreneurship",
+      text: "I did end up living off ramen - but not by choice. After failing chemistry, my parents disowned me. I dropped out of school, couldn't find work, and ended up homeless. For three years, I lived in a cardboard box under a bridge, surviving on discarded ramen packets from convenience store dumpsters. The 'philosophical' part was just me talking to myself to stave off the crushing loneliness and depression. Mental illness consumed me while I slowly starved.",
+      mood: "homeless_starvation_despair",
       ending: true,
-      outcome: "culinary_philosophy_success"
+      outcome: "homeless_ramen_existence"
     },
 
     ramen_poetry: {
@@ -923,10 +903,10 @@ const timmyDialogueTree = {
 
     cat_science_fair: {
       id: "cat_science_fair",
-      text: "Mr. Whiskers and I won first place with 'Chaos Theory in Chemical Reactions: A Feline Perspective!' Universities are calling, National Geographic wants a documentary, and Mr. Whiskers has 500K Instagram followers! Science revolution, one knocked-over beaker at a time!",
-      mood: "absurdly_triumphant",
+      text: "I presented my cat research to the science fair judges. They thought I was having a mental breakdown - talking about a 'genius cat tutor' and 'feline chemistry insights.' My parents found me three weeks later in my room, unwashed, surrounded by empty cat food cans, still taking notes on Mr. Whiskers' non-existent experiments. I was committed to Riverside Mental Health Facility for 'acute psychotic episode with animal-related delusions.'",
+      mood: "tragic_mental_breakdown",
       ending: true,
-      outcome: "cat_science_revolution"
+      outcome: "mental_asylum_cat_delusions"
     },
 
     ramen_chemistry_lessons: {
@@ -1034,7 +1014,15 @@ const timmyDialogueTree = {
       artistic_science_fusion: { color: "#a29bfe", fontSize: "1.1em" },
       gamification_innovation: { color: "#74b9ff", fontSize: "1.1em" },
       facing_challenges_courage: { color: "#0984e3", fontSize: "1.1em", fontWeight: "bold" },
-      scientific_mysticism_entrepreneur: { color: "#fd79a8", fontSize: "1.15em" }
+      // Add mood styles for the new darker themes
+      tragic_mental_breakdown: { color: "#2d3436", fontSize: "0.95em", fontStyle: "italic" },
+      stimulant_addiction_collapse: { color: "#636e72", fontSize: "0.9em" },
+      homeless_drug_addiction: { color: "#2d3436", fontSize: "0.85em", fontWeight: "300" },
+      homeless_starvation_despair: { color: "#636e72", fontSize: "0.9em", fontStyle: "italic" },
+      suicidal_psychiatric_ward: { color: "#2d3436", fontSize: "0.85em", fontWeight: "300" },
+      drug_psychosis_overdose: { color: "#636e72", fontSize: "0.9em" },
+      academic_failure_meth_addiction: { color: "#2d3436", fontSize: "0.85em" },
+      gaming_addiction_crime: { color: "#636e72", fontSize: "0.9em", fontStyle: "italic" }
     };
     return moodStyles[mood] || { color: "#ffffff", fontSize: "1em" };
   },
