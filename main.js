@@ -297,20 +297,108 @@ function stopEmbers() {
 setInterval(createParticleEffect, 8000);
 
 // Initialize on page load
+// Show content warning modal and defer initialization until consent
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    initMouseTracking();
-    createParticleEffect();
-    
-    // Start continuous animation loop for wavy line
-    function animateWavyLine() {
-      if (highlightedButton) {
-        updateConnectionLine();
-      }
-      requestAnimationFrame(animateWavyLine);
+  const grimModal = document.getElementById('grim-modal');
+  const yesBtn = document.getElementById('grim-yes');
+  const noBtn = document.getElementById('grim-no');
+
+  function openModal() {
+    grimModal.hidden = false;
+    // add class to body to blur background
+    document.body.classList.add('modal-open');
+    // trap focus on Yes button
+    yesBtn.focus();
+    // key handling: Enter = yes, Escape = no
+    document.addEventListener('keydown', keyHandler);
+  }
+
+  function closeModalAndInit() {
+    // play fade-out animation, then hide modal and initialize
+    grimModal.classList.add('modal-closing');
+    document.body.classList.remove('modal-open');
+    document.removeEventListener('keydown', keyHandler);
+
+    grimModal.addEventListener('transitionend', function handler(e) {
+      // ensure we only handle the opacity transition
+      if (e.propertyName !== 'opacity') return;
+      grimModal.removeEventListener('transitionend', handler);
+      grimModal.hidden = true;
+      grimModal.classList.remove('modal-closing');
+
+      // initialize app after user consents
+      setTimeout(() => {
+        initMouseTracking();
+        createParticleEffect();
+
+        // Start continuous animation loop for wavy line
+        function animateWavyLine() {
+          if (highlightedButton) {
+            updateConnectionLine();
+          }
+          requestAnimationFrame(animateWavyLine);
+        }
+        animateWavyLine();
+      }, 120);
+    }, { once: true });
+  }
+
+  function redirectToHiddenLink() {
+    // create anchor and click it to avoid showing URL on hover
+    const a = document.createElement('a');
+    a.className = 'hidden-redirect';
+    a.rel = 'noopener noreferrer';
+    a.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+    // open in same tab as requested
+    document.body.appendChild(a);
+    a.click();
+  }
+
+  // Wire up buttons
+  yesBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeModalAndInit();
+  });
+
+  noBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    // play fade-out then redirect
+    grimModal.classList.add('modal-closing');
+    document.body.classList.remove('modal-open');
+    document.removeEventListener('keydown', keyHandler);
+    grimModal.addEventListener('transitionend', function handler(e) {
+      if (e.propertyName !== 'opacity') return;
+      grimModal.removeEventListener('transitionend', handler);
+      grimModal.hidden = true;
+      grimModal.classList.remove('modal-closing');
+      setTimeout(() => redirectToHiddenLink(), 80);
+    }, { once: true });
+  });
+
+  function keyHandler(e) {
+    // Enter (13) or Space (32) -> yes
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      closeModalAndInit();
     }
-    animateWavyLine();
-  }, 500);
+    // Escape -> no
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      grimModal.classList.add('modal-closing');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', keyHandler);
+      grimModal.addEventListener('transitionend', function handler(e) {
+        if (e.propertyName !== 'opacity') return;
+        grimModal.removeEventListener('transitionend', handler);
+        grimModal.hidden = true;
+        grimModal.classList.remove('modal-closing');
+        setTimeout(() => redirectToHiddenLink(), 80);
+      }, { once: true });
+    }
+  }
+
+  // Open modal immediately on load
+  setTimeout(openModal, 120);
 });
 
 // Make initMouseTracking available globally for tree.js
