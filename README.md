@@ -44,3 +44,17 @@ Maybe, make it so that **you** are the magic 8 ball? I'll have to do something t
         - The user is the 8 ball, I should mention it prolly
     - Added options and all for the 8 ball questions
     - Dialogue for timmy and a full tree
+        - Trying to add endgame dialogues, as to what timmy did and all
+        - Also, trying to shorten the dialogues cause I dont think I wanna code a variable speech card that changes shape wrt the dialogues. 
+    - Options should change and effect future dialogues?
+- 10 Oct 2025
+    - I dont think I did anything, and if I did, then I forgot to put it here probabaly. But, my wakatime was 20 mins yesterday so probably nothing much.
+
+- 11 Oct 2025
+    - Added more dialogues for timmy
+        - Has some more sad endings, like a junkie and asylum, many more.
+    - Made it so that the options fade out/in as well, makes it seem less clunky
+    - Added a warning at the very start, jsyk
+        - Dialogue box pop's up when you open the website, telling you some warnings
+        - Click yes and you can continue as usual
+        - Click no and...
