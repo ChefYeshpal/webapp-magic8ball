@@ -145,7 +145,7 @@ function createParticleEffect() {
       particle.style.position = 'absolute';
       particle.style.width = '2px';
       particle.style.height = '2px';
-      particle.style.background = 'rgba(255, 215, 0, 0.8)';
+      particle.style.background = 'rgba(99, 153, 255, 0.8)'; /* Blue particles */
       particle.style.borderRadius = '50%';
       particle.style.pointerEvents = 'none';
       particle.style.zIndex = '1';
@@ -241,7 +241,7 @@ function createSingleEmber(button) {
   ember.style.position = 'absolute';
   ember.style.width = '3px';
   ember.style.height = '3px';
-  ember.style.background = `rgba(${255 + Math.random() * 50}, ${150 + Math.random() * 50}, ${Math.random() * 50}, 0.9)`;
+  ember.style.background = `rgba(${99 + Math.random() * 50}, ${153 + Math.random() * 30}, ${255}, 0.9)`; /* Blue-toned embers */
   ember.style.borderRadius = '50%';
   ember.style.pointerEvents = 'none';
   ember.style.zIndex = '6';
