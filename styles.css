@@ -8,7 +8,7 @@ body, html {
     height: 100%;
     width: 100%;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: #000000; /* Totally black background */
+    background: linear-gradient(135deg, #0c1445 0%, #1a1a2e 50%, #16213e 100%); /* Deep blue 8-ball inspired */
     color: white;
     overflow: hidden;
 }
@@ -17,7 +17,7 @@ body, html {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: #000000; /* Totally black */
+    background: linear-gradient(135deg, #0c1445 0%, #1a1a2e 50%, #16213e 100%); /* Match body */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,14 +52,14 @@ body, html {
 }
 
 .modal-card {
-  background: linear-gradient(180deg, #0f0f10 0%, #151517 100%);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, #0f1328 0%, #1a1a2e 100%); /* Blue-toned dark */
+  border: 1px solid rgba(99, 153, 255, 0.12); /* Subtle blue border */
   color: #e6e6e6;
   padding: 22px 26px;
   border-radius: 12px;
   min-width: 320px;
   max-width: 520px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+  box-shadow: 0 10px 40px rgba(12, 20, 69, 0.7), inset 0 1px 0 rgba(99, 153, 255, 0.05);
   text-align: left;
 }
 
@@ -85,7 +85,7 @@ body, html {
 .grim-btn {
   padding: 8px 14px;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(99, 153, 255, 0.12);
   background: transparent;
   color: #fff;
   cursor: pointer;
@@ -93,16 +93,16 @@ body, html {
 }
 
 .grim-btn.yes {
-  background: linear-gradient(135deg, rgba(46,213,115,0.14), rgba(34,162,87,0.06));
-  color: #b8ffcf;
+  background: linear-gradient(135deg, rgba(34, 139, 195, 0.18), rgba(21, 101, 192, 0.08));
+  color: #9dd4ff;
 }
 
 .grim-btn.no {
-  background: linear-gradient(135deg, rgba(255,71,87,0.06), rgba(200,20,60,0.02));
-  color: #ffc6cc;
+  background: linear-gradient(135deg, rgba(103, 58, 183, 0.12), rgba(69, 39, 160, 0.06));
+  color: #c5b3ff;
 }
 
-.grim-btn:focus { outline: 2px solid rgba(255,255,255,0.06); outline-offset: 2px; }
+.grim-btn:focus { outline: 2px solid rgba(99, 153, 255, 0.3); outline-offset: 2px; }
 
 /* When modal is visible, slightly dim and blur the main content behind it */
 body.modal-open .container,
@@ -326,24 +326,24 @@ body.modal-open .glass-window {
 .option-btn {
   position: absolute;
   background: linear-gradient(135deg, 
-    rgba(60, 100, 140, 0.8) 0%,
-    rgba(40, 80, 120, 0.9) 100%);
+    rgba(34, 139, 195, 0.8) 0%,
+    rgba(21, 101, 192, 0.9) 100%); /* Default blue 8-ball theme */
   color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(99, 153, 255, 0.4);
   border-radius: 12px;
   padding: 10px 16px;
   font-size: 0.9rem;
   font-weight: 600;
   box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.4),
-    inset 0 0 8px rgba(255, 255, 255, 0.1);
+    0 4px 12px rgba(12, 20, 69, 0.6),
+    inset 0 0 8px rgba(99, 153, 255, 0.15);
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(8px);
   pointer-events: auto;
   white-space: nowrap;
   min-width: 100px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  text-shadow: 1px 1px 2px rgba(12, 20, 69, 0.8);
   transform-origin: center;
 }
 
@@ -766,11 +766,11 @@ body.modal-open .glass-window {
 
 #connection-path {
     fill: none;
-    stroke: rgba(255, 215, 0, 0.9);
+    stroke: rgba(99, 153, 255, 0.9); /* Blue connection line */
     stroke-width: 3;
     opacity: 0;
     transition: opacity 0.3s ease;
-    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.8));
+    filter: drop-shadow(0 0 6px rgba(99, 153, 255, 0.6));
     animation: connectionFlow 2s ease-in-out infinite;
 }
 
@@ -815,4 +815,31 @@ body.modal-open .glass-window {
     padding: 10px 16px;
     min-width: 100px;
   }
+}
+
+/* Custom minimal scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(34, 139, 195, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 153, 255, 0.4);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 153, 255, 0.6);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 153, 255, 0.4) rgba(34, 139, 195, 0.1);
 }
