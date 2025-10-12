@@ -49,7 +49,6 @@ Maybe, make it so that **you** are the magic 8 ball? I'll have to do something t
     - Options should change and effect future dialogues?
 - 10 Oct 2025
     - I dont think I did anything, and if I did, then I forgot to put it here probabaly. But, my wakatime was 20 mins yesterday so probably nothing much.
-
 - 11 Oct 2025
     - Added more dialogues for timmy
         - Has some more sad endings, like a junkie and asylum, many more.
@@ -58,3 +57,9 @@ Maybe, make it so that **you** are the magic 8 ball? I'll have to do something t
         - Dialogue box pop's up when you open the website, telling you some warnings
         - Click yes and you can continue as usual
         - Click no and...
+- 12 Oct 2025
+    - Changed the theme a bit, to be more "blueish"
+        - Default buttons should use blue gradients
+        - Yes button in start dialogue is blue toned
+    - Added a custom scrollbar
+    - Was trying to fix the text problem, where it sometimes becomes too small to read, but... I'm not gonna dwell too much on it
