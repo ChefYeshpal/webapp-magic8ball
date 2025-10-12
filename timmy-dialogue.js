@@ -4,7 +4,7 @@
 const timmyDialogueTree = {
   character: {
     name: "Little Timmy",
-    age: 16,
+    age: 16, // Why do I need this? to get myself in the mood dear reader
     situation: "Has an important exam in one week, hasn't studied at all",
     personality: "Anxious, dramatic, easily influenced, prone to extreme decisions"
   },
