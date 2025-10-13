@@ -302,6 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const grimModal = document.getElementById('grim-modal');
   const yesBtn = document.getElementById('grim-yes');
   const noBtn = document.getElementById('grim-no');
+  const mobileModal = document.getElementById('mobile-modal');
+  const mobileOk = document.getElementById('mobile-ok');
 
   function openModal() {
     grimModal.hidden = false;
@@ -328,19 +330,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // initialize app after user consents
       setTimeout(() => {
-        initMouseTracking();
-        createParticleEffect();
-
-        // Start continuous animation loop for wavy line
-        function animateWavyLine() {
-          if (highlightedButton) {
-            updateConnectionLine();
-          }
-          requestAnimationFrame(animateWavyLine);
-        }
-        animateWavyLine();
+        startApp();
       }, 120);
     }, { once: true });
+  }
+
+  // Start the interactive parts of the app (mouse tracking, particles, animation loop)
+  function startApp() {
+    initMouseTracking();
+    createParticleEffect();
+
+    // Start continuous animation loop for wavy line
+    function animateWavyLine() {
+      if (highlightedButton) {
+        updateConnectionLine();
+      }
+      requestAnimationFrame(animateWavyLine);
+    }
+    animateWavyLine();
   }
 
   function redirectToHiddenLink() {
@@ -374,6 +381,32 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => redirectToHiddenLink(), 80);
     }, { once: true });
   });
+
+  // Mobile modal handling: if small screen, show the SMOL device modal instead of starting immediately
+  function isSmallDevice() {
+    return window.matchMedia && window.matchMedia('(max-width: 520px), (max-device-width: 520px)').matches;
+  }
+
+  if (isSmallDevice()) {
+    // Show mobile modal and block start until user presses OK
+    mobileModal.hidden = false;
+    document.body.classList.add('modal-open');
+    mobileOk.focus();
+
+    mobileOk.addEventListener('click', (e) => {
+      e.preventDefault();
+      // hide modal and start app
+      mobileModal.classList.add('modal-closing');
+      document.body.classList.remove('modal-open');
+      mobileModal.addEventListener('transitionend', function handler(ev) {
+        if (ev.propertyName !== 'opacity') return;
+        mobileModal.removeEventListener('transitionend', handler);
+        mobileModal.hidden = true;
+        mobileModal.classList.remove('modal-closing');
+        setTimeout(() => startApp(), 80);
+      }, { once: true });
+    });
+  }
 
   function keyHandler(e) {
     // Enter (13) or Space (32) -> yes
