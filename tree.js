@@ -1,5 +1,5 @@
 // Magic 8 Ball Dialogue Tree System
-// Handles the branching narrative with Timmy
+// Handles the branching narrative with Timmy, should add more maybe...
 // basically a choose-your-own-adventure engine
 
 let currentDialogueId = 'start';

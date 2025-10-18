@@ -35,7 +35,7 @@ body, html {
   backdrop-filter: blur(6px);
 }
 
-/* Respect the hidden attribute — some browsers' default hides can be overridden by author CSS; ensure hidden truly hides */
+/* Respect the hidden attribute: some browsers' default hides can be overridden by author CSS; ensure hidden truly hides */
 .modal-overlay[hidden] {
   display: none !important;
 }
@@ -462,7 +462,7 @@ body.modal-open .glass-window {
   background: #ffefb3;
 }
 
-/* New tone styles for expanded dialogue options */
+/* Tone styles for expanded dialogue options */
 .option-btn.helpful {
   background: #c4d9f2;
   border-color: #a3bfe8;

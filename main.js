@@ -132,12 +132,7 @@ function updateConnectionLine() {
   connectionPath.style.opacity = '1';
 }
 
-// Hide connection line
-function hideConnectionLine() {
-  if (connectionPath) {
-    connectionPath.style.opacity = '0';
-  }
-}
+
 
 // Add some particle effects for extra magic
 function createParticleEffect() {
