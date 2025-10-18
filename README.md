@@ -4,7 +4,7 @@ This is a project for the 6th week of siege, the theme for this project is "magi
 What does it do? well, just type in your question, and it will give you a morally ambigious answer. Upon noticing what "official" answers the 8 ball gives, I noticed they are phrased in such a way, and they can literally answer **any** question... Seriously, it's just an advanced form of "yes", "no", and "I dont understand".
 
 But, anyways, **you** are the magic 8 ball, and you've gotta help timmy in his chemistry exam. 
-I used a bit of ai for timmy's dialogues, seriously I can't think up of **all** the scenarios now can I?
+I used a bit of ai for timmy's dialogues (only to jazz it up a bit), seriously I can't think up of **all** the scenarios now can I?
 
 
 
@@ -73,10 +73,10 @@ I used a bit of ai for timmy's dialogues, seriously I can't think up of **all** 
 
 ## A few words...
 
-This project got rejected because of suspicion of usage of AI, and I completely understand the reason as I am sure there are a lot of fraudsters out there wanting to take advantage of such opportuinities. I just want to say that I haven't used AI any more than 10% (max 20%) for this project, but it is still understandable given how I code.
+This project got rejected because of suspicion of usage of AI, and I completely understand the reason as I am sure there are a lot of fraudsters out there wanting to take advantage of such opportuinities. I just want to say that I haven't used AI any more than 10% (max 20%) for this project, but it is still understandable given how I code (considering how most of it I have learnt from books or ai).
 So, here's a few things I make sure of when coding
 - I make sure to give functions proper names, this helps me in recognising the use of them in debugging and understanding where an issue arrives, if any.
-- I also add a lot of comments into my code, this is mainly due to [Uncle Bob Martin][https://x.com/unclebobmartin] who's courses I have seen on [clean code][http://cleancoder.com/products], in which he highly recommends one to properly name and comment on the code, to ensure that if someone, or they themselves return to it then they can understand it's purpouse. Otherwise, I probably wouldn't be able to know what a function does if I revisit this a year later, unless I really remember this.
+- I also add a lot of comments into my code, this is mainly due to [Uncle Bob Martin] [https://x.com/unclebobmartin] who's courses I have seen on [clean code] [http://cleancoder.com/products], in which he highly recommends one to properly name and comment on the code, to ensure that if someone, or they themselves return to it, then they can understand it's purpouse. Otherwise, I probably wouldn't be able to know what a function does if I revisit this a year later, unless I really remember this.
 - When checking the commmits you may see 2 names, "ChefYeshpal" and "valkarie", both are my own devices just that on is linux and the other a mac, my linux workstation is currently giving issues hence most of my work is being done my mac. So ofc I'm not doing double teaming with anyone (not like I have any coding friends anyways :p)
 
 So, just as an end note, thanks you guys, and I completely understand the paranoa one can have.
