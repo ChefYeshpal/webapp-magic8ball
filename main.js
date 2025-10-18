@@ -41,7 +41,7 @@ function handleMouseMove(e) {
       Math.pow(mouseY - buttonCenterY, 2)
     );
     
-    if (distance < minDistance && distance < 200) { // Increased threshold to 200px
+    if (distance < minDistance && distance < 200) {
       minDistance = distance;
       closestButton = button;
     }
@@ -58,10 +58,10 @@ function handleMouseMove(e) {
     if (highlightedButton) {
       highlightedButton.classList.add('highlighted');
       updateConnectionLine();
-      createEmbers(highlightedButton); // Add embers effect
+      createEmbers(highlightedButton); // embers effect
     } else {
       hideConnectionLine();
-      stopEmbers(); // Stop embers when not highlighted
+      stopEmbers(); // Stop embers when not hovering
     }
   }
 }
@@ -254,7 +254,7 @@ function createSingleEmber(button) {
   const buttonCenterY = button.offsetTop + button.offsetHeight / 2;
   
   const angle = Math.random() * Math.PI * 2;
-  const distance = Math.random() * 25 + 15; // Slightly larger spread
+  const distance = Math.random() * 25 + 15; // Distance from button center
   const x = buttonCenterX + Math.cos(angle) * distance;
   const y = buttonCenterY + Math.sin(angle) * distance;
   

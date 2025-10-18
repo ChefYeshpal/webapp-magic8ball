@@ -9,7 +9,7 @@ const timmyDialogueTree = {
     personality: "Anxious, dramatic, easily influenced, prone to extreme decisions"
   },
   
-  // Each dialogue has an ID, text, and possible responses
+  // Each dialogue should have an ID, text, and possible responses
   dialogues: {
     start: {
       id: "start",
