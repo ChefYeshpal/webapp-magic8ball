@@ -65,5 +65,14 @@ I used a bit of ai for timmy's dialogues, seriously I can't think up of **all** 
     - Added a custom scrollbar
     - Was trying to fix the text problem, where it sometimes becomes too small to read, but... I'm not gonna dwell too much on it
 - 18 Oct 2025
+    - Deleted unused files, no need for junk
     - Changed a few comments, got a warning cause they looked ai generated
-    - 
+    - Changed the embers so that they are of the accent of the option rather than a single colour
+    - Updated scrolling so that it doesn't get stuck and properly scrolls even if the text is outside the designated seeker box
+
+## A few words...
+
+This project got rejected because of suspicion of usage of AI, and I completely understand the reason as I am sure there are a lot of fraudsters out there wanting to take advantage of such opportuinities. I just want to say that I haven't used AI any more than 10% (max 20%) for this project, but it is still understandable given how I code.
+So, here's a few things I make sure of when coding
+- I make sure to give functions proper names, this helps me in recognising the use of them in debugging and understanding where an issue arrives, if any.
+- I also add a lot of comments into my code, this is mainly due to (uncle Bob Martin)[https://x.com/unclebobmartin] who's courses I have seen on (clean code)[http://cleancoder.com/products], in which he highly recommends one to properly name and comment on the code, to ensure that if someone, or they themselves return to it then they can understand it's purpouse. Otherwise, I probably wouldn't be able to know what a function does if I revisit this a year later, unless I really remember this.
