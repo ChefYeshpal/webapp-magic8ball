@@ -248,6 +248,7 @@ body.modal-open .glass-window {
   color: #f0f4f8;
   line-height: 1.3; 
   margin: 15px 0; 
+  padding: 5px 10px;
   letter-spacing: 0.3px; 
   transition: all 0.3s ease;
   word-wrap: break-word;
@@ -256,9 +257,7 @@ body.modal-open .glass-window {
   max-height: 220px; 
   overflow-y: auto; 
   flex: 1; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   text-align: center;
 }
 
