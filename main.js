@@ -241,7 +241,24 @@ function createSingleEmber(button) {
   ember.style.position = 'absolute';
   ember.style.width = '3px';
   ember.style.height = '3px';
-  ember.style.background = `rgba(${99 + Math.random() * 50}, ${153 + Math.random() * 30}, ${255}, 0.9)`; /* Blue-toned embers */
+  
+  // Get the button's background color
+  const buttonBgColor = window.getComputedStyle(button).backgroundColor;
+  
+  // Use the button's color for the ember, with slight variation
+  // If we can parse it, add some variation, otherwise use it directly
+  let emberColor = buttonBgColor;
+  
+  // Try to add some glow/brightness variation
+  const rgbMatch = buttonBgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  if (rgbMatch) {
+    const r = Math.min(255, parseInt(rgbMatch[1]) + Math.random() * 20);
+    const g = Math.min(255, parseInt(rgbMatch[2]) + Math.random() * 20);
+    const b = Math.min(255, parseInt(rgbMatch[3]) + Math.random() * 20);
+    emberColor = `rgba(${r}, ${g}, ${b}, 0.9)`;
+  }
+  
+  ember.style.background = emberColor;
   ember.style.borderRadius = '50%';
   ember.style.pointerEvents = 'none';
   ember.style.zIndex = '6';
