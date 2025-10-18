@@ -1057,7 +1057,7 @@ const timmyDialogueTree = {
   }
 };
 
-// Export for use in other files
+// Export for use in other files, if any
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = timmyDialogueTree;
 } else {

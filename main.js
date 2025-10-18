@@ -1,4 +1,5 @@
 // Mouse tracking and visual effects for the Magic 8 Ball
+// keeping track of mouse position globally so we can highlight buttons
 let mouseX = 0;
 let mouseY = 0;
 let highlightedButton = null;
@@ -10,19 +11,20 @@ function initMouseTracking() {
   connectionPath = document.getElementById('connection-path');
   seekerCard = document.getElementById('seeker-dialogue');
   
-  // Remove existing event listeners
+  // Remove existing event listeners to avoid duplicates
+  // this gets called multiple times when restarting the story
   document.removeEventListener('mousemove', handleMouseMove);
   
   // Add new event listener
   document.addEventListener('mousemove', handleMouseMove);
 }
 
-// Handle mouse movement and button highlighting
+// handle mouse movement and button highlighting
 function handleMouseMove(e) {
   mouseX = e.clientX;
   mouseY = e.clientY;
-  
-  // Get current option buttons (refreshes each time)
+
+  // Get current option buttons, refreshes each time because buttons change with dialogue choices
   const optionButtons = document.querySelectorAll('.option-btn');
   const container = document.querySelector('.container');
   const containerRect = container.getBoundingClientRect();
@@ -31,6 +33,7 @@ function handleMouseMove(e) {
   let minDistance = Infinity;
   
   // Find the closest button to the mouse
+  // within 200px radius arbitrary but feels good imo
   optionButtons.forEach((button) => {
     // Use offsetLeft/offsetTop for consistency with ember positioning
     const buttonCenterX = containerRect.left + button.offsetLeft + button.offsetWidth / 2;
@@ -46,8 +49,8 @@ function handleMouseMove(e) {
       closestButton = button;
     }
   });
-  
-  // Update highlighted button
+
+  // Update highlighted button only if it changed to avoid unnecessary updates
   if (highlightedButton !== closestButton) {
     if (highlightedButton) {
       highlightedButton.classList.remove('highlighted');
@@ -58,15 +61,16 @@ function handleMouseMove(e) {
     if (highlightedButton) {
       highlightedButton.classList.add('highlighted');
       updateConnectionLine();
-      createEmbers(highlightedButton); // embers effect
+      createEmbers(highlightedButton); // pretty ~~~ embers effect
     } else {
       hideConnectionLine();
-      stopEmbers(); // Stop embers when not hovering
+      stopEmbers(); // cleanup embers when not hovering
     }
   }
 }
 
 // Update connection line with wavy animation
+// this took way too long to get right lol
 function updateConnectionLine() {
   if (!highlightedButton || !seekerCard || !connectionPath) return;
   
@@ -81,7 +85,7 @@ function updateConnectionLine() {
   const buttonCenterX = highlightedButton.offsetLeft + highlightedButton.offsetWidth / 2;
   const buttonCenterY = highlightedButton.offsetTop + highlightedButton.offsetHeight / 2;
   
-  // Convert to SVG coordinates
+  // Convert to SVG coordinates (because SVG has its own coordinate system)
   const svgCardX = containerRect.left + cardCenterX - svgRect.left;
   const svgCardY = containerRect.top + cardCenterY - svgRect.top;
   const svgButtonX = containerRect.left + buttonCenterX - svgRect.left;
@@ -92,16 +96,16 @@ function updateConnectionLine() {
   const deltaY = svgButtonY - svgCardY;
   const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
   
-  // Add wave effect with time-based animation
+  // Add wave effect with time-based animation (makes it look alive)
   const time = Date.now() * 0.003;
   const waveAmplitude = 20;
   const waveFrequency = 2;
   
-  // Calculate perpendicular direction for wave
+  // Calculate perpendicular direction for wave displacement
   const perpX = -deltaY / distance;
   const perpY = deltaX / distance;
   
-  // Create wavy path with multiple points
+  // Create wavy path with multiple points (more points = smoother wave)
   const segments = 5;
   let pathD = `M ${svgCardX} ${svgCardY}`;
   
@@ -110,7 +114,7 @@ function updateConnectionLine() {
     const x = svgCardX + deltaX * t;
     const y = svgCardY + deltaY * t;
     
-    // Add wave displacement
+    // Add wave displacement (sine wave for that wavy look)
     const waveOffset = Math.sin(t * Math.PI * waveFrequency + time) * waveAmplitude * Math.sin(t * Math.PI);
     const waveX = x + perpX * waveOffset;
     const waveY = y + perpY * waveOffset;
@@ -214,9 +218,9 @@ document.head.appendChild(style);
 let emberInterval = null;
 let activeEmbers = [];
 
-// Create embers effect for highlighted button
+// Create embers effect around the selected buton
 function createEmbers(button) {
-  if (emberInterval) return; // Already creating embers
+  if (emberInterval) return;
   
   emberInterval = setInterval(() => {
     if (!button || !button.classList.contains('highlighted')) {
@@ -242,14 +246,13 @@ function createSingleEmber(button) {
   ember.style.width = '3px';
   ember.style.height = '3px';
   
-  // Get the button's background color
+  // Get the button's background color so embers match the button
   const buttonBgColor = window.getComputedStyle(button).backgroundColor;
   
-  // Use the button's color for the ember, with slight variation
-  // If we can parse it, add some variation, otherwise use it directly
+  // Use the button's color for the ember
   let emberColor = buttonBgColor;
   
-  // Try to add some glow/brightness variation
+  // Try to add some glow/brightness variation (sparkly~)
   const rgbMatch = buttonBgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
   if (rgbMatch) {
     const r = Math.min(255, parseInt(rgbMatch[1]) + Math.random() * 20);
@@ -263,30 +266,30 @@ function createSingleEmber(button) {
   ember.style.pointerEvents = 'none';
   ember.style.zIndex = '6';
   
-  // Use offsetLeft/offsetTop for more reliable positioning
+  // Position embers around the button in a circle
   const container = document.querySelector('.container');
   const containerRect = container.getBoundingClientRect();
   
   const buttonCenterX = button.offsetLeft + button.offsetWidth / 2;
   const buttonCenterY = button.offsetTop + button.offsetHeight / 2;
-  
+
   const angle = Math.random() * Math.PI * 2;
-  const distance = Math.random() * 25 + 15; // Distance from button center
+  const distance = Math.random() * 25 + 15; // distance from center
   const x = buttonCenterX + Math.cos(angle) * distance;
   const y = buttonCenterY + Math.sin(angle) * distance;
   
-  // Position relative to container
+  // position relative to container
   ember.style.left = `${containerRect.left + x}px`;
   ember.style.top = `${containerRect.top + y}px`;
   
-  // Random animation duration
+  // random animation duration so they don't all move in sync
   const duration = 1.5 + Math.random() * 1;
   ember.style.animation = `emberFloat ${duration}s ease-out forwards`;
   
   document.body.appendChild(ember);
   activeEmbers.push(ember);
-  
-  // Remove ember after animation
+
+  // clean up ember after animation finishes
   setTimeout(() => {
     if (ember.parentNode) {
       ember.parentNode.removeChild(ember);
@@ -300,8 +303,8 @@ function stopEmbers() {
     clearInterval(emberInterval);
     emberInterval = null;
   }
-  
-  // Remove all active embers
+
+  // remove all active embers immediately
   activeEmbers.forEach(ember => {
     if (ember.parentNode) {
       ember.parentNode.removeChild(ember);
@@ -310,11 +313,11 @@ function stopEmbers() {
   activeEmbers = [];
 }
 
-// Trigger particle effect periodically
+// trigger particle effect periodically (for ambiance)
 setInterval(createParticleEffect, 8000);
 
 // Initialize on page load
-// Show content warning modal and defer initialization until consent
+// Show content warning modal first and defer initialization until user consents
 document.addEventListener('DOMContentLoaded', () => {
   const grimModal = document.getElementById('grim-modal');
   const yesBtn = document.getElementById('grim-yes');
@@ -324,40 +327,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openModal() {
     grimModal.hidden = false;
-    // add class to body to blur background
+    // blur the background while modal is open
     document.body.classList.add('modal-open');
-    // trap focus on Yes button
+    // auto-focus the yes button for keyboard users
     yesBtn.focus();
-    // key handling: Enter = yes, Escape = no
+    // keyboard shortcuts: Enter = yes, Escape = no
     document.addEventListener('keydown', keyHandler);
   }
 
   function closeModalAndInit() {
-    // play fade-out animation, then hide modal and initialize
+    // play fade-out animation, then hide modal and start the app
     grimModal.classList.add('modal-closing');
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', keyHandler);
 
     grimModal.addEventListener('transitionend', function handler(e) {
-      // ensure we only handle the opacity transition
+      // only handle the opacity transition (not transform)
       if (e.propertyName !== 'opacity') return;
       grimModal.removeEventListener('transitionend', handler);
       grimModal.hidden = true;
       grimModal.classList.remove('modal-closing');
 
-      // initialize app after user consents
+      // small delay before starting app for smoothness
       setTimeout(() => {
         startApp();
       }, 120);
     }, { once: true });
   }
 
-  // Start the interactive parts of the app (mouse tracking, particles, animation loop)
+  // start the interactive parts of the app
+  // mouse tracking, particles, animation loop
   function startApp() {
     initMouseTracking();
     createParticleEffect();
 
-    // Start continuous animation loop for wavy line
+    // Continuous animation loop for the wavy line
+    // using requestAnimationFrame for smooth 60fps animation
     function animateWavyLine() {
       if (highlightedButton) {
         updateConnectionLine();
@@ -368,12 +373,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function redirectToHiddenLink() {
-    // create anchor and click it to avoid showing URL on hover
+    // create anchor and click it programmatically
+    // so the URL doesn't show on hover
     const a = document.createElement('a');
     a.className = 'hidden-redirect';
     a.rel = 'noopener noreferrer';
-    a.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-    // open in same tab as requested
+    a.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // :)
+    // open in same tab
     document.body.appendChild(a);
     a.click();
   }
@@ -405,14 +411,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (isSmallDevice()) {
-    // Show mobile modal and block start until user presses OK
+    // show mobile modal and block start until user presses OK
     mobileModal.hidden = false;
     document.body.classList.add('modal-open');
     mobileOk.focus();
 
     mobileOk.addEventListener('click', (e) => {
       e.preventDefault();
-      // hide modal and start app
+      // hide modal and start
       mobileModal.classList.add('modal-closing');
       document.body.classList.remove('modal-open');
       mobileModal.addEventListener('transitionend', function handler(ev) {
@@ -426,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function keyHandler(e) {
-    // Enter (13) or Space (32) -> yes
+    // Enter or Space -> yes
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       closeModalAndInit();

@@ -1,22 +1,24 @@
 // Magic 8 Ball Dialogue Tree System
-// Now featuring character-based branching narratives
+// Handles the branching narrative with Timmy
+// basically a choose-your-own-adventure engine
 
 let currentDialogueId = 'start';
 let currentCharacter = null;
 let isAnswered = false;
-let dialogueHistory = [];
+let dialogueHistory = []; // track what choices the player made
 
 function animateCardFlip(callback) {
   const seekerCard = document.getElementById('seeker-dialogue');
   if (!seekerCard) return;
   
-  // Add flipping class to trigger animation
+  // Add flipping class to trigger CSS animation
   seekerCard.classList.add('flipping');
   
-  // Change text at the midpoint of the animation (when card is "facing inwards")
+  // Change text at the midpoint when card is "sideways"
+  // (so you don't see the text changing)
   setTimeout(() => {
     if (callback) callback();
-  }, 600); // Halfway through the 1.2s animation
+  }, 600); // halfway through the 1.2s animation
   
   // Remove flipping class after animation completes
   setTimeout(() => {
@@ -25,7 +27,7 @@ function animateCardFlip(callback) {
 }
 
 function initializeMagic8Ball() {
-  // Initialize with Timmy's story for now
+  // Start with Timmy's story (could add more characters later)
   if (typeof timmyDialogueTree !== 'undefined') {
     currentCharacter = timmyDialogueTree;
     currentDialogueId = 'start';
@@ -34,7 +36,7 @@ function initializeMagic8Ball() {
     console.error('Timmy dialogue tree not loaded');
   }
   
-  // Show the seeker card after a brief delay with fade effect
+  // Show the seeker card with a fade-in effect after brief delay
   setTimeout(() => {
     const seekerCard = document.getElementById('seeker-dialogue');
     if (seekerCard) {
@@ -96,10 +98,10 @@ function displayCurrentDialogue() {
   const dialogueText = document.getElementById('dialogue-text');
   
   if (dialogueText && dialogue) {
-    // Apply mood-based styling
+    // Apply mood-based styling (different moods = different text styles)
     const moodStyle = currentCharacter.getMoodStyling(dialogue.mood);
     
-    // Animate the card flip before changing text
+    // Animate the card flip before changing text for smooth transition
     animateCardFlip(() => {
       dialogueText.textContent = dialogue.text;
       dialogueText.classList.remove('response');
@@ -107,7 +109,7 @@ function displayCurrentDialogue() {
       // Apply mood styling
       Object.assign(dialogueText.style, moodStyle);
       
-      // Add special effects for certain moods
+      // Add special effects for certain moods (like shaking for panic)
       if (dialogue.mood === 'panicked') {
         dialogueText.classList.add('shaking');
       } else {
@@ -115,14 +117,14 @@ function displayCurrentDialogue() {
       }
     });
     
-    // Create option buttons for this dialogue
+    // Create option buttons for this dialogue node
     createDialogueOptions(dialogue);
     positionOptionsAroundWindow();
     
-    // Fade in the new content
+    // Fade in the new content after card flip completes
     setTimeout(() => {
       fadeInNewContent();
-    }, 1200); // Wait for card flip animation to complete
+    }, 1200); // wait for flip animation
   }
   
   isAnswered = false;
@@ -132,10 +134,10 @@ function createDialogueOptions(dialogue) {
   const container = document.getElementById('options-container');
   if (!container) return;
   
-  // Clear existing options
+  // Clear existing options first
   container.innerHTML = '';
   
-  // If this is an ending dialogue, create a "Continue" button
+  // If this is an ending dialogue, show "See the outcome" button
   if (dialogue.ending) {
     const continueButton = document.createElement('button');
     continueButton.className = 'option-btn wise';
@@ -148,12 +150,12 @@ function createDialogueOptions(dialogue) {
     return;
   }
   
-  // Regular dialogue options
+  // Regular dialogue options (the choices you make)
   if (!dialogue.options) return;
   
   dialogue.options.forEach((option, index) => {
     const button = document.createElement('button');
-    button.className = `option-btn ${option.tone}`;
+    button.className = `option-btn ${option.tone}`; // tone determines button color
     button.textContent = option.text;
     button.setAttribute('data-leads-to', option.leads_to);
     button.setAttribute('data-tone', option.tone);
@@ -163,14 +165,14 @@ function createDialogueOptions(dialogue) {
 }
 
 function handleDialogueChoice(chosenOption) {
-  if (isAnswered) return;
+  if (isAnswered) return; // prevent double-clicking
   
-  // Track the choice
+  // Track the choice for analytics/path following
   if (currentCharacter && currentCharacter.trackChoice) {
     currentCharacter.trackChoice(currentDialogueId, chosenOption, chosenOption.leads_to);
   }
   
-  // Add choice to history
+  // Add choice to history so we can show the path summary later
   dialogueHistory.push({
     from: currentDialogueId,
     choice: chosenOption,
