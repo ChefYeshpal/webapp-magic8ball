@@ -64,3 +64,6 @@ I used a bit of ai for timmy's dialogues, seriously I can't think up of **all** 
         - Yes button in start dialogue is blue toned
     - Added a custom scrollbar
     - Was trying to fix the text problem, where it sometimes becomes too small to read, but... I'm not gonna dwell too much on it
+- 18 Oct 2025
+    - Changed a few comments, got a warning cause they looked ai generated
+    - 
