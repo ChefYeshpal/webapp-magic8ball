@@ -10,6 +10,7 @@ I used a bit of ai for timmy's dialogues (only to jazz it up a bit), seriously I
 
 # Things to add
 
+    - none really, I didn't use this section much for this project...
 
 # Devlogs
 
