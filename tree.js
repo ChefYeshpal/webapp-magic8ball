@@ -242,12 +242,14 @@ function createRestartOption() {
   // Clear existing options
   container.innerHTML = '';
   
-  // Create restart option with clear "go again" language
-  const restartButton = document.createElement('button');
-  restartButton.className = 'option-btn restart';
-  restartButton.textContent = 'Do you want to help Timmy again?';
-  restartButton.addEventListener('click', restartStory);
-  container.appendChild(restartButton);
+  // GitHub repository link button
+  const githubButton = document.createElement('button');
+  githubButton.className = 'option-btn restart';
+  githubButton.textContent = 'View the GitHub repository';
+  githubButton.addEventListener('click', () => {
+    window.open('https://github.com/ChefYeshpal/webapp-magic8ball', '_blank');
+  });
+  container.appendChild(githubButton);
   
   // Create alternative option for variety
   const differentPathButton = document.createElement('button');
